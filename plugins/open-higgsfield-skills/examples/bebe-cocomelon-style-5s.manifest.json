@@ -1,0 +1,135 @@
+{
+ "schema_version": "1.0",
+ "created": "2026-11-18T12:00:00",
+ "id": "baby-ducks-5s",
+ "brief": {
+  "prompt": "5 second test video, bright kids-nursery 3D cartoon style: a smiling baby duckling splashing in a puddle",
+  "kind": "story",
+  "length_s": 5,
+  "aspect": "16:9",
+  "fps": 24,
+  "style": "bright children's nursery-rhyme 3D cartoon, soft rounded shapes, big glossy eyes, saturated pastel colors, soft daylight, clean simple background",
+  "audio": {
+   "narration": false,
+   "music": false,
+   "sfx": false,
+   "lip_sync": false,
+   "language": "es"
+  },
+  "captions": "off",
+  "deliverables": [
+   "16:9"
+  ],
+  "commercial_use": false,
+  "defaults_used": [
+   "fps 24",
+   "aspect 16:9",
+   "no audio (test)",
+   "original character, not a copy of any existing brand"
+  ]
+ },
+ "target": {
+  "kind": "local",
+  "url": "http://127.0.0.1:8188",
+  "gpu": "unknown",
+  "vram_gb": 16,
+  "budget": {
+   "max_gpu_minutes": 15,
+   "deadline_minutes": 60
+  }
+ },
+ "tier": "draft",
+ "tier_reason": "assumed 16 GB; adjust after preflight",
+ "caps": {
+  "still_retries": 1,
+  "still_variants": 1,
+  "video_retries": 0,
+  "continuity_regens": 0,
+  "max_renders": 4,
+  "max_gpu_minutes": 15,
+  "pass_mean": 3.0,
+  "pass_min": 2
+ },
+ "gates": {
+  "bible": "auto",
+  "plan": "auto",
+  "spend": "human",
+  "final": "auto"
+ },
+ "stages": {
+  "intake": "done",
+  "preflight": "pending",
+  "bible": "done",
+  "plan": "done",
+  "stills": "pending",
+  "video": "pending",
+  "continuity": "pending",
+  "audio": "pending",
+  "post": "pending",
+  "assembly": "pending",
+  "critique": "pending"
+ },
+ "bible": {
+  "path": "baby-ducks-5s/bible.md",
+  "logline": "A happy duckling splashes in a puddle.",
+  "cast": [
+   {
+    "id": "duckling",
+    "descriptor": "Pip, a round baby duckling with fluffy yellow feathers, big glossy black eyes, tiny orange beak, wearing a small red rain hat",
+    "ref_image": null,
+    "seed": null
+   }
+  ],
+  "style": "bright children's 3D cartoon",
+  "lut": null,
+  "voice": null
+ },
+ "shots": [
+  {
+   "id": "s01",
+   "beat": "splash",
+   "start_s": 0.0,
+   "duration_s": 5,
+   "type": "action",
+   "framing": "medium",
+   "camera": "static, slight push-in",
+   "cast": [
+    "duckling"
+   ],
+   "location": "sunny garden path with a puddle",
+   "narration": null,
+   "sfx": null,
+   "chain_from": null,
+   "transition_in": "cut",
+   "still": {
+    "route": "still.flux2_4b",
+    "status": "pending",
+    "prompt": "Bright children's nursery-rhyme 3D cartoon still. Pip, a round baby duckling with fluffy yellow feathers, big glossy black eyes, tiny orange beak, wearing a small red rain hat, stands in a blue puddle mid-splash with water droplets in the air, joyful open-beak smile. Sunny green garden path, soft pastel flowers, clean simple background, saturated colors, soft daylight, medium shot.",
+    "seed": null
+   },
+   "video": {
+    "route": "video.i2v",
+    "status": "pending",
+    "prompt": "The duckling bounces and splashes the puddle, water droplets fly, head bobs happily; gentle slight push-in.",
+    "seed": null
+   },
+   "status": "pending"
+  }
+ ],
+ "audio": {},
+ "assembly": {
+  "status": "pending",
+  "xfade": 0.0,
+  "captions": "off",
+  "exports": [],
+  "output": null
+ },
+ "cost": {
+  "renders": 0,
+  "estimate_gpu_minutes": null,
+  "actual_gpu_minutes": 0,
+  "rates_s_per_render": {},
+  "rates_note": "unverified assumptions"
+ },
+ "log": []
+}
