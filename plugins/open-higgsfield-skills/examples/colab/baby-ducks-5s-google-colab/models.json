@@ -1,0 +1,139 @@
+{
+ "v": 1,
+ "files": {
+  "flux-2-klein-4b-fp8.safetensors": {
+   "dir": "diffusion_models",
+   "skills": [
+    "flux3-klein-stills"
+   ],
+   "loaders": [
+    "UNETLoader.unet_name"
+   ],
+   "license": "apache-2.0 (from the Hugging Face model card; confirm before commercial use)",
+   "repo": "black-forest-labs/FLUX.2-klein-4b-fp8",
+   "path": "flux-2-klein-4b-fp8.safetensors",
+   "revision": "5b4408e59397a4a37ccb46afe426d8ed86379441",
+   "bytes": 4070624520,
+   "gated": false,
+   "url": "https://huggingface.co/black-forest-labs/FLUX.2-klein-4b-fp8/resolve/5b4408e59397a4a37ccb46afe426d8ed86379441/flux-2-klein-4b-fp8.safetensors"
+  },
+  "flux2-vae.safetensors": {
+   "dir": "vae",
+   "skills": [
+    "flux3-klein-stills",
+    "relighting"
+   ],
+   "loaders": [
+    "VAELoader.vae_name"
+   ],
+   "license": "apache-2.0 (from the Hugging Face model card; confirm before commercial use)",
+   "repo": "Comfy-Org/Flux-2-Klein-4B",
+   "path": "split_files/vae/flux2-vae.safetensors",
+   "revision": "5b3abca5c0dc1ecd4eaf3340868d09063fc1c965",
+   "bytes": 336211292,
+   "gated": false,
+   "url": "https://huggingface.co/Comfy-Org/Flux-2-Klein-4B/resolve/5b3abca5c0dc1ecd4eaf3340868d09063fc1c965/split_files/vae/flux2-vae.safetensors"
+  },
+  "ltx-2.5-22b-distilled-UD-Q4_K_XL.gguf": {
+   "dir": "diffusion_models",
+   "skills": [
+    "ltx25-image-to-video"
+   ],
+   "loaders": [
+    "UnetLoaderGGUF.unet_name"
+   ],
+   "license": "Lightricks LTX-2 Community License (NOT OSI-approved; use restrictions, read it before commercial use)",
+   "repo": "unsloth/LTX-2.5-GGUF",
+   "path": "distilled/ltx-2.5-22b-distilled-UD-Q4_K_XL.gguf",
+   "revision": "ac3c540c6025903784336e99b2dc179385c4c3b7",
+   "bytes": 14000234880,
+   "gated": false,
+   "url": "https://huggingface.co/unsloth/LTX-2.5-GGUF/resolve/ac3c540c6025903784336e99b2dc179385c4c3b7/distilled/ltx-2.5-22b-distilled-UD-Q4_K_XL.gguf"
+  },
+  "ltx-2.5-video-vae-conv-bf16.safetensors": {
+   "dir": "vae",
+   "skills": [
+    "ltx25-image-to-video"
+   ],
+   "loaders": [
+    "VAELoader.vae_name"
+   ],
+   "license": "Lightricks LTX-2 Community License (NOT OSI-approved; use restrictions, read it before commercial use)",
+   "repo": "Lightricks/LTX-2.5",
+   "path": "vae/ltx-2.5-video-vae-conv-bf16.safetensors",
+   "revision": "49b093a39c19169a8a81721dcc541e07e945232f",
+   "bytes": 1452269922,
+   "gated": true,
+   "url": "https://huggingface.co/Lightricks/LTX-2.5/resolve/49b093a39c19169a8a81721dcc541e07e945232f/vae/ltx-2.5-video-vae-conv-bf16.safetensors"
+  },
+  "ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0.safetensors": {
+   "dir": "latent_upscale_models",
+   "skills": [
+    "ltx-iclora-utils",
+    "ltx25-image-to-video",
+    "restyle"
+   ],
+   "loaders": [
+    "LatentUpscaleModelLoader.model_name"
+   ],
+   "license": "Lightricks LTX-2 Community License (NOT OSI-approved; use restrictions, read it before commercial use)",
+   "repo": "Lightricks/LTX-2.5",
+   "path": "latent_upscale_models/ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0.safetensors",
+   "revision": "49b093a39c19169a8a81721dcc541e07e945232f",
+   "bytes": 995778752,
+   "gated": true,
+   "url": "https://huggingface.co/Lightricks/LTX-2.5/resolve/49b093a39c19169a8a81721dcc541e07e945232f/latent_upscale_models/ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0.safetensors"
+  },
+  "ltx-2.5-audio-vae-bf16.safetensors": {
+   "dir": "vae",
+   "skills": [
+    "effect-recipe-read",
+    "ltx-iclora-utils",
+    "ltx25-image-to-video",
+    "one-take-vfx",
+    "restyle",
+    "shot-transitions"
+   ],
+   "loaders": [
+    "VAELoader.vae_name"
+   ],
+   "license": "Lightricks LTX-2 Community License (NOT OSI-approved; use restrictions, read it before commercial use)",
+   "repo": "Lightricks/LTX-2.5",
+   "path": "vae/ltx-2.5-audio-vae-bf16.safetensors",
+   "revision": "49b093a39c19169a8a81721dcc541e07e945232f",
+   "bytes": 364866540,
+   "gated": true,
+   "url": "https://huggingface.co/Lightricks/LTX-2.5/resolve/49b093a39c19169a8a81721dcc541e07e945232f/vae/ltx-2.5-audio-vae-bf16.safetensors"
+  },
+  "gemma4-12b-with-proj-ltx-2.5-bf16.safetensors": {
+   "dir": "text_encoders",
+   "skills": [
+    "ltx-iclora-utils",
+    "ltx25-image-to-video",
+    "restyle"
+   ],
+   "loaders": [
+    "CLIPLoader.clip_name"
+   ],
+   "license": "Lightricks LTX-2 Community License (NOT OSI-approved; use restrictions, read it before commercial use)",
+   "repo": "Lightricks/LTX-2.5",
+   "path": "text_encoders/gemma4-12b-with-proj-ltx-2.5-bf16.safetensors",
+   "revision": "49b093a39c19169a8a81721dcc541e07e945232f",
+   "bytes": 26263858182,
+   "gated": true,
+   "url": "https://huggingface.co/Lightricks/LTX-2.5/resolve/49b093a39c19169a8a81721dcc541e07e945232f/text_encoders/gemma4-12b-with-proj-ltx-2.5-bf16.safetensors"
+  },
+  "qwen_3_4b_fp8_mixed.safetensors": {
+   "dir": "text_encoders",
+   "skills": [
+    "flux3-klein-stills",
+    "relighting"
+   ],
+   "loaders": [
+    "CLIPLoader.clip_name"
+   ],
+   "license": "unknown: read the model card before use",
+   "url": null
+  }
+ }
+}
