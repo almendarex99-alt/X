@@ -82,7 +82,8 @@ button:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
 
   <div class="ctl">
     <button id="pp" aria-label="Pausar o reproducir">Pausa</button>
-    <button id="snd" aria-pressed="false">Sonido: no</button>
+    <button id="vz" aria-pressed="false">Voz: no</button>
+    <button id="snd" aria-pressed="false">Música: no</button>
     <div class="ticks" id="ticks"></div>
     <div class="time" id="time">0:00</div>
   </div>
@@ -90,7 +91,15 @@ button:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
 </div>
 
 <script>
-const DUR=[5,6,6,7,7,7,7,5.5];            // segundos por escena
+const DUR=[6,9,9,10,9,10,7,6];            // segundos por escena
+const NARR=["¡Hola! ¿Sabías que la saga GTA casi cumple treinta años? ¡Y todavía no se jubila!",
+"En mil novecientos noventa y siete, todo se veía desde arriba. ¡Como cuando buscas tus llaves desde el techo!",
+"En dos mil uno llegó el tres de, y las ciudades por fin tuvieron altura.",
+"Vice City trajo los años ochenta, con luces de neón y camisas floridas. San Andreas trajo un estado entero. ¡Qué exagerados!",
+"GTA cinco vendió más de doscientos millones de copias. ¡Casi tantas como calcetines perdidos en el mundo!",
+"Cada pocos años, un juego nuevo. ¡Y todos con muchísimo cariño por los coches!",
+"Y ahora viene GTA seis, con fecha anunciada para el diecinueve de noviembre de dos mil veintiséis. ¡Eso es mañana!",
+"Suscríbete, y cuéntame cuál es tu GTA favorito. ¡Hasta la próxima!"];
 const total=DUR.reduce((a,b)=>a+b,0);
 const scenes=[...document.querySelectorAll('.scene')];
 const ticks=document.getElementById('ticks'), timeEl=document.getElementById('time');
@@ -107,7 +116,7 @@ pts.forEach((p,i)=>{const e=document.createElement('div');e.className='pt'+(p[3]
   e.innerHTML='<span class="'+(p[2]?'dn':'up')+'">'+p[0]+' · '+p[1]+'</span>';tl.appendChild(e)});
 
 let t=0,playing=true,cur=-1,last=performance.now();
-function show(i){if(i===cur)return;cur=i;scenes.forEach((s,k)=>{s.classList.remove('on');if(k===i){void s.offsetWidth;s.classList.add('on')}});
+function show(i){if(i===cur)return;cur=i;speak(i);scenes.forEach((s,k)=>{s.classList.remove('on');if(k===i){void s.offsetWidth;s.classList.add('on')}});
   // restart bars/points animation
   scenes[i].querySelectorAll('.pt,.bar').forEach(e=>{e.style.animation='none';void e.offsetWidth;e.style.animation=''});}
 function seek(s){t=s;cur=-1;frame(performance.now(),true)}
@@ -173,7 +182,7 @@ const snd=document.getElementById('snd');
 snd.onclick=()=>{
   try{
     if(!ac)ac=new (window.AudioContext||window.webkitAudioContext)();
-    on=!on;snd.textContent='Sonido: '+(on?'sí':'no');snd.setAttribute('aria-pressed',on);
+    on=!on;snd.textContent='Música: '+(on?'sí':'no');snd.setAttribute('aria-pressed',on);
     if(on){ac.resume();timer=setInterval(()=>{if(!playing||!on)return;const n=ac.currentTime,bass=[55,55,65.4,49][Math.floor(beat/4)%4];
       if(beat%2===0){const o=ac.createOscillator(),g=ac.createGain();o.type='sawtooth';o.frequency.value=bass;g.gain.setValueAtTime(.12,n);g.gain.exponentialRampToValueAtTime(.001,n+.25);o.connect(g).connect(ac.destination);o.start(n);o.stop(n+.26)}
       const b=ac.createBuffer(1,2205,44100),d=b.getChannelData(0);for(let k=0;k<d.length;k++)d[k]=(Math.random()*2-1)*(1-k/d.length);
@@ -181,5 +190,27 @@ snd.onclick=()=>{
     else clearInterval(timer)
   }catch(e){snd.textContent='Sonido: no disponible'}
 };
+// narración con la mejor voz en español que tenga el dispositivo
+let voiceOn=false,chosen=null;
+const vz=document.getElementById('vz');
+const PREF=['natural','neural','google español','paulina','monica','mónica','jorge','alex','diego','dalia','alvaro','álvaro'];
+function pick(){
+  try{const v=speechSynthesis.getVoices().filter(x=>/^es/i.test(x.lang));
+    for(const p of PREF){const m=v.find(x=>x.name.toLowerCase().includes(p));if(m)return m}
+    return v[0]||null}catch(e){return null}
+}
+function speak(i){
+  if(!voiceOn)return;
+  try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(NARR[i]);
+    chosen=chosen||pick();if(chosen){u.voice=chosen;u.lang=chosen.lang}else u.lang='es-ES';
+    u.rate=1.08;u.pitch=1.05;speechSynthesis.speak(u)}catch(e){}
+}
+vz.onclick=()=>{
+  voiceOn=!voiceOn;vz.setAttribute('aria-pressed',voiceOn);
+  if(!voiceOn){try{speechSynthesis.cancel()}catch(e){}vz.textContent='Voz: no';return}
+  chosen=pick();vz.textContent='Voz: '+(chosen?chosen.name.replace(/Microsoft |Google /,'').slice(0,18):'del sistema');
+  speak(Math.max(cur,0));
+};
+try{speechSynthesis.onvoiceschanged=()=>{chosen=null}}catch(e){}
 requestAnimationFrame(frame);
 </script>
