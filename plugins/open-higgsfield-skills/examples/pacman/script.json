@@ -1,0 +1,37 @@
+[
+ {
+  "start": 0.3,
+  "end": 4.0,
+  "text": "Cuatro fantasmas, cuatro cerebros distintos."
+ },
+ {
+  "start": 4.2,
+  "end": 12.0,
+  "text": "Blinky, el rojo, es el cazador directo. Su objetivo es, simplemente, la casilla donde está Pac-Man."
+ },
+ {
+  "start": 12.2,
+  "end": 20.0,
+  "text": "Pinky es la emboscadora. Apunta cuatro casillas delante de ti, para cortarte el paso."
+ },
+ {
+  "start": 20.2,
+  "end": 28.0,
+  "text": "Inky es el impredecible. Duplica el vector de Blinky, delante de ti, y nadie sabe por dónde saldrá."
+ },
+ {
+  "start": 28.2,
+  "end": 36.0,
+  "text": "Clyde es el cobarde. Si está a menos de ocho casillas... ¡huye! Si está lejos, te persigue."
+ },
+ {
+  "start": 36.2,
+  "end": 42.7,
+  "text": "Y ojo, hay un bug: si miras hacia arriba, el objetivo se corre cuatro casillas a la izquierda."
+ },
+ {
+  "start": 42.9,
+  "end": 46.0,
+  "text": "¿Qué juego explico ahora? Comenta y suscríbete."
+ }
+]
