@@ -1,0 +1,185 @@
+<title>GTA, 28 años de caos</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600&display=swap">
+<style>
+/* Layout: 16:9 player centered, canvas city behind scene text, control bar and scene ticks below. */
+:root{
+  --ink:#0d0614; --sun:#ff5e7e; --amber:#ffb347; --teal:#2ee6d6; --paper:#fff4ec;
+  --display:'Anton','Impact',sans-serif; --body:'Inter',system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--ink);color:var(--paper);font-family:var(--body);margin:0;
+  padding-block:20px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));}
+.wrap{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.player{position:relative;aspect-ratio:16/9;width:100%;overflow:hidden;border-radius:6px;background:#1a0b2e;container-type:inline-size}
+canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:6cqw 7cqw;opacity:0;pointer-events:none;transition:opacity .4s}
+.scene.on{opacity:1}
+.scene>*{opacity:0;transform:translateY(3cqw)}
+.scene.on>*{animation:in .7s cubic-bezier(.2,.8,.2,1) forwards}
+.scene.on>*:nth-child(2){animation-delay:.25s}
+.scene.on>*:nth-child(3){animation-delay:.5s}
+.scene.on>*:nth-child(4){animation-delay:.75s}
+@keyframes in{to{opacity:1;transform:none}}
+.tag{font:600 1.5cqw var(--body);letter-spacing:.28em;text-transform:uppercase;color:var(--teal)}
+h1,h2{font:400 11cqw/.92 var(--display);text-transform:uppercase;margin:1.2cqw 0;text-wrap:balance;text-shadow:0 .4cqw 0 rgba(13,6,20,.55)}
+h2{font-size:8.5cqw}
+h1 em,h2 em{font-style:normal;color:var(--sun)}
+p{font-size:2.1cqw;line-height:1.45;max-width:46cqw;margin:0;text-shadow:0 0 1.5cqw var(--ink),0 0 .6cqw var(--ink)}
+.year{position:absolute;right:5cqw;top:3cqw;font:400 20cqw/1 var(--display);color:rgba(255,244,236,.12);-webkit-text-stroke:.2cqw rgba(255,244,236,.5)}
+.big{font:400 15cqw/1 var(--display);color:var(--amber);font-variant-numeric:tabular-nums}
+.line{display:flex;flex-wrap:wrap;gap:3cqw;align-items:baseline}
+/* timeline */
+.tl{position:relative;height:16cqw;margin-top:2cqw}
+.tl .axis{position:absolute;left:0;right:0;top:8cqw;height:.35cqw;background:var(--paper);opacity:.7}
+.tl .pt{position:absolute;top:8cqw;transform:translate(-50%,-50%);width:1.8cqw;height:1.8cqw;border-radius:50%;background:var(--sun);border:.35cqw solid var(--paper);
+  opacity:0;animation:pop .4s forwards}
+.tl .pt span{position:absolute;left:50%;white-space:nowrap;font:600 1.5cqw var(--body);transform:translateX(-50%)}
+.tl .pt span.up{bottom:2.6cqw}.tl .pt span.dn{top:2.6cqw;color:var(--amber)}
+@keyframes pop{from{opacity:0;scale:.2}to{opacity:1;scale:1}}
+.tl .pt.vi{background:var(--teal);width:2.6cqw;height:2.6cqw}
+.bar{height:2.4cqw;background:linear-gradient(90deg,var(--sun),var(--amber));width:0;border-radius:.3cqw;margin-top:1.4cqw}
+.scene.on .bar{animation:grow 1.6s .8s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes grow{to{width:var(--w)}}
+.lbl{font:600 1.6cqw var(--body);margin-top:.5cqw}
+/* controls */
+.ctl{display:flex;align-items:center;gap:10px}
+button{font:600 14px var(--body);color:var(--paper);background:#241038;border:1px solid #4a2c6e;border-radius:4px;padding:9px 14px;cursor:pointer;min-width:44px}
+button:hover{background:#33164f}
+button:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+.ticks{display:flex;gap:4px;flex:1;min-width:0}
+.tick{flex:1;height:22px;padding:0;background:none;border:0;position:relative;min-width:0}
+.tick i{position:absolute;left:0;right:0;top:9px;height:4px;background:#3a2058;border-radius:2px;overflow:hidden}
+.tick i b{display:block;height:100%;width:0;background:var(--sun)}
+.time{font:600 13px var(--body);color:#c9b3e0;font-variant-numeric:tabular-nums;min-width:74px;text-align:right}
+.note{font-size:12.5px;color:#a58cc4;line-height:1.5}
+@media (max-width:560px){.ctl{flex-wrap:wrap}.ticks{order:3;flex-basis:100%}.time{margin-left:auto}}
+@media (prefers-reduced-motion:reduce){.scene>*{animation:none!important;opacity:1;transform:none}.scene.on .bar{animation:none;width:var(--w)}}
+</style>
+
+<div class="wrap">
+  <div class="player" id="player">
+    <canvas id="cv"></canvas>
+
+    <section class="scene"><div class="tag">Un video sobre</div><h1>Grand Theft <em>Auto</em></h1><p>28 años de ciudades enormes, humor negro y mucho caos.</p></section>
+
+    <section class="scene"><div class="year">1997</div><div class="tag">Todo empieza</div><h2>Vista <em>cenital</em></h2><p>DMA Design lanza el primer Grand Theft Auto. Se ve desde arriba, se roba de todo y la policía no perdona.</p></section>
+
+    <section class="scene"><div class="year">2001</div><div class="tag">GTA III</div><h2>La ciudad se vuelve <em>3D</em></h2><p>Liberty City se convierte en un mundo abierto que se puede recorrer a pie o en coche. Cambia los videojuegos para siempre.</p></section>
+
+    <section class="scene"><div class="year">2002–04</div><div class="tag">Vice City · San Andreas</div><h2>Neones y <em>estados enteros</em></h2><p>Vice City pone los años 80 y su banda sonora. San Andreas multiplica el mapa con tres ciudades y el campo entre ellas.</p></section>
+
+    <section class="scene"><div class="year">2013</div><div class="tag">GTA V</div><div class="line"><div class="big">200M+</div><h2 style="margin:0">copias <em>vendidas</em></h2></div><p>Se convirtió en uno de los videojuegos más vendidos de la historia.</p><div><div class="bar" style="--w:78%"></div><div class="lbl">Cifra que Take-Two reportó para GTA V (sobre 200 millones)</div></div></section>
+
+    <section class="scene"><div class="tag">Línea de tiempo</div><h2>Un juego <em>cada pocos años</em></h2>
+      <div class="tl" id="tl"><div class="axis"></div></div></section>
+
+    <section class="scene"><div class="tag">El regreso</div><h2>GTA <em>VI</em></h2><p>Vuelve a Vice City y al estado de Leonida. La fecha anunciada para el lanzamiento es el 19 de noviembre de 2026, es decir, mañana.</p></section>
+
+    <section class="scene"><div class="tag">Fin</div><h1>Nos vemos en <em>Leonida</em></h1><p>Video no oficial, hecho por un fan. GTA es marca de Rockstar Games y Take-Two.</p></section>
+  </div>
+
+  <div class="ctl">
+    <button id="pp" aria-label="Pausar o reproducir">Pausa</button>
+    <button id="snd" aria-pressed="false">Sonido: no</button>
+    <div class="ticks" id="ticks"></div>
+    <div class="time" id="time">0:00</div>
+  </div>
+  <div class="note">Se reproduce solo. Toca un tramo de la barra para saltar a esa escena. El sonido es un ritmo sintetizado y arranca solo cuando lo activas.</div>
+</div>
+
+<script>
+const DUR=[5,6,6,7,7,7,7,5.5];            // segundos por escena
+const total=DUR.reduce((a,b)=>a+b,0);
+const scenes=[...document.querySelectorAll('.scene')];
+const ticks=document.getElementById('ticks'), timeEl=document.getElementById('time');
+const fills=[];
+DUR.forEach((d,i)=>{const b=document.createElement('button');b.className='tick';b.style.flex=d;b.setAttribute('aria-label','Escena '+(i+1));
+  b.innerHTML='<i><b></b></i>';b.onclick=()=>seek(start(i));ticks.appendChild(b);fills.push(b.querySelector('b'))});
+const start=i=>DUR.slice(0,i).reduce((a,b)=>a+b,0);
+
+// timeline points, to scale 1997..2026
+const pts=[[1997,'GTA',0],[2001,'III',1],[2002,'Vice City',0],[2004,'San Andreas',1],[2008,'IV',0],[2013,'V',1],[2026,'VI',0,true]];
+const tl=document.getElementById('tl');
+pts.forEach((p,i)=>{const e=document.createElement('div');e.className='pt'+(p[3]?' vi':'');
+  e.style.left=(2+(p[0]-1997)/(2026-1997)*96)+'%';e.style.animationDelay=(1+i*.45)+'s';
+  e.innerHTML='<span class="'+(p[2]?'dn':'up')+'">'+p[0]+' · '+p[1]+'</span>';tl.appendChild(e)});
+
+let t=0,playing=true,cur=-1,last=performance.now();
+function show(i){if(i===cur)return;cur=i;scenes.forEach((s,k)=>{s.classList.remove('on');if(k===i){void s.offsetWidth;s.classList.add('on')}});
+  // restart bars/points animation
+  scenes[i].querySelectorAll('.pt,.bar').forEach(e=>{e.style.animation='none';void e.offsetWidth;e.style.animation=''});}
+function seek(s){t=s;cur=-1;frame(performance.now(),true)}
+const pad=n=>String(Math.floor(n)).padStart(2,'0');
+function frame(now,force){
+  const dt=(now-last)/1000;last=now;
+  if(playing&&!force){t+=dt;if(t>=total)t=0}
+  let acc=0,i=0;for(;i<DUR.length;i++){if(t<acc+DUR[i])break;acc+=DUR[i]}
+  if(i>=DUR.length){i=DUR.length-1}
+  show(i);
+  fills.forEach((f,k)=>f.style.width=(k<i?100:k===i?Math.min(100,(t-acc)/DUR[k]*100):0)+'%');
+  timeEl.textContent=Math.floor(t/60)+':'+pad(t%60)+' / '+Math.floor(total/60)+':'+pad(total%60);
+  draw(t,i);
+  requestAnimationFrame(frame)
+}
+
+// ---------- fondo: ciudad al atardecer, cambia de paleta por escena ----------
+const cv=document.getElementById('cv'),cx=cv.getContext('2d');
+const skies=[['#2b0f4d','#ff5e7e','#ffb347'],['#1a1a2e','#5a6b8c','#c9b79c'],['#0f1f3a','#3a6ea5','#ffb347'],['#3a0f4d','#ff3d9a','#2ee6d6'],
+  ['#14213d','#fca311','#ff5e7e'],['#0d0614','#2b0f4d','#ff5e7e'],['#4a0f5c','#ff3d9a','#ffd166'],['#0d0614','#2b0f4d','#ff5e7e']];
+let from=skies[0],mix=1,prev=skies[0],blds=[];
+function rnd(s){s=Math.sin(s)*10000;return s-Math.floor(s)}
+for(let l=0;l<3;l++){const a=[];let x=0;while(x<1.3){const w=.03+rnd(l*50+x*97)*.05,h=.12+rnd(l*13+x*31)*(.14+l*.06);a.push([x,w,h]);x+=w+.004}blds.push(a)}
+function hex(h){return[1,3,5].map(i=>parseInt(h.slice(i,i+2),16))}
+function lerpC(a,b,k){const A=hex(a),B=hex(b);return'rgb('+A.map((v,i)=>Math.round(v+(B[i]-v)*k)).join(',')+')'}
+let pi=-1;
+function resize(){const r=cv.getBoundingClientRect(),d=Math.min(devicePixelRatio||1,2);cv.width=r.width*d;cv.height=r.height*d}
+addEventListener('resize',resize);resize();
+function draw(time,i){
+  if(i!==pi){prev=mix>=1?from:prev;from=skies[i];if(pi>=0)mix=0;pi=i}
+  mix=Math.min(1,mix+.02);
+  const W=cv.width,H=cv.height,old=prev,nw=from;
+  const g=cx.createLinearGradient(0,0,0,H);
+  g.addColorStop(0,lerpC(old[0],nw[0],mix));g.addColorStop(.6,lerpC(old[1],nw[1],mix));g.addColorStop(1,lerpC(old[2],nw[2],mix));
+  cx.fillStyle=g;cx.fillRect(0,0,W,H);
+  // sol
+  const sy=H*.62+Math.sin(time*.3)*H*.01,sr=H*.2;
+  cx.fillStyle='rgba(255,236,200,.85)';cx.beginPath();cx.arc(W*.72,sy,sr,0,7);cx.fill();
+  cx.fillStyle='rgba(13,6,20,.35)';for(let k=0;k<5;k++)cx.fillRect(W*.72-sr,sy+sr*(.1+k*.17),sr*2,sr*(.03+k*.02));
+  // edificios en 3 capas con paralaje
+  const cols=['rgba(60,20,90,.55)','rgba(35,12,60,.8)','#120720'];
+  blds.forEach((arr,l)=>{cx.fillStyle=cols[l];const sp=(l+1)*.012,off=(time*sp)%1.3;
+    arr.forEach(([x,w,h])=>{let px=((x-off)%1.3+1.3)%1.3-.15;cx.fillRect(px*W,H*.8-h*H,w*W,h*H+H*.2)});
+    if(l===2){cx.fillStyle='rgba(255,200,90,.8)';arr.forEach(([x,w,h],n)=>{let px=((x-off)%1.3+1.3)%1.3-.15;
+      for(let r=0;r<6;r++)if(rnd(n*7+r+Math.floor(time*.4)*(r%3===0?1:0))>.6)cx.fillRect(px*W+w*W*.2,(H*.8-h*H)+r*H*.03+H*.012,w*W*.18,H*.012)})}});
+  // carretera y coche (silueta propia, no es de ningún juego)
+  cx.fillStyle='#0a0412';cx.fillRect(0,H*.82,W,H*.18);
+  cx.fillStyle='#ffb347';for(let x=-((time*W*.35)%(W*.1));x<W;x+=W*.1)cx.fillRect(x,H*.91,W*.05,H*.008);
+  const cxp=((time*.09)%1.3-.15)*W,cy=H*.855,u=W*.012;
+  cx.fillStyle='#ff5e7e';cx.beginPath();cx.moveTo(cxp,cy);cx.lineTo(cxp+u*1,cy-u*1.6);cx.lineTo(cxp+u*5,cy-u*2.2);cx.lineTo(cxp+u*8,cy-u*1.6);cx.lineTo(cxp+u*10,cy-u*1.4);cx.lineTo(cxp+u*10,cy);cx.fill();
+  cx.fillStyle='#0d0614';cx.beginPath();cx.arc(cxp+u*2.4,cy,u*1.1,0,7);cx.arc(cxp+u*7.6,cy,u*1.1,0,7);cx.fill();
+  cx.fillStyle='#ffe9a8';cx.fillRect(cxp+u*9.7,cy-u*1.1,u*.5,u*.5);
+  // viñeta para legibilidad del texto
+  const v=cx.createLinearGradient(0,0,W*.8,0);v.addColorStop(0,'rgba(13,6,20,.6)');v.addColorStop(1,'rgba(13,6,20,0)');cx.fillStyle=v;cx.fillRect(0,0,W,H);
+}
+
+// ---------- controles ----------
+const pp=document.getElementById('pp');
+pp.onclick=()=>{playing=!playing;pp.textContent=playing?'Pausa':'Play';if(ac)playing?ac.resume():ac.suspend()};
+// sonido sintetizado: bajo + hi-hat, solo tras activar
+let ac=null,on=false,beat=0,timer=null;
+const snd=document.getElementById('snd');
+snd.onclick=()=>{
+  try{
+    if(!ac)ac=new (window.AudioContext||window.webkitAudioContext)();
+    on=!on;snd.textContent='Sonido: '+(on?'sí':'no');snd.setAttribute('aria-pressed',on);
+    if(on){ac.resume();timer=setInterval(()=>{if(!playing||!on)return;const n=ac.currentTime,bass=[55,55,65.4,49][Math.floor(beat/4)%4];
+      if(beat%2===0){const o=ac.createOscillator(),g=ac.createGain();o.type='sawtooth';o.frequency.value=bass;g.gain.setValueAtTime(.12,n);g.gain.exponentialRampToValueAtTime(.001,n+.25);o.connect(g).connect(ac.destination);o.start(n);o.stop(n+.26)}
+      const b=ac.createBuffer(1,2205,44100),d=b.getChannelData(0);for(let k=0;k<d.length;k++)d[k]=(Math.random()*2-1)*(1-k/d.length);
+      const s=ac.createBufferSource(),g2=ac.createGain();s.buffer=b;g2.gain.value=beat%2?.07:.03;s.connect(g2).connect(ac.destination);s.start(n);beat++},170)}
+    else clearInterval(timer)
+  }catch(e){snd.textContent='Sonido: no disponible'}
+};
+requestAnimationFrame(frame);
+</script>
