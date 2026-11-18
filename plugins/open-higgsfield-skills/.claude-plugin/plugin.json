@@ -1,0 +1,6 @@
+{
+  "name": "open-higgsfield-skills",
+  "description": "37 agent skills that act as a film crew: one prompt in, a finished short video out, using open-weights models on your own ComfyUI.",
+  "version": "0.1.1",
+  "homepage": "https://github.com/mojomast/open-higgsfield-skills"
+}

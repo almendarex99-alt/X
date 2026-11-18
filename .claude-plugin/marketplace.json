@@ -1,0 +1,11 @@
+{
+  "name": "almendarex-skills",
+  "owner": { "name": "almendarex99-alt" },
+  "plugins": [
+    {
+      "name": "open-higgsfield-skills",
+      "source": "./plugins/open-higgsfield-skills",
+      "description": "37 open-weights video production skills (video-director, ComfyUI workflows, etc.)"
+    }
+  ]
+}
