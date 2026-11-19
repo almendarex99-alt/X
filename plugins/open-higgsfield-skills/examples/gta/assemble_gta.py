@@ -16,6 +16,12 @@ for i,s in enumerate(SC):
         else: cur=(cur+" "+w).strip()
         if re.search(r"[.?!:]$",w) and len(cur)>18: chunks.append(cur); cur=""
     if cur: chunks.append(cur)
+    SW={"a","un","una","de","del","la","el","los","las","lo","le","se","al","que","y","en","por","con","su","sus","mi","tu","es","era","no"}
+    for ci in range(len(chunks)-1):
+        ws=chunks[ci].split()
+        while len(ws)>2 and ws[-1].lower().strip(",.:?!¿¡") in SW:
+            chunks[ci+1]=ws.pop()+" "+chunks[ci+1]
+        chunks[ci]=" ".join(ws)
     tot=sum(len(c) for c in chunks); t0=s["vstart"]
     for c in chunks:
         d=s["dur"]*len(c)/tot; c2="\n".join(textwrap.wrap(c,24)); add(c2,t0,t0+d,66,"h*0.79","white"); t0+=d
