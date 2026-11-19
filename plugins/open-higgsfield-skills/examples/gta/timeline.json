@@ -1,0 +1,53 @@
+{
+ "scenes": [
+  {
+   "start": 0,
+   "vstart": 0.35,
+   "dur": 2.98,
+   "text": "¿Sabías que GTA nació gracias a un error de programación?"
+  },
+  {
+   "start": 3.75,
+   "vstart": 3.75,
+   "dur": 9.17,
+   "text": "A mediados de los noventa, un estudio escocés, DMA Design, preparaba un juego de coches llamado Race and Chase. El jugador iba a ser policía."
+  },
+  {
+   "start": 13.35,
+   "vstart": 13.35,
+   "dur": 10.67,
+   "text": "Pero, según cuentan sus creadores, durante las pruebas la policía enemiga empezó a fallar: en lugar de seguir las reglas, perseguía al jugador sin descanso y lo embestía."
+  },
+  {
+   "start": 24.44,
+   "vstart": 24.44,
+   "dur": 7.55,
+   "text": "Y aquí viene el giro: al equipo no le pareció un fallo. Le pareció divertidísimo. Escapar de la policía era mejor que perseguir."
+  },
+  {
+   "start": 32.4,
+   "vstart": 32.4,
+   "dur": 5.42,
+   "text": "Así que dieron la vuelta al juego entero. Ahora serías tú quien huye, y la policía, tu mayor reto."
+  },
+  {
+   "start": 38.24,
+   "vstart": 38.24,
+   "dur": 7.62,
+   "text": "Aquel cambio se convirtió en Grand Theft Auto, en mil novecientos noventa y siete. Hoy, la saga ha vendido cientos de millones de copias."
+  },
+  {
+   "start": 46.28,
+   "vstart": 46.28,
+   "dur": 2.68,
+   "text": "Un error no arruinó el proyecto. Lo salvó."
+  },
+  {
+   "start": 49.38,
+   "vstart": 49.38,
+   "dur": 6.35,
+   "text": "¿Qué fallo de un videojuego acabó siendo genial? Cuéntalo en los comentarios y suscríbete… porque GTA nació de un error."
+  }
+ ],
+ "total": 56.45
+}
