@@ -1,18 +1,30 @@
-TÍTULO (35 caracteres):
+=== SUBIDA A YOUTUBE SHORTS: "¿Por qué Mario se llama Mario?" ===
+
+ARCHIVO:  mario_nombre_short.mp4  (1080x1920, 9:16, 55 s)
+PORTADA:  portada_saltarin.jpg
+
+TÍTULO (30 caracteres):
 ¿Por qué Mario se llama Mario?
 
-PORTADA (3 palabras, no repite el título):
-ERA "SALTARÍN"
-
 DESCRIPCIÓN:
-Curiosidad de videojuegos: ¿sabías que Mario no se llamaba Mario? Te cuento el origen de su nombre, su gorra y su bigote en menos de un minuto. 🎮
-Un casero, un almacén y un pequeño píxel que cambió los videojuegos.
+¿Por qué Mario se llama Mario? Te cuento el origen de su nombre, de su gorra y de su bigote en menos de un minuto. 🎮
+Un casero, un almacén y unos pocos píxeles que cambiaron los videojuegos para siempre.
 
 ¿Qué otro personaje tiene un origen curioso? Cuéntalo en los comentarios y suscríbete.
 
 #Mario #Shorts #Curiosidades #Videojuegos #Nintendo
 
 ETIQUETAS:
-mario, por qué mario se llama mario, origen de mario, curiosidades de mario, mario bros, donkey kong, jumpman, mario segale, historia de mario, curiosidades de videojuegos, datos curiosos videojuegos, historia de los videojuegos, nintendo
+mario, por qué mario se llama mario, origen de mario, origen del nombre de mario, curiosidades de mario, mario bros, donkey kong, jumpman, mario segale, historia de mario, curiosidades de videojuegos, datos curiosos videojuegos, historia de los videojuegos, nintendo
 
-VERIFICAR antes de publicar: que el personaje se llamaba Jumpman, la razón de la gorra y el bigote (limitación de píxeles), y la anécdota del casero Mario Segale (leyenda muy repetida; confirmar fuentes: entrevistas a Shigeru Miyamoto y a Nintendo of America).
+CONFIGURACIÓN:
+- Audiencia: "No, no es contenido creado para niños" si tu canal no es infantil; si lo es, márcalo como para niños.
+- Visibilidad: Pública
+- Idioma del video: Español
+- Categoría: Videojuegos
+- Contenido alterado o sintético: marca "Sí" (la voz es generada por IA); es la opción más segura y la que pide YouTube para voces sintéticas realistas.
+
+COMENTARIO FIJADO (para generar respuestas):
+¿Sabías lo del casero? Cuéntame qué otro personaje de videojuegos quieres que explique 👇
+
+VERIFICAR antes de publicar: que el personaje se llamaba Jumpman, la razón de la gorra y el bigote (limitación de píxeles) y la anécdota del casero Mario Segale (leyenda muy repetida; confirmar en entrevistas a Shigeru Miyamoto o fuentes de Nintendo of America).
