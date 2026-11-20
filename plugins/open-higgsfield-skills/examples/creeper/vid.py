@@ -1,6 +1,44 @@
 import sys; sys.path.insert(0,"..")
 import core, math, random
 from core import *
+import json,os
+_T=json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),"skins.json")))
+def crop(a,r0,r1,c0,c1): return [[tuple(px) for px in row[c0:c1]] for row in a[r0:r1]]
+FR=_T["steve"]["front"]; BK=_T["steve"]["back"]; SRV=_T["steve"]["right"]
+STV=dict(head=dict(front=crop(FR,0,8,4,12),side=crop(SRV,0,8,0,8),top=[[tuple(BK[j%2][4+i]) for i in range(8)] for j in range(8)]),
+  body=dict(front=crop(FR,8,20,4,12),side=crop(FR,8,20,4,8),top=None),
+  armL=dict(front=crop(FR,8,20,0,4),side=crop(SRV,8,20,2,6),top=None),armR=dict(front=crop(FR,8,20,12,16),side=crop(SRV,8,20,2,6),top=None),
+  legL=dict(front=crop(FR,20,32,4,8),side=crop(SRV,20,32,2,6),top=None),legR=dict(front=crop(FR,20,32,8,12),side=crop(SRV,20,32,2,6),top=None))
+CF=["........","........","..XX.XX.","..XX.XX.","...XX...","..XXXX..","..XXXX..","..X..X.."]
+_C=_T["creeper"]
+def _face(arr):
+    out=[[tuple(p) for p in row] for row in arr]
+    for j,row in enumerate(CF):
+        for i,ch in enumerate(row):
+            if ch=='X': out[j][i]=(4,10,4)
+    return out
+CRT=dict(head=dict(front=_face(_C["seg2"]),side=[[tuple(p) for p in r] for r in _C["seg3"]],top=[[tuple(p) for p in r] for r in _C["top"]]),
+  body=dict(front=crop(_C["body"],0,12,4,12),side=crop(_C["body"],0,12,12,16),top=None),
+  leg=dict(front=crop(_C["body"],0,6,0,4),side=crop(_C["body"],6,12,12,16),top=None))
+def _shade(c,k): return tuple(int(clamp(v*k,0,255)) for v in c)
+def tbox(d,x,y,w,h,dp,tex,a=255,dark=1.0):
+    ox,oy=dp*.55,-dp*.45
+    F=tex["front"]; ny=len(F); nx=len(F[0])
+    side=tex.get("side") or [[_shade(F[j][-1],.72) for _ in range(4)] for j in range(ny)]
+    top=tex.get("top") or [[_shade(F[0][i],1.15) for i in range(nx)] for _ in range(4)]
+    sh=len(side); sw=len(side[0]); th=len(top); tw=len(top[0])
+    for j in range(th):      # tapa superior (en perspectiva)
+        for i in range(tw):
+            p=[(x+i*w/tw+ox*j/th,y+oy*j/th),(x+(i+1)*w/tw+ox*j/th,y+oy*j/th),(x+(i+1)*w/tw+ox*(j+1)/th,y+oy*(j+1)/th),(x+i*w/tw+ox*(j+1)/th,y+oy*(j+1)/th)]
+            d.P(p,_shade(top[j][i],1.12*dark)+(a,))
+    for i in range(sw):      # cara lateral derecha
+        for j in range(sh):
+            p=[(x+w+ox*i/sw,y+oy*i/sw+j*h/sh),(x+w+ox*(i+1)/sw,y+oy*(i+1)/sw+j*h/sh),(x+w+ox*(i+1)/sw,y+oy*(i+1)/sw+(j+1)*h/sh+.4),(x+w+ox*i/sw,y+oy*i/sw+(j+1)*h/sh+.4)]
+            d.P(p,_shade(side[j][i],.78*dark)+(a,))
+    for j in range(ny):
+        for i in range(nx):
+            d.R(x+i*w/nx,y+j*h/ny,x+(i+1)*w/nx+.4,y+(j+1)*h/ny+.4,_shade(F[j][i],dark)+(a,),0)
+    d.L(x,y,x+w,y,(255,255,255,30),1.2)
 def tex_color(base,i,j,var=22,seed=0):
     h=((i*73856093)^(j*19349663)^(seed*83492791))&0xffff; v=(h%1000)/1000.0-.5
     return tuple(int(clamp(c+v*var,0,255)) for c in base)
@@ -26,21 +64,29 @@ PF=["........","........","..E..E..","........","........","........","........"
 GRN=(78,178,64); PINK=(244,160,170)
 def lerpc(a,b,t): return tuple(int(a[i]+(b[i]-a[i])*t) for i in range(3))
 def creature(d,cx,gy,sc,t,u,flash=0.0,walk=0.0,stretch=1.0):
-    """t=0 cerdo (cuerpo 10x8x16, patas 4x6x4), t=1 creeper (cuerpo 8x12x4, patas 4x6x4). Cabeza 8x8x8"""
+    """t=0 cerdo (cuerpo 10x8x16), t=1 creeper con la skin real (cuerpo 8x12x4, patas 4x6x4). Cabeza 8x8x8"""
     col=lerpc((240,162,166),(76,172,62),t)
     if flash>0: col=lerpc(col,(255,255,255),flash)
     legh=6*sc*stretch; bw=(10+(8-10)*t)*sc; bh=(8+(12-8)*t)*sc*stretch; bd=(16+(4-16)*t)*sc
     ld=4*sc; hw=8*sc
     sw=math.sin(walk)*1.6*sc
-    shadow(d,cx+6*sc,gy+4,max(bw,bd)*.8,5*sc,70)
-    # patas: dos delanteras y dos traseras (las traseras mas lejos)
-    for k,(dx,off,back) in enumerate([(-bw/2,sw,True),(bw/2-ld,-sw,True),(-bw/2,-sw,False),(bw/2-ld,sw,False)]):
-        pc=tuple(int(c*(.8 if back else 1)) for c in col)
-        box(d,cx+dx+(bd*.25 if back else 0)*0,gy-legh-off*.15,ld,legh+off*.15,ld*(1.0),pc,(2,3),seed=k+3)
-    box(d,cx-bw/2,gy-legh-bh,bw,bh,bd,col,(max(4,int(bw/sc)),max(4,int(bh/sc))),seed=11)
+    kc=clamp((t-.35)/.3); kp=1-kc
     hy_pig=gy-legh-hw*1.12; hy_cr=gy-legh-bh-hw; hy=hy_pig+(hy_cr-hy_pig)*t
-    box(d,cx-hw/2,hy,hw,hw,hw,col,(8,8),seed=7,face=(CF,{'X':(18,30,18)}) if t>.5 else (PF,{'E':(34,24,30),'S':(250,196,204),'N':(120,60,70)}))
-    if t<.5: box(d,cx-hw*.25,hy+hw*.52,hw*.5,hw*.32,hw*.18,(250,196,204),(4,3),seed=2)
+    shadow(d,cx+6*sc,gy+4,max(bw,bd)*.8,5*sc,70)
+    fl=1.0+flash*1.6
+    legs=[(-bw/2,sw,True),(bw/2-ld,-sw,True),(-bw/2,-sw,False),(bw/2-ld,sw,False)]
+    if kp>0.01:
+        for k,(dx,off,back) in enumerate(legs):
+            pc=tuple(int(c*(.8 if back else 1)) for c in col); box(d,cx+dx,gy-legh-off*.15,ld,legh+off*.15,ld,pc,(2,3),seed=k+3,a=int(255*kp))
+        box(d,cx-bw/2,gy-legh-bh,bw,bh,bd,col,(max(4,int(bw/sc)),max(4,int(bh/sc))),seed=11,a=int(255*kp))
+        box(d,cx-hw/2,hy,hw,hw,hw,col,(8,8),seed=7,face=(PF,{'E':(34,24,30)}),a=int(255*kp))
+        box(d,cx-hw*.25,hy+hw*.52,hw*.5,hw*.32,hw*.18,(250,196,204),(4,3),seed=2,a=int(255*kp))
+    if kc>0.01:
+        A=int(255*kc)
+        for k,(dx,off,back) in enumerate(legs):
+            tbox(d,cx+dx,gy-legh-off*.15,ld,legh+off*.15,ld,CRT["leg"],A,dark=(.82 if back else 1.0)*fl)
+        tbox(d,cx-bw/2,gy-legh-bh,bw,bh,bd,CRT["body"],A,dark=fl)
+        tbox(d,cx-hw/2,hy,hw,hw,hw,CRT["head"],A,dark=fl)
     return hy
 def sky(d,u,top=(110,170,255),bot=(200,230,255),sun=True):
     pass
@@ -74,18 +120,13 @@ def ground(d,gy,u,rows=5):
 def dust(d,u,n=24,col=(255,255,255)):
     for k in range(n):
         x=(rnd(k,2)*540+u*8*(k%3+1))%540; y=(rnd(k,3)*960-u*12*(k%2+1))%960; d.R(x,y,x+3,y+3,col+(80,),0)
-SF=["HHHHHHHH","HHHHHHHH","HSSSSSSH","SWBSSBWS","SSSNNSSS","SSMMMMSS","SSSSSSSS","SSSSSSSS"]
 def person_blocky(d,cx,gy,v,u,walk=0.0,dirn=1):
     sw=math.sin(walk)*1.2*v
     shadow(d,cx,gy+4,9*v,5*v,70)
-    skin=(190,140,104); shirt=(0,168,170); pants=(60,62,160); shoe=(100,100,108)
-    for dx,off in((-4,sw),(0,-sw)):
-        box(d,cx+dx*v,gy-12*v-abs(off)*.2,4*v,12*v,4*v,pants,(2,6),seed=2+dx)
-        d.R(cx+dx*v,gy-2*v,cx+dx*v+4*v,gy,shoe+(255,),0)
-    box(d,cx-4*v,gy-24*v,8*v,12*v,4*v,shirt,(8,12),seed=5)
-    for dx,off in((-8,-sw),(4,sw)): 
-        box(d,cx+dx*v,gy-24*v+off*.3,4*v,12*v,4*v,shirt,(4,12),seed=7); d.R(cx+dx*v,gy-14*v+off*.3,cx+dx*v+4*v,gy-12*v+off*.3,skin+(255,),0)
-    box(d,cx-4*v,gy-32*v,8*v,8*v,8*v,skin,(8,8),seed=8,face=(SF,{'H':(68,44,28),'S':skin,'W':(255,255,255),'B':(70,60,140),'N':(150,100,80),'M':(120,70,60)}))
+    tbox(d,cx-4*v,gy-12*v-abs(sw)*.2,4*v,12*v,4*v,STV["legL"]); tbox(d,cx,gy-12*v-abs(sw)*.2,4*v,12*v,4*v,STV["legR"])
+    tbox(d,cx-4*v,gy-24*v,8*v,12*v,4*v,STV["body"])
+    tbox(d,cx-8*v,gy-24*v-sw*.3,4*v,12*v,4*v,STV["armL"]); tbox(d,cx+4*v,gy-24*v+sw*.3,4*v,12*v,4*v,STV["armR"])
+    tbox(d,cx-4*v,gy-32*v,8*v,8*v,8*v,STV["head"])
 def sceneA(u,final=False):
     im=new((110,170,255),(200,230,255)); d=D(im)
     landscape(d,u,540)
@@ -208,7 +249,7 @@ def sceneF(u):
     cx,cy=330,500; s=24*z
     hw=8*s
     shadow(d,cx,cy+hw/2+40,hw*.55,20,80)
-    box(d,cx-hw/2,cy-hw/2,hw,hw,hw*.6,GRN,(8,8),seed=7,face=(CF,{'X':(14,26,14)}))
+    tbox(d,cx-hw/2,cy-hw/2,hw,hw,hw*.6,CRT["head"])
     # silbido: ondas y chispas
     for k in range(4):
         ph=(u*1.2+k*.25)%1; d.A(cx,cy,hw*.6+ph*160,hw*.6+ph*160,200,340,(220,255,220,int(150*(1-ph))),4)
