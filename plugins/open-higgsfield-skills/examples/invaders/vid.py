@@ -166,36 +166,76 @@ def sceneA(u,final=False):
     d.R(236,770,304,826,(24,24,34),5); d.R(262,780,278,812,(255,220,80,int(120+100*(int(u*2)%2))),2)
     for k in range(8): d.R(116+k*40,846,140+k*40,852,(0,0,0,70),2)
     return im
-def sceneB(u):
-    im=new((14,8,40),(70,20,80)); d=D(im); stars(d,u,40,300)
-    # ciudad nocturna con neones
-    for k in range(10):
-        x=k*56-10; h=170+rnd(k)*230; w=50+rnd(k,2)*12
-        bevel(d,x,520-h,x+w,640,(24+int(rnd(k,5)*10),14,52),2)
-        for r in range(int(h/24)):
-            for c in range(int(w/14)):
-                if rnd(k*31+r*5+c)>.4: d.R(x+5+c*14,526-h+r*24,x+12+c*14,536-h+r*24,(255,220,140,int(180+60*math.sin(u*3+r+c))),1)
-        if k%3==0:
-            col=[(255,60,170),(60,230,255),(255,220,60)][(k//3)%3]; d.R(x+4,520-h-26,x+w-4,520-h-8,col+(255,),4); d.R(x+4,520-h-26,x+w-4,520-h-8,None,4,(255,255,255,int(130+100*math.sin(u*6+k))),2)
-    d.E(430,200,32,32,(250,244,220,220))
-    d.R(0,640,540,960,(30,22,48)); d.R(0,640,540,646,(255,255,255,24))
-    for k in range(60): 
-        x=(rnd(k,5)*560+u*20)%560; y=(rnd(k,6)*700+u*(220+rnd(k,7)*100))%700+30; d.L(x,y,x-4,y+14,(180,200,255,90),1.5)
-    # escritorio del disenador: placa electronica y bocetos
-    bevel(d,20,700,520,760,(110,74,52),6)
-    d.R(40,640,260,700,(14,70,40),4)
-    for k in range(10): d.L(52+k*20,650,52+k*20,690,(200,180,60,200),2)
-    for k,(x,y) in enumerate([(70,664),(140,656),(200,670),(110,682)]): d.R(x,y,x+26,y+16,(20,20,30),3)
-    d.R(290,620,500,700,(248,246,236),3)
-    for r in range(4):
-        for c in range(7):
-            pix(d,300+c*28,628+r*17,2.0,[I1[0][ (r*2)%8], ],{'#':(60,60,60)}) if False else None
-    for r in range(3):
-        for c in range(6): sprite(d,300+c*32,628+r*22,I1[0] if r==0 else I2[0] if r==1 else I3[0],(60,60,60),1.4)
-    box=crt(d,150,400,240,210,(2,12,8),(70,66,84)); 
-    s=snap(u*1.2+10); draw_game(d,s,box[0]+2,box[1]+6,.4,True)
+def office_desk(d,x0,x1,ytop,col=(112,78,56)):
+    bevel(d,x0,ytop,x1,ytop+24,col,5); d.R(x0+10,ytop+24,x0+24,ytop+130,tuple(int(c*.72) for c in col),3); d.R(x1-24,ytop+24,x1-10,ytop+130,tuple(int(c*.72) for c in col),3)
+def small_crt(d,x,y,w,h,u,k=0):
+    box=crt(d,x,y,w,h,(2,14,8),(190,182,158)); x0,y0,x1,y1=box
+    for r in range(int((y1-y0-12)/9)):
+        ww=10+rnd(r+k*5,3)*(x1-x0-30); d.R(x0+8,y0+8+r*9,x0+8+ww,y0+13+r*9,(90,255,130,200),1)
     crt_fx(d,box)
-    person_back(d,270,690,1.25,1,u); mug(d,60,606,u,(250,250,250))
+def sceneB(u):
+    im=new((40,34,58),(74,66,92)); d=D(im)
+    # --- pared, zocalo y techo con fluorescentes ---
+    d.R(0,0,540,40,(46,40,62)); 
+    for k in range(3): 
+        d.R(30+k*180,14,170+k*180,28,(255,252,228)); d.E(100+k*180,32,120,30,(255,252,228,36))
+    d.R(0,470,540,640,(58,52,78)); d.R(0,470,540,476,(255,255,255,24))
+    # --- ventana con la ciudad de noche (persianas) ---
+    bevel(d,22,70,206,320,(64,54,66),8); d.R(32,80,196,310,(18,24,64))
+    for k,(x,h,w) in enumerate([(36,110,30),(70,150,26),(100,90,34),(138,130,28),(170,100,24)]):
+        d.R(x,310-h,x+w,310,(14,18,46))
+        for r in range(int(h/18)):
+            for c in range(int(w/10)):
+                if rnd(k*9+r*3+c)>.45: d.R(x+3+c*10,314-h+r*18,x+8+c*10,322-h+r*18,(255,222,130,230),1)
+    d.E(170,110,12,12,(250,244,220,230))
+    for k in range(9): d.R(32,80+k*26,196,86+k*26,(70,62,72,150),0)
+    # --- corcho con bocetos de invasores ---
+    bevel(d,330,84,516,300,(158,112,72),6)
+    for k in range(6):
+        px=344+(k%3)*58; py=100+(k//3)*92
+        d.R(px,py,px+50,py+80,(246,244,232),2); d.E(px+25,py+6,3,3,(220,60,60))
+        sprite(d,px+6,py+16,[I1,I2,I3][k%3][int(u*2)%2],(50,50,60),3.6)
+        d.L(px+6,py+66,px+44,py+66,(0,0,0,60),1.5)
+    # reloj de pared
+    d.E(270,100,26,26,(244,242,232)); d.E(270,100,26,26,None,(70,60,50),3)
+    d.L(270,100,270+math.cos(u*.4)*17,100+math.sin(u*.4)*17,(40,30,30),3); d.L(270,100,270+math.cos(u*4.8)*22,100+math.sin(u*4.8)*22,(40,30,30),2)
+    # armario de cintas (mainframe de la epoca) con bobinas girando
+    bevel(d,456,320,528,560,(182,176,152),6)
+    for k in range(2):
+        cx=476+k*34; cy=368; d.E(cx,cy,14,14,(40,40,50)); 
+        for q in range(3): a_=u*3+q*2.09+k; d.L(cx,cy,cx+math.cos(a_)*12,cy+math.sin(a_)*12,(210,210,220),2)
+    for k in range(6): d.E(470+k*10,430+(k%2)*10,3,3,[(255,70,70),(80,255,120),(255,220,80)][k%3]+(int(120+120*math.sin(u*6+k)),))
+    # --- suelo con baldosas ---
+    d.R(0,640,540,960,(52,46,72)); d.R(0,640,540,646,(255,255,255,18))
+    for k in range(10): d.L(k*60-20,646,k*80-110,960,(0,0,0,40),2)
+    for k in range(6): d.L(0,660+k*50,540,660+k*50,(0,0,0,30),2)
+    # --- fila trasera: dos escritorios con compañeros trabajando (mas lejos, mas pequeños) ---
+    office_desk(d,34,210,560,(108,74,54)); small_crt(d,78,450,96,84,u,1)
+    office_desk(d,330,452,560,(108,74,54)); small_crt(d,346,450,96,84,u,2)
+    person_back(d,122,586,.62,1,u); person_back(d,392,590,.62,0,u+.7)
+    for x in (110,396): mug(d,x+34,540,u,(240,240,248))
+    # --- espectadores de pie junto a la pantalla principal ---
+    person_front(d,78,470,.78,0,u,False); person_front(d,462,478,.78,1,u+.5,False)
+    # --- escritorio principal: ordenador central con Space Invaders ---
+    office_desk(d,40,500,676,(118,82,58)); d.R(40,676,500,682,(255,255,255,26),5)
+    box=crt(d,150,360,240,262,(2,8,10),(190,182,158)); x0,y0,x1,y1=box
+    d.R(x0,y0,x1,y1,(0,0,0))
+    sn=snap(u*1.2+10); sc_=.255
+    draw_game(d,sn,x0+(x1-x0-480*sc_)/2-30*sc_+8,y0+4,sc_)
+    crt_fx(d,box); d.E((x0+x1)/2,y1+20,0,0,(0,0,0))
+    # cables, teclado, placa y tazas
+    for k in range(3): d.A(150-20+k*6,640,40,24,60,300,(30,30,40),3)
+    keyboard(d,196,654,150,32)
+    d.R(54,660,156,702,(16,90,52),4)
+    for k in range(7): d.R(62+k*13,668,70+k*13,676,(24,24,30),2); d.L(62+k*13,684,70+k*13,696,(210,180,60,230),2)
+    d.R(360,664,452,700,(248,246,234),2); d.L(366,672,444,672,(0,0,0,60),2); d.L(366,680,430,680,(0,0,0,60),2); d.L(366,688,438,688,(0,0,0,60),2)
+    mug(d,470,650,u,(255,240,200)); d.R(0,0,0,0,(0,0,0,0),0)
+    # --- diseñador principal, sentado frente al ordenador (centro de la escena) ---
+    person_back(d,270,740,1.45,0,u)
+    # papeles volando suavemente
+    for k in range(3):
+        px=(120+k*150+math.sin(u*1.3+k)*12); py=240+k*30+math.sin(u*.9+k*2)*6
+        d.R(px,py,px+18,py+24,(250,248,238,200),1); d.L(px+3,py+7,px+15,py+7,(0,0,0,50),1)
     return im
 def sceneC(u):
     im=new((6,14,30),(10,26,56)); d=D(im)
@@ -303,7 +343,7 @@ core.SCN=[lambda u:sceneA(u),sceneB,sceneC,sceneD,sceneE,sceneF,sceneG,lambda u:
 def cam(idx,u,dur):
     p=clamp(u/max(.01,dur))
     if idx==0: return 1.0+.9*sm(p),270,500-100*sm(p)
-    if idx==1: return 1.0+.45*sm(p),270,540-80*sm(p)
+    if idx==1: return 1.0+.65*sm(p),270,560-60*sm(p)
     if idx==2: return 1.0+.1*sm(p),270,480
     if idx==3: return 1.0,270,480
     if idx==4: return 1.0+.3*sm(p),270,430
