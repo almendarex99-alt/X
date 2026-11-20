@@ -218,55 +218,140 @@ def sceneC(u):
         xx=96+c*84; yy=560+r*66; cc=(255,255,255)
         if a>0: block(d,xx,yy,76,[(0,225,240),(255,220,40),(176,80,235),(84,222,92),(242,62,72)][(r+c)%5],int(235*a))
     return im
+# ---------- D: tenis en perspectiva (camara de retransmision) ----------
+YN,YF=890,560
+def tsc(t): return 1.0/(1.0+t)                       # escala por profundidad (t=0 linea cercana, t=1 linea lejana)
+def ty(t): return YN-(YN-YF)*(1-tsc(t))/0.5
+def tx(x,t): return 270+x*250*tsc(t)                 # x en [-1,1] a lo ancho de la pista
+def ellpoly(cx,cy,rx,ry,ang,n=28):
+    ca,sa=math.cos(ang),math.sin(ang)
+    return [(cx+rx*math.cos(k*2*math.pi/n)*ca-ry*math.sin(k*2*math.pi/n)*sa, cy+rx*math.cos(k*2*math.pi/n)*sa+ry*math.sin(k*2*math.pi/n)*ca) for k in range(n)]
+def racket(d,hx,hy,ang,sc):
+    """raqueta bien formada: mango, garganta en V, marco oval y cuerdas. ang = direccion del mango->cabeza"""
+    ca,sa=math.cos(ang),math.sin(ang); px,py=-sa,ca
+    H=lambda L:(hx+ca*L*sc,hy+sa*L*sc)
+    d.L(hx,hy,H(34)[0],H(34)[1],(40,40,48),5*sc)                          # mango
+    d.L(H(34)[0]+px*2*sc,H(34)[1]+py*2*sc,H(50)[0]+px*8*sc,H(50)[1]+py*8*sc,(230,230,236),3*sc)   # garganta en V
+    d.L(H(34)[0]-px*2*sc,H(34)[1]-py*2*sc,H(50)[0]-px*8*sc,H(50)[1]-py*8*sc,(230,230,236),3*sc)
+    cx,cy=H(72)
+    rx,ry=22*sc,17*sc
+    # cuerdas (dentro del ovalo, alineadas con el eje de la raqueta)
+    for k in range(-4,5):
+        o=k*ry/4.5; h=rx*math.sqrt(max(0,1-(o/ry)**2))
+        d.L(cx-ca*h+px*o,cy-sa*h+py*o,cx+ca*h+px*o,cy+sa*h+py*o,(240,240,200,150),1.1*sc)
+    for k in range(-5,6):
+        o=k*rx/5.5; h=ry*math.sqrt(max(0,1-(o/rx)**2))
+        d.L(cx+ca*o-px*h,cy+sa*o-py*h,cx+ca*o+px*h,cy+sa*o+py*h,(240,240,200,150),1.1*sc)
+    pts=ellpoly(cx,cy,rx,ry,ang)
+    for i in range(len(pts)): 
+        p,q=pts[i],pts[(i+1)%len(pts)]; d.L(p[0],p[1],q[0],q[1],(230,60,70),3.6*sc)
+def tplayer(d,px,py,sc,back,shirt,hit_t,swing_dir,u):
+    """jugador: py = pies. back=True (de espaldas, cerca). Brazo -> mano -> raqueta unidos."""
+    H=150*sc
+    shadow(d,px,py+2,30*sc,6*sc,80)
+    for sg in(-1,1):
+        d.R(px+sg*9*sc-7*sc,py-60*sc,px+sg*9*sc+7*sc,py-6*sc,(236,200,170),4*sc)
+        d.R(px+sg*9*sc-9*sc,py-8*sc,px+sg*9*sc+9*sc,py,(245,245,245),4*sc)
+    d.R(px-22*sc,py-86*sc,px+22*sc,py-52*sc,(250,250,250) if back else (40,50,90),8*sc)   # pantalon corto
+    d.R(px-24*sc,py-124*sc,px+24*sc,py-82*sc,shirt,10*sc)
+    d.R(px-24*sc,py-124*sc,px+24*sc,py-118*sc,(255,255,255,50),10*sc)
+    # cabeza
+    d.E(px,py-140*sc,15*sc,17*sc,(236,200,170)); d.E(px,py-148*sc,16*sc,10*sc,(70,48,34) if back else (50,34,24))
+    if not back:
+        for sg in(-1,1): d.E(px+sg*6*sc,py-140*sc,1.8*sc,2.2*sc,(30,30,40))
+        d.A(px,py-133*sc,5*sc,3*sc,20,160,(120,50,50),1.6*sc)
+    # brazo libre (equilibrio)
+    fx=-swing_dir
+    d.L(px+fx*26*sc,py-118*sc,px+fx*40*sc,py-92*sc,(236,200,170),7*sc)
+    # brazo con raqueta: hombro -> mano -> raqueta, angulo segun fase del golpe
+    ph=clamp((u-hit_t+.35)/.7)            # 0 preparacion .. .5 impacto .. 1 final
+    sh=(px+swing_dir*24*sc,py-116*sc)
+    ang=(-2.5+3.1*sm(ph)) if swing_dir>0 else (math.pi+2.5-3.1*sm(ph))
+    if not back: ang=ang+0  # igual convencion
+    ha=ang-.35*swing_dir
+    hand=(sh[0]+math.cos(ha)*34*sc,sh[1]+math.sin(ha)*34*sc+8*sc)
+    d.L(sh[0],sh[1],hand[0],hand[1],(236,200,170),7.5*sc)
+    d.E(hand[0],hand[1],5*sc,5*sc,(236,200,170))
+    racket(d,hand[0],hand[1],ang,sc)
 def sceneD(u):
-    im=new((90,170,230),(190,230,255)); d=D(im)
-    d.E(430,120,46,46,(255,240,170)); d.E(430,120,86,86,(255,240,170,50))
-    for k in range(3): d.E(90+k*150+(u*8)%40,110+k*36,52,16,(255,255,255,190))
-    d.R(0,600,540,960,(52,150,92)); d.R(0,600,540,606,(255,255,255,30))
-    d.R(0,640,540,900,(40,110,170)); d.R(0,640,540,646,(255,255,255,60))
-    for k in range(9): d.L(0,660+k*26,540,660+k*26,(255,255,255,26),2)
-    d.R(20,858,520,864,(255,255,255,200)); d.R(262,770,278,862,(230,230,230,255),2); 
-    d.R(150,776,262,862,(240,240,240,40),2); d.R(278,776,390,862,(240,240,240,40),2)
-    d.R(150,770,390,778,(255,255,255,235),3)
-    for k in range(7): d.L(150,778+k*12,390,778+k*12,(40,40,40,110),1.4)
-    for k in range(20): d.L(150+k*12,778,150+k*12,862,(40,40,40,110),1.4)
-    # pelota con fisica: parabolas entre los dos jugadores con rebote en el suelo
-    per=2.4; ph=(u%per)/per; leg=int(u/per)%2
-    x0,x1=110,430
-    if leg: x0,x1=x1,x0
-    bx=x0+(x1-x0)*ph
-    # primera mitad: vuelo hacia el suelo, rebote, segunda mitad
-    if ph<.5: q=ph/.5; by=800-0*q-math.sin(q*math.pi)*0; by=700+ (860-700)*q*q-60*math.sin(q*math.pi)*0
-    g=858; 
-    if ph<.5:
-        q=ph/.5; by=450+(g-450)*q*q
-    else:
-        q=(ph-.5)/.5; by=g-(g-380)*(1-(1-q)**2)*1.0 if False else g-(g-470)*4*q*(1-q)*2*(1-0)
-        by=g-(g-420)*(1-(2*q-1)**2)
-    shadow(d,bx,872,18,4,60)
-    for tt in range(5): 
-        qq=ph-tt*.012; 
-    d.E(bx,by,15,15,(215,240,60)); d.A(bx,by,15,15,-40,70,(255,255,255),3); d.A(bx,by,15,15,140,250,(255,255,255),3)
-    # jugadores con raqueta
-    for side,px in((0,70),(1,470)):
-        hit=abs(ph-(0 if (leg==0)==(side==0) else 0))<0
-        sw=math.sin(ph*math.pi*2)*0
-        shirt=(230,80,100) if side==0 else (70,120,220)
-        shadow(d,px,872,30,5,70)
-        d.R(px-24,740,px+24,830,shirt,12); d.E(px,716,20,22,SK); d.E(px,706,23,13,(60,40,30)); d.E(px-7,716,2.6,3,(30,30,40)); d.E(px+7,716,2.6,3,(30,30,40)); d.A(px,724,6,4,20,160,(110,40,40),2)
-        d.R(px-20,826,px-5,866,(60,60,90),4); d.R(px+5,826,px+20,866,(60,60,90),4); d.R(px-24,860,px-3,870,(240,240,240),4); d.R(px+3,860,px+24,870,(240,240,240),4)
-        sgn=1 if side==0 else -1
-        swing=0
-        if (side==0 and ((leg==0 and ph<.08) or (leg==1 and ph>.92))) or (side==1 and ((leg==1 and ph<.08) or (leg==0 and ph>.92))): swing=1
-        ang=-.6+swing*1.2
-        ra=rotpts([(px+sgn*30,690),(px+sgn*36,690),(px+sgn*36,780),(px+sgn*30,780)],px+sgn*20,780,ang*sgn); d.P(ra,(80,60,40))
-        hx=px+sgn*20+(px+sgn*33-(px+sgn*20))*math.cos(ang*sgn)-(690-780)*math.sin(ang*sgn)*0
-        d.E(px+sgn*33,672,18,26,None,(235,235,245),4)
-    # cuatro cuadrados que caen y forman la pieza (el nombre)
-    a=sm((u-4.0)/1.0)
+    im=new((110,170,235),(200,225,250)); d=D(im)
+    d.E(430,100,40,40,(255,240,170)); d.E(430,100,76,76,(255,240,170,50))
+    for k in range(3): d.E(90+k*160+(u*8)%40,90+k*30,50,15,(255,255,255,190))
+    # gradas y valla de fondo (detras de la linea lejana)
+    d.R(0,300,540,YF-20,(60,70,96)); 
+    for r in range(8):
+        for c in range(54):
+            if rnd(r*54+c)>.25: d.R(c*10,308+r*17,c*10+8,308+r*17+10,[(220,90,90),(90,140,230),(240,210,90),(230,230,230),(110,200,130)][(r+c)%5]+(210,),2)
+    d.R(0,YF-34,540,YF-8,(34,110,80)); d.R(0,YF-34,540,YF-30,(255,255,255,60))
+    # suelo exterior y pista azul en perspectiva
+    d.R(0,YF-8,540,960,(48,128,92))
+    court=[(tx(-1.0,0),ty(0)),(tx(1.0,0),ty(0)),(tx(1.0,1),ty(1)),(tx(-1.0,1),ty(1))]
+    d.P(court,(46,110,190))
+    for k in range(10):
+        t=k/10.0; d.L(tx(-1,t),ty(t),tx(1,t),ty(t),(255,255,255,10),1.5)
+    LW=(255,255,255)
+    def seg(x0,t0,x1,t1,w=3.2): d.L(tx(x0,t0),ty(t0),tx(x1,t1),ty(t1),LW,w*tsc((t0+t1)/2))
+    seg(-1,0,1,0); seg(-1,1,1,1); seg(-1,0,-1,1); seg(1,0,1,1)
+    seg(-.82,0,-.82,1,2.6); seg(.82,0,.82,1,2.6)
+    seg(-.82,.23,.82,.23); seg(-.82,.77,.82,.77); seg(0,.23,0,.77,2.6)
+    # --- red: poste, malla y cinta en perspectiva correcta (plano frontal al espectador) ---
+    tn=.5; yn=ty(tn); sn=tsc(tn); nh=75*sn; xl=tx(-1.08,tn); xr=tx(1.08,tn)
+    for k in range(-1,16):
+        xx=xl+(xr-xl)*k/14.0
+        if xl<=xx<=xr: d.L(xx,yn-nh,xx,yn,(240,240,240,150),1.2)
+    for k in range(0,8): d.L(xl,yn-nh+k*nh/7.0,xr,yn-nh+k*nh/7.0,(240,240,240,150),1.2)
+    d.R(xl-2,yn-nh-3,xr+2,yn-nh+4,(250,250,250),2); 
+    for xx in(xl,xr): d.R(xx-3,yn-nh-6,xx+3,yn+4,(40,40,50),1)
+    d.R(xl,yn,xr,yn+3,(0,0,0,40),0)
+    # --- pelota con trayectoria fisica: bote y sombra ---
+    per=1.35; leg=int(u/per); ph=(u%per)/per; far_to_near=(leg%2==1)
+    tt=.05+.9*ph
+    if far_to_near: tt=1.0-tt
+    # altura en px a escala cercana: dos arcos (antes y despues del bote)
+    hit=80.0
+    def zf(pp):
+        if pp<.75: tau=pp/.75; return hit*(1-tau)+4*190*tau*(1-tau)
+        tau=(pp-.75)/.25; return 4*52*tau*(1-tau)+hit*tau
+    pp=ph; z=zf(pp)
+    bx=tx(.08*math.sin(leg*2.1)*(1-2*abs(ph-.5)),tt); by=ty(tt); sc=tsc(tt)
+    d.E(bx,by+1,10*sc,3.5*sc,(0,0,0,90))
+    d.E(bx,by-z*sc,12*sc,12*sc,(214,240,60)); d.A(bx,by-z*sc,12*sc,12*sc,-40,70,(255,255,255),2.2*sc); d.A(bx,by-z*sc,12*sc,12*sc,140,250,(255,255,255),2.2*sc)
+    # --- jugadores (cercano de espaldas, lejano de frente) con golpe sincronizado ---
+    near_hits=[k*per for k in range(0,10) if k%2==0]; far_hits=[k*per for k in range(1,10) if k%2==1]
+    nh_t=min(near_hits,key=lambda t:abs(t-u)); fh_t=min(far_hits,key=lambda t:abs(t-u))
+    tplayer(d,tx(-.05,.96),ty(.99),tsc(.99),False,(40,110,200),fh_t,1,u)
+    tplayer(d,tx(.05,0.0)+0,YN+10,1.0,True,(222,70,90),nh_t,-1,u)
+    # --- cuatro cuadrados que caen y forman la pieza (el nombre) ---
     for j,(r,c) in enumerate(RO['T'][0]):
-        y=-60+(330-(-60)+r*40)*clamp((u-3.6-j*.15)/.7)**2; 
-        if u>3.6: block(d,60+c*40,y,40,COL['T'])
+        yy=-60+(260-(-60)+r*40)*clamp((u-1.0-j*.18)/.8)**2
+        if u>1.0: block(d,60+c*40+160,yy,40,COL['T'])
+    return im
+def sceneMoney(u):
+    im=new((8,10,34),(30,26,64)); d=D(im); stars(d,u,40,300)
+    d.R(0,740,540,960,(26,22,46)); d.R(0,740,540,746,(255,255,255,18))
+    # edificio estatal (derecha): frontón, columnas y escalinata
+    bx=290; 
+    d.P([(bx-10,330),(bx+240,330),(bx+115,250)],(150,140,170)); d.R(bx-10,330,bx+240,350,(176,166,196),2)
+    for k in range(6): d.R(bx+4+k*40,350,bx+20+k*40,700,(206,198,222),3); d.R(bx+4+k*40,350,bx+8+k*40,700,(255,255,255,70),3)
+    d.R(bx-14,700,bx+244,720,(150,140,170),2); d.R(bx-24,720,bx+254,740,(130,120,150),2)
+    d.R(bx+84,560,bx+150,700,(40,30,50),3); d.E(bx+117,560,33,26,(40,30,50))
+    for k in range(5): d.R(bx+16+k*40,420,bx+34+k*40,500,(255,226,150,int(120+80*math.sin(u*3+k))),2)
+    # programador (izquierda) con su monitor y un frasco vacio
+    bevel(d,20,650,250,700,(112,76,52),6); d.R(36,700,54,860,(80,54,40),3); d.R(216,700,234,860,(80,54,40),3)
+    box=crt(d,40,420,200,170,(2,18,8),(196,188,160)); x0,y0,x1,y1=box
+    kk=["T","L","S","J"][int(u*.5)%4]; yy=(u*40)%90
+    for r,c in RO[kk][0]: d.R(x0+60+c*14,y0+10+yy+r*14,x0+60+c*14+13,y0+10+yy+r*14+13,COL[kk]+(255,),2)
+    crt_fx(d,box)
+    person_back(d,150,690,1.1,0,u)
+    d.R(196,598,236,650,(230,240,250,60),6); d.R(196,598,236,650,None,6,(230,240,250,180),2); d.R(200,590,232,600,(150,150,170),3)
+    # monedas: salen del juego y viajan (parabola) hacia el edificio; el frasco sigue vacio
+    for k in range(7):
+        ts=(u*.9+k/7.0)%1.0
+        sx,sy=240,520; ex,ey=bx+117,640
+        x=sx+(ex-sx)*ts; y=sy+(ey-sy)*ts-math.sin(ts*math.pi)*170
+        d.E(x,y,10,10,(255,205,70)); d.E(x,y,10,10,None,(190,140,30),2); d.E(x-3,y-3,3,3,(255,246,190))
+        if ts>.92: d.E(ex,ey,20,20,(255,226,150,90))
+    d.R(60,880,480,900,(0,0,0,0),0)
     return im
 def sceneE(u):
     im=new((8,16,36),(16,30,64)); d=D(im)
@@ -341,13 +426,13 @@ def sceneG(u):
     i,p=draw_board(d,SIMF,u*1.0,90,150,36)
     d.R(60,120,480,900,None,24,(255,220,120,int(120+100*math.sin(u*5))),3)
     return im
-core.SCN=[lambda u:sceneA(u),sceneB,sceneC,sceneD,sceneE,sceneF,sceneG,lambda u:sceneA(u,True)]
+core.SCN=[lambda u:sceneA(u),sceneB,sceneD,sceneMoney,sceneE,sceneF,sceneG,lambda u:sceneA(u,True)]
 def cam(idx,u,dur):
     p=clamp(u/max(.01,dur))
     if idx==0: return 1.0+.12*sm(p),270,470-30*sm(p)
     if idx==1: return 1.0+.5*sm(p),270+10*sm(p),520-110*sm(p)
-    if idx==2: return 1.0+.12*sm(p),270,430+20*sm(p)
-    if idx==3: return 1.25-.2*sm(p),150+240*sm(p),560
+    if idx==2: return 1.12-.08*sm(p),270,720-40*sm(p)
+    if idx==3: return 1.0+.12*sm(p),270+20*sm(p),520
     if idx==4: return 1.1+.3*sm(p),250+80*sm(p),520
     if idx==5: return 1.0+.65*sm(p),270,470-40*sm(p)
     if idx==6: return 1.4-.4*sm(clamp(u/3)),270,560-110*sm(clamp(u/3))
