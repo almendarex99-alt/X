@@ -2,6 +2,11 @@ import sys; sys.path.insert(0,"..")
 import core, math, random
 from core import *
 import json,os
+from PIL import Image
+import numpy as np
+_HERE=os.path.dirname(os.path.abspath(__file__))
+_SP={"creeper":Image.open(_HERE+"/creeper_sprite.png").convert("RGBA"),"pig":Image.open(_HERE+"/pig_sprite.png").convert("RGBA")}
+_SC={}
 _T=json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),"skins.json")))
 def crop(a,r0,r1,c0,c1): return [[tuple(px) for px in row[c0:c1]] for row in a[r0:r1]]
 FR=_T["steve"]["front"]; BK=_T["steve"]["back"]; SRV=_T["steve"]["right"]
@@ -64,30 +69,66 @@ PF=["........","........","..E..E..","........","........","........","........"
 GRN=(78,178,64); PINK=(244,160,170)
 def lerpc(a,b,t): return tuple(int(a[i]+(b[i]-a[i])*t) for i in range(3))
 def creature(d,cx,gy,sc,t,u,flash=0.0,walk=0.0,stretch=1.0):
-    """t=0 cerdo (cuerpo 10x8x16), t=1 creeper con la skin real (cuerpo 8x12x4, patas 4x6x4). Cabeza 8x8x8"""
-    col=lerpc((240,162,166),(76,172,62),t)
-    if flash>0: col=lerpc(col,(255,255,255),flash)
-    legh=6*sc*stretch; bw=(10+(8-10)*t)*sc; bh=(8+(12-8)*t)*sc*stretch; bd=(16+(4-16)*t)*sc
-    ld=4*sc; hw=8*sc
-    sw=math.sin(walk)*1.6*sc
-    kc=clamp((t-.35)/.3); kp=1-kc
-    hy_pig=gy-legh-hw*1.12; hy_cr=gy-legh-bh-hw; hy=hy_pig+(hy_cr-hy_pig)*t
-    shadow(d,cx+6*sc,gy+4,max(bw,bd)*.8,5*sc,70)
-    fl=1.0+flash*1.6
-    legs=[(-bw/2,sw,True),(bw/2-ld,-sw,True),(-bw/2,-sw,False),(bw/2-ld,sw,False)]
-    if kp>0.01:
-        for k,(dx,off,back) in enumerate(legs):
-            pc=tuple(int(c*(.8 if back else 1)) for c in col); box(d,cx+dx,gy-legh-off*.15,ld,legh+off*.15,ld,pc,(2,3),seed=k+3,a=int(255*kp))
-        box(d,cx-bw/2,gy-legh-bh,bw,bh,bd,col,(max(4,int(bw/sc)),max(4,int(bh/sc))),seed=11,a=int(255*kp))
-        box(d,cx-hw/2,hy,hw,hw,hw,col,(8,8),seed=7,face=(PF,{'E':(34,24,30)}),a=int(255*kp))
-        box(d,cx-hw*.25,hy+hw*.52,hw*.5,hw*.32,hw*.18,(250,196,204),(4,3),seed=2,a=int(255*kp))
-    if kc>0.01:
-        A=int(255*kc)
-        for k,(dx,off,back) in enumerate(legs):
-            tbox(d,cx+dx,gy-legh-off*.15,ld,legh+off*.15,ld,CRT["leg"],A,dark=(.82 if back else 1.0)*fl)
-        tbox(d,cx-bw/2,gy-legh-bh,bw,bh,bd,CRT["body"],A,dark=fl)
-        tbox(d,cx-hw/2,hy,hw,hw,hw,CRT["head"],A,dark=fl)
-    return hy
+    """t=0 cerdo (tu modelo), t=1 creeper (tu modelo). En medio, el 'error de medidas': el cerdo se estira alto y estrecho mientras se funde al creeper"""
+    Hc=34*sc*stretch; hop=abs(math.sin(walk))*3.5*sc
+    kc=clamp((t-.35)/.3); r_c=Hc/964.0; r_p=(34*sc/964.0)*0.93
+    shadow(d,cx,gy+4,40*sc,6*sc,70)
+    if kc<.99:
+        sx=1.0-.55*t; sy=1.0+1.1*t
+        spr(d,"pig",cx,gy-hop,726*r_p*sx*(stretch**.5),673*r_p*sy*stretch,flash,1.0-kc)
+    if kc>.01:
+        cw=472*r_c*(0.75+.25*kc); ch=964*r_c*(0.7+.3*kc)
+        spr(d,"creeper",cx,gy-hop,cw,ch,flash,kc)
+    return gy
+
+def _sprite_img(name,w,h,flash,alpha,crop=None):
+    key=(name,int(w),int(h),round(flash,2),round(alpha,2),crop)
+    if key in _SC: return _SC[key]
+    im=_SP[name]
+    if crop: im=im.crop(crop)
+    up=w>im.width or h>im.height
+    r=im.resize((max(2,int(w)),max(2,int(h))),Image.NEAREST if up else Image.LANCZOS)
+    a=np.array(r).astype(np.float32)
+    if flash>0: a[...,:3]=a[...,:3]*(1-flash)+255*flash
+    a[...,3]*=alpha
+    out=Image.fromarray(a.astype(np.uint8)); 
+    if len(_SC)>300: _SC.clear()
+    _SC[key]=out; return out
+def spr(d,name,cx,by,w,h,flash=0.0,alpha=1.0,crop=None):
+    """pega el sprite (modelo real) con su base centrada en (cx,by); medidas en unidades de escena"""
+    img=_sprite_img(name,w*S,h*S,flash,alpha,crop)
+    d.im.paste(img,(int(cx*S-img.width/2),int(by*S-img.height)),img)
+def iso_pt(ox,oy,r):
+    def pt(fx,gy,hz): return (ox+(fx*20.5+gy*21.5)*r, oy+(fx*8.7-gy*8.2)*r-hz*29.5*r)
+    return pt
+def iso_box(d,pt,f0,g0,z0,w,dp,h,tex,dark=1.0):
+    F=tex["front"]; ny=len(F); nx=len(F[0]); Sd=tex.get("side") or [[_shade(F[j][-1],.72) for _ in range(4)] for j in range(ny)]
+    T=tex.get("top") or [[_shade(F[0][i],1.12) for i in range(nx)] for _ in range(4)]
+    sh=len(Sd); sw=len(Sd[0]); th=len(T); tw=len(T[0])
+    for j in range(th):
+        for i in range(tw):
+            q=[pt(f0+i*w/tw,g0+dp-j*dp/th,z0+h),pt(f0+(i+1)*w/tw,g0+dp-j*dp/th,z0+h),pt(f0+(i+1)*w/tw,g0+dp-(j+1)*dp/th,z0+h),pt(f0+i*w/tw,g0+dp-(j+1)*dp/th,z0+h)]
+            d.P(q,_shade(T[j][i],1.1*dark)+(255,))
+    for i in range(sw):
+        for j in range(sh):
+            q=[pt(f0+w,g0+i*dp/sw,z0+h-j*h/sh),pt(f0+w,g0+(i+1)*dp/sw,z0+h-j*h/sh),pt(f0+w,g0+(i+1)*dp/sw,z0+h-(j+1)*h/sh),pt(f0+w,g0+i*dp/sw,z0+h-(j+1)*h/sh)]
+            d.P(q,_shade(Sd[j][i],.8*dark)+(255,))
+    for i in range(nx):
+        for j in range(ny):
+            q=[pt(f0+i*w/nx,g0,z0+h-j*h/ny),pt(f0+(i+1)*w/nx,g0,z0+h-j*h/ny),pt(f0+(i+1)*w/nx,g0,z0+h-(j+1)*h/ny),pt(f0+i*w/nx,g0,z0+h-(j+1)*h/ny)]
+            d.P(q,_shade(F[j][i],dark)+(255,))
+def steve_iso(d,cx,gy,r,u,walk=0.0):
+    """Steve con tu skin, en la misma proyeccion isometrica que el Creeper y el cerdo"""
+    sw=math.sin(walk)*1.2
+    pt=iso_pt(cx-8*20.5*r*0.0,gy,r)
+    shadow(d,cx+14*r,gy+8*r,150*r,22*r,70)
+    P=lambda f,g,z:pt(f-8+0.0,g,z)
+    pt2=lambda f,g,z:(cx+((f-8)*20.5+g*21.5)*r, gy+((f-8)*8.7-g*8.2)*r - z*29.5*r)
+    iso_box(d,pt2,4,0,0+max(0,sw)*0.4,4,4,12,STV["legL"]); iso_box(d,pt2,8,0,0+max(0,-sw)*0.4,4,4,12,STV["legR"])
+    iso_box(d,pt2,4,0,12,8,4,12,STV["body"])
+    iso_box(d,pt2,0,0,12-sw*.3,4,4,12,STV["armL"]); iso_box(d,pt2,12,0,12+sw*.3,4,4,12,STV["armR"])
+    iso_box(d,pt2,4,-2,24,8,8,8,STV["head"])
+
 def sky(d,u,top=(110,170,255),bot=(200,230,255),sun=True):
     pass
 def landscape(d,u,horizon=520,night=False):
@@ -210,7 +251,7 @@ def sceneE(u):
     boomt=u-4.0
     px=110+ (330*sm(clamp(u/1.6))*0)  # jugador quieto observando y luego se retira
     pxx=130-max(0,u-3.3)*90
-    person_blocky(d,pxx,800,4.8,u,walk=(u*6 if (u<1.4 or u>3.3) else 0))
+    steve_iso(d,pxx,800,34*4.8/964.0,u,walk=(u*6 if (u<1.4 or u>3.3) else 0))
     # creeper se acerca
     x=430-clamp(u/3.0)*190 if u<3.0 else 240
     walk=u*5 if u<3.0 else 0
@@ -249,7 +290,7 @@ def sceneF(u):
     cx,cy=330,500; s=24*z
     hw=8*s
     shadow(d,cx,cy+hw/2+40,hw*.55,20,80)
-    tbox(d,cx-hw/2,cy-hw/2,hw,hw,hw*.6,CRT["head"])
+    spr(d,"creeper",cx+10,cy+hw*.62,hw*1.55,hw*1.55*340/352,0.0,1.0,(40,0,412,340))
     # silbido: ondas y chispas
     for k in range(4):
         ph=(u*1.2+k*.25)%1; d.A(cx,cy,hw*.6+ph*160,hw*.6+ph*160,200,340,(220,255,220,int(150*(1-ph))),4)
