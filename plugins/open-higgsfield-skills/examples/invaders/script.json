@@ -1,0 +1,10 @@
+[
+{"text":"¿Sabías que Space Invaders se hizo famoso por un fallo del hardware?"},
+{"text":"En mil novecientos setenta y ocho, el japonés Tomohiro Nishikado creó el juego para la empresa Taito. En pantalla aparecen cincuenta y cinco invasores."},
+{"text":"Pero el procesador de la máquina era lento. Tenía que dibujar todos los invasores en cada fotograma, y eso le costaba."},
+{"text":"Y entonces ocurrió algo curioso: cuanto más invasores destruía el jugador, menos quedaban por dibujar, y el juego empezaba a ir más rápido, sin que nadie lo hubiera programado."},
+{"text":"Nishikado lo vio y pensó que era un fallo. Pero decidió dejarlo, porque aquella aceleración creaba una tensión increíble."},
+{"text":"El último invasor corre más que ninguno, y la sensación de estar acorralado se volvió inolvidable."},
+{"text":"Un límite técnico se convirtió en una de las mecánicas más famosas de los videojuegos."},
+{"text":"¿Qué otro fallo mejoró un juego? Cuéntalo en los comentarios y suscríbete… porque el pánico del último invasor empezó con un límite del hardware."}
+]
