@@ -1,23 +1,47 @@
 import sys; sys.path.insert(0,"..")
 from art import *
 from common import tv
+from PIL import Image, ImageOps
+import numpy as np
+
+def pines(d,u,base,col,n,sc,seed=0):
+    for i in range(n):
+        x=(i*(560.0/n)+rnd(i,seed)*40)%560-10; h=(150+rnd(i,seed+3)*130)*sc; w=(36+rnd(i,seed+4)*20)*sc
+        d.R(x-3*sc,base-18*sc,x+3*sc,base,(12,10,8),1)
+        for k in range(5):
+            y=base-18*sc-k*h/6; ww=w*(1-k*.17)
+            d.P([(x-ww,y),(x+ww,y),(x+math.sin(u*.8+i)*2,y-h/4)],col+(255,))
+def vhs(im,amount,seed):
+    return core.glitch(im,amount,seed) if amount>0.02 else im
+def grainy(im,seed,a=16):
+    arr=np.array(im).astype(np.float32); rng=np.random.default_rng(seed)
+    arr+=rng.normal(0,a,arr.shape[:2])[...,None]; return Image.fromarray(np.clip(arr,0,255).astype(np.uint8))
+def pages_hud(d,n):
+    ptext(d,196,900,"PAGES",4.0,(255,255,255)); ptext(d,330,900,str(n)+"/8",4.0,(255,255,255))
 def photo(d,x,y,w,h,u,k=0):
-    d.R(x-6,y-6,x+w+6,y+h+6,(236,232,220),3)
-    for kk in range(12): d.R(x,y+kk*h/12,x+w,y+(kk+1)*h/12+1,mixc((150,136,112),(88,76,60),kk/11.0),0)
-    for i in range(7):
-        tx=x+10+i*w/6.5; d.P([(tx-8,y+h),(tx+8,y+h),(tx+5,y),(tx-5,y)],(40,34,28,140))
-    for i,(fx) in enumerate([x+w*.22,x+w*.42,x+w*.62]):
-        silhouette(d,fx,y+h-6,.22,(40,34,28),arms=False)
-    tallman(d,x+w*.84,y+h-8,.24,u,(20,18,18))
-    d.R(x,y,x+w,y+h,(255,240,200,18),0)
-def paper(d,x,y,sc,u,glow=1.0):
+    d.R(x-6,y-6,x+w+6,y+h+6,(236,234,228),3)
+    for kk in range(12): d.R(x,y+kk*h/12,x+w,y+(kk+1)*h/12+1,mixc((190,190,190),(96,96,96),kk/11.0),0)
+    # parque: columpios, bosque al fondo y ninos
+    for i in range(8): 
+        tx=x+8+i*w/7.5; d.P([(tx-10,y+h*.7),(tx+10,y+h*.7),(tx+4,y+h*.08),(tx-4,y+h*.08)],(40,40,40,150))
+    d.L(x+w*.1,y+h*.9,x+w*.18,y+h*.3,(30,30,30),3); d.L(x+w*.5,y+h*.9,x+w*.44,y+h*.3,(30,30,30),3); d.L(x+w*.14,y+h*.3,x+w*.47,y+h*.3,(30,30,30),3)
+    for sx in(.24,.36): d.L(x+w*sx,y+h*.3,x+w*sx,y+h*.62,(30,30,30),1.5); d.R(x+w*sx-6,y+h*.62,x+w*sx+6,y+h*.65,(30,30,30),1)
+    for fx in (x+w*.58,x+w*.68,x+w*.78): silhouette(d,fx,y+h-6,.2,(36,36,36),arms=False)
+    tallman(d,x+w*.9,y+h-8,.2,u,(20,20,20),(30,30,30))
+    d.R(x,y,x+w,y+h,(255,255,255,0),0); noise_static(d,x,y,w,h,u*.3,38,4)
+    d.R(x,y+h+10,x+w*.8,y+h+16,(0,0,0,70),2); d.R(x,y+h+22,x+w*.6,y+h+28,(0,0,0,70),2)
+def paper(d,x,y,sc,u,glow=1.0,k=0):
     d.E(x,y,34*sc,34*sc,(255,255,255,int(34*glow)))
-    d.R(x-14*sc,y-18*sc,x+14*sc,y+18*sc,(244,242,230),1.5*sc); 
-    for k in range(4): d.L(x-9*sc,y-10*sc+k*7*sc,x+9*sc,y-10*sc+k*7*sc,(40,40,40,150),1.4*sc)
+    ang=(rnd(k,7)-.5)*.5
+    pts=rotpts([(x-14*sc,y-18*sc),(x+14*sc,y-18*sc),(x+14*sc,y+18*sc),(x-14*sc,y+18*sc)],x,y,ang); d.P(pts,(244,242,230))
+    for q in range(6):
+        a0=(rnd(k*9+q,1)-.5)*20*sc; l=rotpts([(x-10*sc+a0*.2,y-12*sc+q*5*sc),(x+10*sc,y-12*sc+q*5*sc+rnd(q+k,2)*3*sc)],x,y,ang); d.L(l[0][0],l[0][1],l[1][0],l[1][1],(20,20,20,200),1.2*sc)
+    f=rotpts([(x,y-8*sc),(x,y+10*sc)],x,y,ang); d.L(f[0][0],f[0][1],f[1][0],f[1][1],(10,10,10),1.4*sc)
 def sceneA(u,final=False):
     im=new((12,18,30),(30,38,56)); d=D(im)
     forest(d,u,sky=(24,36,66),sky2=(84,106,142),ground=(16,24,20),fog=(170,190,210),dense=15)
-    tallman(d,300+math.sin(u*.5)*4,640,.7+.05*u,u,(8,8,12))
+    pines(d,u,640,(8,16,12),16,1.6,1); pines(d,u,720,(4,10,8),11,2.2,5)
+    tallman(d,300+math.sin(u*.5)*4,640,.7+.05*u,u,(8,8,12),tie=(22,22,26))
     fogband(d,u,520,760,(160,176,192),34)
     flashlight(d,160,880,320,560,.3,560,70)
     return im
@@ -58,7 +82,7 @@ def sceneD(u):
         d_.R(x0,y0,x1,y1,(6,10,14)); 
         for k in range(5):
             x=x0+10+k*(x1-x0)/5; d_.P([(x-6,y1),(x+6,y1),(x+3,y0+10),(x-3,y0+10)],(18,26,22))
-        flashlight(d_,(x0+x1)/2,y1-6,(x0+x1)/2+20,y0+30,.3,(y1-y0)*.9,90); tallman(d_,x0+(x1-x0)*.72,y1-30,.16,u,(8,8,12))
+        flashlight(d_,(x0+x1)/2,y1-6,(x0+x1)/2+20,y0+30,.3,(y1-y0)*.9,90); tallman(d_,x0+(x1-x0)*.72,y1-30,.16,u,(8,8,12),tie=(22,22,26))
         paper(d_,x0+40,y0+50,.5,u)
     box=crt(d,150,400,240,214,(2,8,10),(190,182,158)); scr(d,*box); crt_fx(d,box)
     keyboard(d,190,664,160,30); person_back(d,270,742,1.45,1,u)
@@ -69,25 +93,27 @@ def sceneD(u):
 def sceneE(u):
     im=new((12,18,30),(30,38,56)); d=D(im)
     forest(d,u,sky=(24,36,66),sky2=(84,106,142),ground=(16,24,20),fog=(170,190,210),dense=16)
+    pines(d,u,640,(8,16,12),16,1.6,1); pines(d,u,720,(4,10,8),11,2.2,5)
     got=min(8,int(u/.8))
     spots=[(80,640),(190,600),(300,660),(410,620),(120,700),(250,730),(380,720),(470,670)]
     for k,(x,y) in enumerate(spots):
-        if k>=got: paper(d,x,y-60,1.2,u)
+        if k>=got: paper(d,x,y-60,1.2,u,1.0,k)
     near=clamp(u/7.0)
-    tallman(d,380-near*80,600+near*60,lerp(.6,1.1,near),u,(8,8,12))
+    tallman(d,380-near*80,600+near*60,lerp(.6,1.1,near),u,(8,8,12),tie=(22,22,26))
     fogband(d,u,500,800,(150,170,190),30)
     flashlight(d,270,940,270+math.sin(u*.8)*160,560,.34,640,90)
-    for k in range(8): d.R(24+k*26,24,44+k*26,52,(244,242,230) if k<got else (255,255,255,40),3)
-    return im
+    pages_hud(d,got)
+    return vhs(grainy(im,int(u*30)),.1+.2*near,int(u*10))
 def sceneF(u):
     im=new((8,10,16),(20,24,34)); d=D(im)
     forest(d,u,sky=(18,26,48),sky2=(60,80,112),ground=(12,18,16),fog=(150,170,190),dense=14,moon=False)
+    pines(d,u,640,(6,12,10),16,1.6,1); pines(d,u,720,(3,8,6),11,2.2,5)
     s=lerp(.9,2.6,sm(u/5.0)); tallman(d,270+math.sin(u*30)*(s-1)*3,760+s*40,s,u,(6,6,10))
     fogband(d,u,500,800,(150,170,190),28)
     flashlight(d,270,940,270,520,.3,640,80)
     st=sm(u/5.0); noise_static(d,0,0,540,960,u,int(30+220*st*st),8)
     d.R(0,0,540,960,(255,255,255,int(20*abs(math.sin(u*20))*st)),0)
-    return im
+    return vhs(grainy(im,int(u*30),24),.2+.9*st,int(u*30))
 def sceneG(u):
     im=new((14,10,26),(34,22,54)); d=D(im); stars(d,u,70,500)
     for k in range(5): d.E(270,560,90+k*50+((u*40)%50),90+k*50+((u*40)%50),None,(255,255,255,int(80*(1-(k+((u*40)%50)/50)/5))),3)
