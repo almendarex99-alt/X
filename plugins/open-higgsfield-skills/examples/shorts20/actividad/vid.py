@@ -26,7 +26,7 @@ def sceneB(u):
     # casa unifamiliar con camara domestica
     d.R(30,160,300,430,(80,70,76),6); d.P([(10,170),(165,70),(320,170)],(60,44,48)); d.R(120,300,190,430,(30,24,28),3); d.R(60,210,100,260,(255,220,130),2)
     d.R(330,740,500,860,(40,40,50),12); d.E(415,800,38,38,(20,22,30)); d.E(415,800,26,26,(70,100,160)); d.E(404,790,8,8,(255,255,255,200))
-    ptext(d,40,90,"2007",8,(255,255,255)); ptext(d,40,330,"OREN PELI",3.6,(255,220,120))
+    ptext(d,300,190,"2007",8,(255,255,255)); ptext(d,40,330,"OREN PELI",3.6,(255,220,120))
     cam_overlay(d,u,10)
     return im
 def sceneC(u):
@@ -34,7 +34,7 @@ def sceneC(u):
     # camara fija: marco de trípode abajo y tiempo avanzando rapido
     d.L(270,880,200,960,(60,60,72),8); d.L(270,880,340,960,(60,60,72),8); d.L(270,880,270,960,(60,60,72),8)
     d.R(250,830,290,880,(30,30,40),6)
-    ptext(d,40,100,"CAMARA FIJA",5,(255,255,255))
+    ptext(d,40,190,"CAMARA FIJA",5,(255,255,255))
     for k in range(10): d.R(0,((u*120)+k*100)%960,540,((u*120)+k*100)%960+2,(255,255,255,18),0)
     cam_overlay(d,u,30+u*3)
     return im
@@ -60,17 +60,17 @@ def sceneF(u):
     im=new((6,6,10),(16,16,24)); d=D(im)
     b=sm(u/3.0); base=780
     d.R(100,base-8,200,base,(120,230,150),4)
-    d.R(310,base-640*b,420,base,(255,200,90),6)
+    d.R(310,base-520*b,420,base,(255,200,90),6)
     ptext(d,70,base+30,"15 MIL",3.4,(255,255,255)); ptext(d,300,base+30,"190 MILL",3.4,(255,255,255))
-    for k in range(12): d.E(365+math.sin(k+u*3)*50,base-640*b-14-((u*70+k*36)%120),3.6,3.6,(255,230,130,200))
-    ptext(d,40,90,"TAQUILLA",6,(255,255,255))
+    for k in range(12): d.E(365+math.sin(k+u*3)*50,base-520*b-14-((u*70+k*36)%120),3.6,3.6,(255,230,130,200))
+    ptext(d,40,190,"TAQUILLA",6,(255,255,255))
     return im
 def sceneG(u):
     im=new((6,8,12),(14,16,24)); d=D(im)
     # camara de mano con ojo/lente que reaparece; "metraje encontrado"
     d.R(150,300,390,560,(30,32,40),20); d.R(390,360,470,500,(24,26,34),10); d.E(270,430,76,76,(14,16,22)); d.E(270,430,56,56,(60,90,140)); d.E(270,430,32,32,(6,8,12)); d.E(252,412,10,10,(255,255,255,220))
     d.E(420,330,8,8,(240,40,40,int(255*(math.sin(u*5)>0))))
-    ptext(d,40,100,"METRAJE",6,(255,255,255)); ptext(d,40,160,"ENCONTRADO",6,(255,220,120))
+    ptext(d,40,190,"METRAJE",6,(255,255,255)); ptext(d,40,250,"ENCONTRADO",6,(255,220,120))
     cam_overlay(d,u,55)
     return im
 core.SCN=[lambda u:sceneA(u),sceneB,sceneC,sceneD,sceneE,sceneF,sceneG,lambda u:sceneA(u,True)]

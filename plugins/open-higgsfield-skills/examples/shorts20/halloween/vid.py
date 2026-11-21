@@ -50,9 +50,9 @@ def sceneA(u,final=False):
     return im
 def sceneB(u):
     im=new((8,6,16),(20,14,30)); d=D(im); street(d,u)
-    clapper(d,150,300,1.5,open_=clamp(math.sin(u*2.5)))
+    clapper(d,150,380,1.5,open_=clamp(math.sin(u*2.5)))
     film_camera(d,380,820,1.0,u)
-    ptext(d,40,90,"1978",8,(255,255,255)); ptext(d,40,150,"CARPENTER",3.6,ORG)
+    ptext(d,40,200,"1978",8,(255,255,255)); ptext(d,40,265,"CARPENTER",3.6,ORG)
     return im
 def sceneC(u):
     im=new((14,12,22),(30,26,44)); d=D(im)

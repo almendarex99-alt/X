@@ -31,8 +31,8 @@ def sceneA(u,final=False):
     return im
 def sceneB(u):
     im=new((8,10,22),(24,26,48)); d=D(im); pool(d,u)
-    ptext(d,40,80,"1982",8,(255,255,255)); ptext(d,40,140,"HOOPER  SPIELBERG",3.4,(255,220,120))
-    clapper(d,380,200,1.3,open_=clamp(math.sin(u*2.2)))
+    ptext(d,40,200,"1982",8,(255,255,255)); ptext(d,40,265,"HOOPER  SPIELBERG",3.4,(255,220,120))
+    clapper(d,380,360,1.3,open_=clamp(math.sin(u*2.2)))
     return im
 def sceneC(u):
     im=new((10,8,20),(30,24,44)); d=D(im); pool(d,u)
@@ -50,7 +50,7 @@ def sceneD(u):
     ptext(d,310,300,"PLASTICO",4.4,(10,24,40)); skull(d,400,380,1.0)
     for x,lab,hgt,col in((140,"REAL",50,(120,200,140)),(400,"FALSO",190,(240,110,90))):
         d.R(x-50,780-hgt,x+50,780,col+(255,),6); ptext(d,x-48,800,lab,4.4,(255,255,255))
-    ptext(d,40,100,"SE CUENTA",5,(255,220,120))
+    ptext(d,40,190,"SE CUENTA",5,(255,220,120))
     return im
 def sceneE(u):
     im=new((8,10,20),(24,28,44)); d=D(im); mud(d,u,640); pool(d,u)
@@ -66,7 +66,7 @@ def sceneF(u):
         pts=[(270+math.sin(k*1.4+u*6+q)*24*(1-abs(k-8)/10),200+k*60) for k in range(0,14)]
         for i in range(len(pts)-1): d.L(pts[i][0]+(q-2)*50,pts[i][1],pts[i+1][0]+(q-2)*50,pts[i+1][1],(160,220,255,int(180-q*20)),4)
     skull(d,270,720,2.4); 
-    ptext(d,40,100,"ESCALOFRIO EXTRA",4,(255,255,255))
+    ptext(d,40,190,"ESCALOFRIO EXTRA",4,(255,255,255))
     return im
 def sceneG(u):
     im=new((6,6,12),(16,14,24)); d=D(im)
@@ -75,7 +75,7 @@ def sceneG(u):
     noise_static(d,110,260,320,360,u,a=170,cell=10)
     for k in range(7): d.R(110,260+((u*140+k*60)%360),430,264+((u*140+k*60)%360),(255,255,255,60),0)
     d.R(220,640,320,700,(40,34,38),4); d.E(270,830,20,8,(0,0,0,60))
-    ptext(d,40,100,"UN CLASICO",6,(255,255,255))
+    ptext(d,40,190,"UN CLASICO",6,(255,255,255))
     return im
 core.SCN=[lambda u:sceneA(u),sceneB,sceneC,sceneD,sceneE,sceneF,sceneG,lambda u:sceneA(u,True)]
 def cam(idx,u,dur):
