@@ -23,4 +23,7 @@ for k in range(45): m.noise(a0+k*(5.0/45)+.1,.015,.12,decay=90,hp=3)  # cortes d
 a0,a1=W(1)
 for k in range(5): m.noise(a0+.6+k*1.3,.06,.14,decay=40,hp=3)
 for k in range(int(T/6)+2): m.sine(k*6,hz(30),6.4,.05,att=1.6,rel=1.6)
+# cuchilladas de cuerda: notas cortas muy agudas que suben de semitono
+a0,a1=W(6)
+for k in range(8): screech(a0+1.6+k*.16,.12,2200+k*140,2600+k*140,.16)
 whooshes(m,TL); m.save("music.wav",gain=1.3,T=T)

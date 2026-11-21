@@ -1,5 +1,7 @@
 import sys; sys.path.insert(0,"..")
 from art import *
+from PIL import Image
+import numpy as np
 BR=(92,48,24)
 def gray(v): return (v,v,v)
 def syrup_bottle(d,x,y,sc,u,tilt=0.0):
@@ -13,8 +15,33 @@ def drain_spiral(d,cx,cy,R,u,brown=True,a=255):
         d.E(cx+math.cos(ang)*r*.5,cy+math.sin(ang)*r*.25,R*.32,R*.18,col)
     d.E(cx,cy,R*.25,R*.12,(20,20,22,a))
     for k in range(6): d.L(cx-R*.2+k*R*.08,cy-R*.1,cx-R*.2+k*R*.08,cy+R*.1,(80,80,86,a),2)
+
+def bands(im,y0,y1,seed,amp=180,n=9):
+    """barras horizontales desplazadas (tarjeta de titulo estilo Saul Bass)"""
+    a=np.array(im); S_=3; h=(y1-y0)*S_; y0s=y0*S_
+    step=max(1,h//n)
+    for k in range(n):
+        off=int(math.sin(seed*1.2+k*1.9)*amp*S_*(1-0.5*(k%2)))
+        a[y0s+k*step:y0s+(k+1)*step]=np.roll(a[y0s+k*step:y0s+(k+1)*step],off,axis=1)
+    return Image.fromarray(a)
+def big_head(d,u):
+    d.E(270,80,110,28,(124,124,130)); d.E(270,72,110,22,(196,198,204))
+    for r in range(5):
+        for c in range(9): d.E(270-88+c*22+(r%2)*10,66+r*7,2.2,2.2,(60,60,66))
+    d.R(258,0,282,56,(120,120,126),0)
+    for k in range(40):
+        x=170+rnd(k)*200; t=(u*1.5+rnd(k,2))%1; d.L(x,92+t*860,x-2,108+t*860,(255,255,255,170),2)
+def violin(d,x,y,sc,ang,u,k=0):
+    pts=lambda arr:[(x+px*sc,y+py*sc) for px,py in arr]
+    d.E(x,y+22*sc,32*sc,24*sc,(120,66,30)); d.E(x,y-6*sc,24*sc,20*sc,(120,66,30)); d.R(x-18*sc,y-4*sc,x+18*sc,y+14*sc,(120,66,30),8*sc)
+    d.E(x,y+22*sc,28*sc,20*sc,(150,84,38,160)); d.E(x,y-6*sc,20*sc,16*sc,(150,84,38,160))
+    for sg in(-1,1): d.A(x+sg*10*sc,y+8*sc,5*sc,14*sc,70,110,(20,10,6),2*sc)
+    d.R(x-5*sc,y-84*sc,x+5*sc,y-20*sc,(30,18,10),2*sc); d.E(x,y-92*sc,9*sc,9*sc,(30,18,10))
+    for q in range(4): d.L(x-3*sc+q*2*sc,y-80*sc,x-3*sc+q*2*sc,y+36*sc,(230,226,210,200),1.1*sc)
+    d.R(x-12*sc,y+40*sc,x+12*sc,y+46*sc,(20,12,8),2*sc)
+    bx=x+math.sin(u*14+k)*36*sc; d.L(bx-52*sc,y+2*sc,bx+52*sc,y+12*sc,(236,230,214),3*sc); d.L(bx-52*sc,y+2*sc,bx+52*sc,y+12*sc,(30,20,12),1*sc)
 def sceneA(u,final=False):
-    im=new((176,176,176),(120,120,124)); d=D(im); shower(d,u)
+    im=new((176,176,176),(120,120,124)); d=D(im); shower(d,u); big_head(d,u)
     # chorro de chocolate cayendo: unico color de la escena
     syrup_bottle(d,430,420,1.5,u,tilt=-.9)
     for k in range(30):
@@ -24,19 +51,23 @@ def sceneA(u,final=False):
     return im
 def sceneB(u):
     im=new((70,70,74),(18,18,20)); d=D(im)
-    for k in range(16):
-        a=-1.2+k*.16; d.P([(270,80),(270+math.cos(a-.05)*800,80+math.sin(a-.05)*800+0),(270+math.cos(a+.05)*800,80+math.sin(a+.05)*800)],(255,255,255,10))
-    d.E(400,160,48,48,gray(236)+(230,)); d.E(400,160,100,100,gray(236)+(30,))
-    # casa y motel sobre la colina (silueta de cine clasico)
-    d.P([(0,520),(160,460),(300,500),(440,440),(540,470),(540,640),(0,640)],gray(12)+(255,))
-    d.R(120,360,230,480,gray(10)+(255,),2); d.P([(110,360),(175,310),(240,360)],gray(10)); d.R(150,330,166,364,gray(10),1); d.R(138,392,154,418,gray(236),1); d.R(190,392,206,418,gray(70),1)
+    d.E(400,150,48,48,gray(236)+(230,)); d.E(400,150,100,100,gray(236)+(30,))
+    d.P([(0,520),(160,470),(300,500),(440,450),(540,480),(540,640),(0,640)],gray(12)+(255,))
+    # casa victoriana: torre, tejado en mansarda, porche y ventanas encendidas
+    d.R(120,360,250,480,gray(10)+(255,),2); d.P([(108,360),(185,300),(262,360)],gray(10)); d.R(150,260,196,312,gray(10)+(255,),2); d.P([(144,262),(173,224),(202,262)],gray(10))
+    d.R(100,476,270,492,gray(10),2)
+    for (wx,wy,lit) in[(138,392,1),(190,392,0),(160,282,1),(214,424,1)]: d.R(wx,wy,wx+16,wy+26,gray(236) if lit else gray(60),2)
+    # motel en L con letrero de neon
+    d.R(300,520,520,566,gray(30)+(255,),2); d.R(300,512,520,522,gray(18),0)
+    for k in range(5): d.R(316+k*40,530,336+k*40,566,gray(120),2)
+    d.R(460,430,468,520,gray(40),1); d.R(412,420,520,462,gray(22),4)
+    ptext(d,420,426,"MOTEL",3.4,(255,255,255)); ptext(d,420,448,"VACANCY",2.2,(255,255,255,200)[:3])
     d.R(0,640,540,960,gray(26)+(255,),0)
-    film_camera(d,150,820,.9,u)
-    # silla de director y silueta
-    d.L(380,820,380,740,gray(150),6); d.R(350,740,420,752,gray(170),3); d.L(352,752,420,820,gray(150),5); d.L(418,752,352,820,gray(150),5)
-    silhouette(d,380,742,.8,gray(190)) if False else None
-    clapper(d,300,880,.8,open_=(math.sin(u*3)>.4)*1.0)
-    return im
+    film_camera(d,150,840,.9,u); clapper(d,330,890,.8,open_=(math.sin(u*3)>.4)*1.0)
+    # tarjeta de titulo con barras horizontales
+    d.R(0,0,540,196,gray(0)+(235,),0)
+    ptext(d,86,40,"PSYCHO",11.0,(255,255,255))
+    return bands(im,36,168,u,60,8)
 def sceneC(u):
     im=new((176,176,176),(120,120,124)); d=D(im)
     for r in range(12):
@@ -70,13 +101,6 @@ def sceneD(u):
     d.A(270,820,60,60,-90,-90+360*.8,(210,40,50,255),5)
     number(d,330,788,min(78,int(u/5.0*78)),2,26,50,(255,255,255))
     return im
-def violin(d,x,y,sc,ang,u,k=0):
-    pts_body=[(x-28*sc,y),(x+28*sc,y)]
-    d.E(x,y,28*sc,36*sc,(120,70,36)); d.E(x,y-30*sc,22*sc,28*sc,(120,70,36)); d.R(x-6*sc,y-110*sc,x+6*sc,y-70*sc,(40,24,16),2*sc)
-    d.R(x-3*sc,y-130*sc,x+3*sc,y-60*sc,(20,14,10),1)
-    for q in(-1,1): d.A(x+q*10*sc,y-4*sc,5*sc,16*sc,70,110,(20,10,6),2*sc)
-    # arco que corta las cuerdas con movimiento rapido
-    bx=x+math.sin(u*14+k)*34*sc; d.L(bx-40*sc,y-26*sc,bx+40*sc,y-14*sc,(236,230,214),3*sc)
 def sceneE(u):
     im=new((16,16,20),(40,40,50)); d=D(im)
     # silencio (linea plana) frente a violines estridentes (onda dentada)
@@ -102,19 +126,25 @@ def sceneF(u):
         a=-1.57+(k-9)*.05; d.P([(270,60),(270+math.cos(a-.03)*900,60+math.sin(a-.03)*900+400),(270+math.cos(a+.03)*900,60+math.sin(a+.03)*900+400)],(255,255,255,12))
     d.R(130,90,410,150,gray(30),6); d.E(270,120,26,26,gray(190)); d.E(270,120,26,26,None,gray(240),4)
     ck=sm((u-1.2)/.5)
-    d.E(270,520,120,120,(60,180,110,int(255*ck))); d.L(222,520,258,556,(255,255,255,int(255*ck)),16); d.L(258,556,328,470,(255,255,255,int(255*ck)),16)
-    violin(d,270,860,1.5,0,u,1)
-    for k in range(3): d.A(270,720,70+k*40+((u*60)%40),70+k*40+((u*60)%40),200,340,gray(255)+(int(180*(1-k*.3)),),3)
+    d.E(270,470,120,120,gray(236)+(int(255*ck),)); d.L(222,470,258,506,gray(30)+(int(255*ck),),16); d.L(258,506,328,420,gray(30)+(int(255*ck),),16)
+    violin(d,270,800,1.6,0,u,1)
+    for k in range(3): d.A(270,690,70+k*40+((u*60)%40),70+k*40+((u*60)%40),200,340,gray(255)+(int(180*(1-k*.3)),),3)
     return im
 def sceneG(u):
-    im=new((190,190,190),(110,110,114)); d=D(im); shower(d,u)
-    # cortina translucida con la sombra de una figura (sin violencia explicita)
+    im=new((190,190,190),(110,110,114)); d=D(im); shower(d,u); big_head(d,u)
     d.R(40,60,500,900,(236,236,236,150),10)
     for k in range(8): d.A(40+k*60,60,20,16,180,360,gray(150),3)
-    silhouette(d,270,880,2.5,gray(30),arms=True); d.R(0,0,540,960,(255,255,255,0),0)
-    # rafagas del violin
+    silhouette(d,270,880,2.5,gray(30),arms=True)
     for k in range(12):
         a=k*.52+u*.2; d.L(270,520,270+math.cos(a)*400,520+math.sin(a)*500,(0,0,0,int(70*abs(math.sin(u*14+k)))),5)
+    # la camara cae al desague y se convierte en un ojo (transicion clasica)
+    e=sm((u-3.0)/1.4)
+    if e>0:
+        d.R(0,0,540,960,gray(0)+(int(255*e),),0)
+        R=140+60*e
+        d.E(270,480,R*1.4,R*.7,gray(236)+(int(255*e),)); d.E(270,480,R*.62,R*.62,gray(120)+(int(255*e),)); d.E(270,480,R*.26,R*.26,gray(0)+(int(255*e),))
+        for k in range(12): a=k*.52; d.L(270+math.cos(a)*R*.28,480+math.sin(a)*R*.28,270+math.cos(a)*R*.6,480+math.sin(a)*R*.6,gray(60)+(int(255*e),),2)
+        d.E(250,462,16,10,gray(255)+(int(220*e),))
     return im
 core.SCN=[lambda u:sceneA(u),sceneB,sceneC,sceneD,sceneE,sceneF,sceneG,lambda u:sceneA(u,True)]
 def cam(idx,u,dur):
