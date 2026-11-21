@@ -43,20 +43,20 @@ def sceneA(u,final=False):
 def sceneB(u):
     im=new((8,12,30),(20,30,60)); d=D(im)
     d.R(70,360,160,620,(0,40,150),0); d.R(160,360,250,620,(240,240,244),0); d.R(250,360,340,620,(220,30,50),0)
-    ptext(d,40,200,"1992",9,(255,255,255)); ptext(d,40,700,"INFOGRAMES",5,(255,255,255)); ptext(d,40,770,"FRANCIA",5,(255,214,120))
+    ptext(d,40,200,"1992",9,(255,255,255)); ptext(d,40,640,"INFOGRAMES",5,(255,255,255)); ptext(d,40,710,"FRANCIA",5,(255,214,120))
     return im
 def sceneC(u):
     im=new((20,16,22),(60,46,44)); d=D(im); hall(d,u)
     poly_hero(d,270,780,1.9,0.0)
-    d.R(300,720,420,760,(90,60,40),4); ptext(d,40,150,"MANSION",7,(255,255,255))
+    d.R(300,720,420,760,(90,60,40),4); ptext(d,40,235,"MANSION",7,(255,255,255))
     return im
 def sceneD(u):
     im=new((20,16,22),(60,46,44)); d=D(im); hall(d,u)
     d.R(0,0,540,960,(255,255,255,0),0)
     poly_hero(d,180,800,1.7,u); poly_monster(d,400,800,1.5,u)
     # etiquetas de poligonos y fondo dibujado
-    d.R(20,170,260,230,(0,0,0,150),8); ptext(d,34,186,"POLIGONOS",3.8,(255,214,120))
-    d.R(280,170,520,230,(0,0,0,150),8); ptext(d,294,186,"FONDO DIBUJADO",2.8,(255,255,255))
+    d.R(20,240,260,300,(0,0,0,150),8); ptext(d,34,256,"POLIGONOS",3.8,(255,214,120))
+    d.R(280,240,520,300,(0,0,0,150),8); ptext(d,294,256,"FONDO DIBUJADO",2.8,(255,255,255))
     for k in range(10):
         a=k*.62+u; d.L(180,640,180+math.cos(a)*40,640+math.sin(a)*40,(255,255,255,70),1.5)
     return im
@@ -69,7 +69,7 @@ def sceneE(u):
     poly_hero(d,270 if p==0 else 300,800,1.7,0.5)
     camera_icon(d,70,90,1.6)
     d.R(0,0,540,960,None,0,(255,255,255,60),6)
-    ptext(d,40,190,"CAMARA FIJA",5,(255,255,255))
+    ptext(d,40,235,"CAMARA FIJA",5,(255,255,255))
     return im
 def sceneF(u):
     im=new((10,12,24),(28,30,56)); d=D(im); b=sm(u/1.0)
@@ -78,7 +78,7 @@ def sceneF(u):
     d.E(270,640,80,40,(236,196,60)); d.R(240,640,300,740,(236,196,60),6)
     poly_hero(d,270,900,1.3,0.0)
     for k in range(24): a=k*.5+u; d.E(270+math.cos(a)*(200+k*3),440+math.sin(a)*(200+k*3),2.5,2.5,(255,230,140,int(220*abs(math.sin(u*2+k)))))
-    ptext(d,40,150,"PIONERO",8,(255,255,255))
+    ptext(d,40,235,"PIONERO",8,(255,255,255))
     return im
 def sceneG(u):
     im=new((8,10,18),(22,24,38)); d=D(im)

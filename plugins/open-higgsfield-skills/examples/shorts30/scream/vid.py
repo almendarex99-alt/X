@@ -28,7 +28,7 @@ def sceneA(u,final=False):
 def sceneB(u):
     im=new((8,8,14),(24,22,32)); d=D(im); d.R(0,700,540,960,(14,12,18),0)
     clapper(d,270,420,2.0,open_=clamp(math.sin(u*2.2)))
-    ptext(d,40,200,"1996",9,(255,255,255)); ptext(d,40,820,"WES CRAVEN",4.6,(255,214,120))
+    ptext(d,40,200,"1996",9,(255,255,255)); ptext(d,40,690,"WES CRAVEN",4.6,(255,214,120))
     return im
 def sceneC(u):
     im=new((40,30,60),(220,140,110)); d=D(im); house_out(d,u)
@@ -36,7 +36,7 @@ def sceneC(u):
     d.R(330,360,410,430,(30,24,30),2); gmask(d,370,392,.3,hood=False)
     flashlight(d,120,820,350,400,spread=.18,L=560,a=60)
     silhouette(d,120,880,1.6,(10,8,12)); clipboard(d,160,760,.9)
-    ptext(d,40,150,"LOCALIZACIONES",4,(255,255,255))
+    ptext(d,40,235,"LOCALIZACIONES",4,(255,255,255))
     return im
 def sceneD(u):
     im=new((24,20,30),(52,44,60)); d=D(im); d.R(0,640,540,960,(70,52,40),0)
@@ -46,13 +46,13 @@ def sceneD(u):
             x=70+c*135; col=[(70,110,70),(120,60,60),(60,70,120),(230,196,60)][(r+c)%4]
             if (r,c)==(1,2): gmask(d,x,y-92,.42,hood=False)
             else: d.E(x,y-60,34,46,col+(255,)); d.E(x-12,y-72,6,6,(10,10,12)); d.E(x+12,y-72,6,6,(10,10,12))
-    ptext(d,40,720,"DE TIENDA",7,(255,255,255))
+    ptext(d,40,650,"DE TIENDA",7,(255,255,255))
     return im
 def sceneE(u):
     im=new((8,8,12),(22,20,28)); d=D(im); b=sm(u/1.0)
     gmask(d,270,470,2.3,u,glow=b)
     d.L(60,300,200,380,(255,255,255,0),1)
-    ptext(d,40,150,"CARA ALARGADA",4.4,(255,214,120))
+    ptext(d,40,235,"CARA ALARGADA",4.4,(255,214,120))
     return im
 def sceneF(u):
     im=new((24,20,30),(52,44,60)); d=D(im); d.R(0,700,540,960,(60,48,40),0)
@@ -67,7 +67,7 @@ def sceneG(u):
     im=new((6,6,10),(20,16,24)); d=D(im)
     for k in range(3):
         x=90+k*180; gmask(d,x,430,.7,hood=True)
-    ptext(d,40,150,"ICONO",8,(255,255,255))
+    ptext(d,40,235,"ICONO",8,(255,255,255))
     film_strip(d,780,u,h=100)
     return im
 core.SCN=[lambda u:sceneA(u),sceneB,sceneC,sceneD,sceneE,sceneF,sceneG,lambda u:sceneA(u,True)]

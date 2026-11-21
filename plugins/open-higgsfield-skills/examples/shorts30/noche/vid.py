@@ -28,14 +28,14 @@ def sceneA(u,final=False):
 def sceneB(u):
     im=new(g(10),g(50)); d=D(im); d.R(0,700,540,960,g(14),0)
     clapper(d,270,420,2.0,open_=clamp(math.sin(u*2.2)))
-    ptext(d,40,200,"1968",9,g(240)); ptext(d,40,820,"PITTSBURGH",5,g(240))
+    ptext(d,40,200,"1968",9,g(240)); ptext(d,40,690,"PITTSBURGH",5,g(240))
     return im
 def sceneC(u):
     im=new(g(12),g(44)); d=D(im)
     # cartera vacia con pocas monedas
     d.R(80,360,460,640,g(190),24); d.R(80,360,460,420,g(150),24); d.R(380,470,470,530,g(120),12); d.E(420,500,8,8,g(220))
     for k in range(3): d.E(180+k*40,720+k*8,24,10,g(230)); d.E(180+k*40,716+k*8,24,10,g(190))
-    ptext(d,40,200,"POCO DINERO",5.6,g(240))
+    ptext(d,40,225,"POCO DINERO",5.6,g(240))
     return im
 def sceneD(u):
     im=new(g(10),g(40)); d=D(im)
@@ -49,13 +49,13 @@ def sceneE(u):
     for k in range(10): d.R(150,230+k*44,390-((k*37)%80),240+k*44,g(120),2)
     r=sm((u-1.5)/1.0)
     copyright(d,270,860,56,g(240)); d.L(214,804,326,916,(210,40,40,int(255*r)),10); d.L(326,804,214,916,(210,40,40,int(255*r)),10)
-    ptext(d,40,100,"SIN AVISO",6,g(240))
+    ptext(d,40,225,"SIN AVISO",6,g(240))
     return im
 def sceneF(u):
     im=new(g(10),g(44)); d=D(im)
     for r in range(3):
         for c in range(3): reel(d,100+c*170,300+r*190,.8,u+c*.3+r)
-    ptext(d,40,100,"PARA TODOS",6,g(240))
+    ptext(d,40,225,"PARA TODOS",6,g(240))
     d.R(40,820,500,900,g(0),6); ptext(d,60,844,"PUBLICO",5,g(240))
     return im
 def sceneG(u):

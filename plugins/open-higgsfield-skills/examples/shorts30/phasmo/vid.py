@@ -63,7 +63,7 @@ def sceneF(u):
     im=new((6,8,16),(14,18,30)); d=D(im); house_room(d,u)
     near=clamp(u/6.0); ghost(d,lerp(420,300,near),760,lerp(1.2,2.2,near),u,a=int(120+80*near))
     # barra de cordura bajando
-    d.R(40,120,500,150,(255,255,255,40),8); d.R(40,120,40+460*(1-.7*near),150,GRN+(230,),8); ptext(d,40,160,"CORDURA",3.4,(255,255,255))
+    d.R(40,225,500,255,(255,255,255,40),8); d.R(40,225,40+460*(1-.7*near),255,GRN+(230,),8); ptext(d,40,265,"CORDURA",3.4,(255,255,255))
     return im
 def sceneG(u):
     im=new((6,8,16),(14,18,30)); d=D(im); house_room(d,u)
