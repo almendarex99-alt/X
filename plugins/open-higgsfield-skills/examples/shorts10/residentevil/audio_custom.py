@@ -31,4 +31,9 @@ a0,a1=W(5); m.noise(a0+1.5,.12,.3,decay=28,lp=6); thud(a0+1.5)
 # G: revelacion: acorde que abre
 a0,a1=W(6)
 for j,nn in enumerate([57,64,69,72]): m.sine(a0+.2+j*.1,hz(nn),2.4,.07,att=.05,decay=1.6)
+# maquina de escribir (sala segura) y giro del CD durante la carga
+a0,a1=W(6)
+for k in range(12): m.noise(a0+.4+k*.14,.03,.12,decay=70,hp=3); m.sine(a0+.4+k*.14,hz(80+k%3),.03,.03,decay=60)
+a0,a1=W(3)
+m.noise(a0+.8,a1-a0-1.4,.05,decay=0,lp=30,att=.8); m.sine(a0+.8,hz(60),a1-a0-1.4,.04,att=.6,f2=hz(66))
 whooshes(m,TL); m.save("music.wav",gain=1.3,T=T)
