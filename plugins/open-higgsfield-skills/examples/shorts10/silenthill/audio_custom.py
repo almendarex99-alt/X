@@ -23,4 +23,9 @@ for k in range(14):
 m.sine(a0+4.0,hz(41),a1-a0-4.0,.2,att=1.2,f2=hz(36))
 a0,a1=W(6)
 for j,nn in enumerate([45,52,57]): m.sine(a0+.2+j*.15,hz(nn),3.0,.07,att=.4,decay=.9)
+# sirena de aviso (barrido lento de ida y vuelta) en los destellos del otro mundo
+def siren(a,d):
+    n=int(d*SR); u=np.arange(n)/SR; f=420+330*np.sin(u/d*math.pi)**1.0; ph=2*np.pi*np.cumsum(f)/SR
+    e=np.minimum(1,u/.15)*np.minimum(1,(d-u)/.3).clip(0,1); m.add(a,(np.sin(ph)+.4*np.sin(2*ph))*e*.12,1.0)
+a0,a1=W(6); siren(a0+1.1,1.0); siren(a0+2.5,.8); m.noise(a0+1.2,.6,.1,decay=3,hp=3)
 whooshes(m,TL); m.save("music.wav",gain=1.3,T=T)
