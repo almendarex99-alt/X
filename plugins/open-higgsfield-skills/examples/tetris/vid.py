@@ -130,19 +130,41 @@ def nextbox(d,x,y,k,cell=16):
     d.R(x,y,x+90,y+80,(18,20,44),8); cells=RO[k][0]
     for r,c in cells: block(d,x+14+c*cell,y+16+r*cell,cell,COL[k])
 # ----- escenas -----
+
+GBP=[(155,188,15),(139,172,15),(48,98,48),(15,56,15)]
+FONT={"A":["###","#.#","###","#.#","#.#"],"C":["###","#..","#..","#..","###"],"E":["###","#..","##.","#..","###"],"I":["###",".#.",".#.",".#.","###"],"L":["#..","#..","#..","#..","###"],"N":["#.#","###","###","###","#.#"],"O":["###","#.#","#.#","#.#","###"],"R":["##.","#.#","##.","#.#","#.#"],"S":["###","#..","###","..#","###"],"T":["###",".#.",".#.",".#.",".#."],"V":["#.#","#.#","#.#","#.#",".#."],"X":["#.#","#.#",".#.","#.#","#.#"],"0":["###","#.#","#.#","#.#","###"],"1":[".#.","##.",".#.",".#.","###"],"2":["###","..#","###","#..","###"],"3":["###","..#","###","..#","###"],"4":["#.#","#.#","###","..#","..#"],"5":["###","#..","###","..#","###"],"6":["###","#..","###","#.#","###"],"7":["###","..#","..#","..#","..#"],"8":["###","#.#","###","#.#","###"],"9":["###","#.#","###","..#","###"]," ":["...","...","...","...","..."]}
+def gb_text(d,x,y,txt,cell,col=GBP[3]):
+    for i,ch in enumerate(txt):
+        for r,row in enumerate(FONT.get(ch,FONT[" "])):
+            for c,v in enumerate(row):
+                if v=="#": d.R(x+(i*4+c)*cell,y+r*cell,x+(i*4+c)*cell+cell,y+r*cell+cell,col+(255,),0)
+def gb_wall(d,x,y,w,h,cell):
+    for r in range(int(h/cell)):
+        for c in range(int(w/cell)):
+            xx=x+c*cell; yy=y+r*cell
+            d.R(xx,yy,xx+cell,yy+cell,GBP[2] if (r+c)%2==0 else GBP[1],0); d.R(xx+cell*.25,yy+cell*.25,xx+cell*.75,yy+cell*.75,GBP[3] if (r+c)%2==0 else GBP[2],0)
+def gb_screen(d,P,t,lines,sc=1.15,Y0=190):
+    """pantalla tipo Game Boy (Type A): muros decorados, campo 10x18, panel NEXT / LEVEL / LINES / SCORE; 4 tonos de verde"""
+    cell=22*sc; X0=30
+    d.R(0,0,540,960,GBP[0]+(255,),0)
+    gb_wall(d,0,0,540,66,22); gb_wall(d,0,894,540,66,22)
+    gb_wall(d,X0,Y0,2*cell,20*cell,cell); gb_wall(d,X0+2*cell+10*cell,Y0,2*cell,20*cell,cell)
+    gb_wall(d,X0,Y0+18*cell,14*cell,2*cell,cell)
+    d.R(X0+2*cell,Y0,X0+12*cell,Y0+18*cell,GBP[0]+(255,),0)
+    draw_board(d,P,t,X0+2*cell,Y0,cell,mono=True,frame=False)
+    px=X0+14*cell+10; pw=540-px-14
+    d.R(px,Y0,px+pw,Y0+96,GBP[1]+(255,),0); d.R(px,Y0,px+pw,Y0+96,None,0,GBP[3]+(255,),4)
+    gb_text(d,px+12,Y0+8,"NEXT",3.4,GBP[3])
+    nk=P[(board_state(P,t)+1)%len(P)]["k"]
+    for r,c in RO[nk][0]: d.R(px+22+c*15,Y0+40+r*15,px+22+c*15+14,Y0+40+r*15+14,GBP[3]+(255,),2)
+    gb_text(d,px,Y0+150,"LEVEL",3.4,GBP[3]); gb_text(d,px,Y0+176,"00",4.4,GBP[3])
+    gb_text(d,px,Y0+240,"LINES",3.4,GBP[3]); gb_text(d,px,Y0+266,str(lines).zfill(3),4.4,GBP[3])
+    gb_text(d,px,Y0+330,"SCORE",3.4,GBP[3]); gb_text(d,px,Y0+356,str(lines*100).zfill(6),3.4,GBP[3])
 def sceneA(u,final=False):
-    im=new((6,8,30),(30,10,58)); d=D(im)
-    for k in range(14):
-        kk=list(SH)[k%7]; x=(rnd(k)*500+20); y=(960-((u*30*(0.5+rnd(k,2))+rnd(k,3)*960)%1100)+60)
-        for r,c in RO[kk][k%len(RO[kk])]: block(d,x+c*18,y+r*18,18,COL[kk],70)
-    d.E(270,520,230,70,(80,60,255,40))
-    t=u*1.0+ (6 if final else 0)
-    d.R(24,150,516,850,(24,20,52),24); d.R(24,150,516,156,(255,255,255,24),24); d.R(24,150,516,850,None,24,(110,90,255,90),3)
-    i,p=draw_board(d,SIM,t,84,200,30)
-    lines=p["lines"]+(len(p["full"]) if t>=p["tl"] else 0)
-    d.R(398,200,498,284,(18,20,44),8); number(d,404,218,lines*100,4,14,32,(80,255,140))
-    nextbox(d,404,310,SIM[(i+1)%len(SIM)]["k"])
-    shadow(d,270,880,180,14,80)
+    im=new((155,188,15),(155,188,15)); d=D(im)
+    t=u*1.0+(6 if final else 0)
+    i=board_state(SIM,t); p=SIM[i]; lines=p["lines"]+(len(p["full"]) if t>=p["tl"] else 0)
+    gb_screen(d,SIM,t,lines)
     return im
 def sceneB(u):
     im=new((10,14,36),(40,50,86)); d=D(im)
