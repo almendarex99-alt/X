@@ -11,7 +11,7 @@ def tile(d,x,y,w,h,col,inner=None,sel=False,a=255):
     if sel: d.R(x-4,y-4,x+w+4,y+h+4,None,10,(255,255,255,int(230*a/255)),3)
 def hall_img(d,x,y,w,h):
     d.R(x,y,x+w,y+h,(22,16,14)); d.P([(x+w*.1,y),(x+w*.9,y),(x+w*.62,y+h*.36),(x+w*.38,y+h*.36)],(120,92,70)); d.P([(x,y+h),(x+w,y+h),(x+w*.62,y+h*.52),(x+w*.38,y+h*.52)],(50,34,24))
-    d.R(x+w*.38,y+h*.36,x+w*.62,y+h*.52,(6,6,8)); d.E(x+w*.5,y+h*.1,w*.14,h*.05,(255,226,160,150))
+    d.R(x+w*.38,y+h*.36,x+w*.62,y+h*.52,(6,6,8)); d.E(x+w*.5,y+h*.1,w*.14,h*.05,(255,226,160,150)); ptext(d,x+w*.5-24,y+h*.58,'P.T.',4.0,(255,255,255),230)
 def store(d,u,vanish=0.0):
     gradient(d,0,960,(14,40,96),(8,16,52))
     for k in range(5): 
@@ -32,6 +32,25 @@ def store(d,u,vanish=0.0):
                     d.E(x+110,y+90,40*vanish,40*vanish,None,(255,255,255,int(255*vanish)),5)
                     d.L(x+84,y+64,x+136,y+116,(240,70,70,int(255*vanish)),9); d.L(x+136,y+64,x+84,y+116,(240,70,70,int(255*vanish)),9)
             else: tile(d,x,y,220,180,cols[idx%6])
+
+def pt_details(d,u,lap=0):
+    """pasillo de P.T.: empapelado floral, rodapie, cuadros, lampara colgante y radio sobre una mesa"""
+    for side in(-1,1):
+        for k in range(1,18):
+            t=k*.5; s=depth(t); xl,xr,yt,yb=planes(s); x=xl+ (14*s if side<0 else -14*s) if side<0 else xr-14*s
+            for r in range(5):
+                y=HY-250*s+r*95*s
+                d.E(x,y,5*s*2.2,5*s*2.2,(120,92,72,150)); d.E(x,y,2*s*2.2,2*s*2.2,(190,160,120,150))
+    near,far=depth(0),depth(10)
+    for t in (1.6,3.5,5.2):
+        s1,s2=depth(t),depth(t+.6); xa=planes(s1)[0]; xb=planes(s2)[0]
+        yt1,yb1=HY-120*s1,HY+30*s1; yt2,yb2=HY-120*s2,HY+30*s2
+        d.P([(xa,yt1),(xb,yt2),(xb,yb2),(xa,yb1)],(60,42,30)); d.P([(xa+4*s1,yt1+8*s1),(xb-2*s2,yt2+6*s2),(xb-2*s2,yb2-6*s2),(xa+4*s1,yb1-8*s1)],(150,160,170))
+    s=depth(2.2); d.L(270,HY-330*s,270,HY-210*s,(40,34,30),4*s*2); d.E(270,HY-204*s,10*s*2,12*s*2,(255,238,180)); d.E(270,HY-204*s,60*s*2,60*s*2,(255,238,180,int(60*(0.8+0.2*math.sin(u*9+lap)))))
+    s=depth(6.8); xr=planes(s)[1]; yy=HY+90*s
+    d.R(xr-70*s*2,yy,xr-10*s*2,yy+16*s*2,(40,30,24),2); d.R(xr-62*s*2,yy-26*s*2,xr-22*s*2,yy,(24,24,28),2*s*2); d.L(xr-30*s*2,yy-26*s*2,xr-18*s*2,yy-50*s*2,(200,200,210),2*s*2)
+    d.E(xr-54*s*2,yy-8*s*2,2.4*s*2,2.4*s*2,(255,70,60) if int(u*3)%2==0 else (90,30,24))
+    noise_static(d,0,0,540,960,u,22,6)
 def sceneA(u,final=False):
     im=new((14,40,96),(8,16,52)); d=D(im)
     store(d,u,vanish=sm((u-1.6)/1.4) if not final else 1.0)
@@ -53,7 +72,7 @@ def sceneC(u):
     lt=[(255,236,190),(255,236,190),(255,214,150),(255,150,120),(230,60,50)][min(4,lap)]
     im=new((10,8,10),(20,16,18)); d=D(im)
     corridor(d,u,speed=.35,wall=wall,floor=(70,48,34),ceil=(46,38,36),door=(86,60,44),light=lt,pulse=flicker(u,1,8) if lap>=2 else 1.0,n=9)
-    # cuadros de pared que cambian por vuelta + radio sobre un mueble
+    pt_details(d,u,lap)
     xl,xr,yt,yb=planes(depth(3))
     d.R(xl+6,HY-30,xl+60,HY+60,(244,240,230)); 
     d.R(xr-60,HY-30,xr-6,HY+60,(244,240,230)); 
@@ -84,10 +103,10 @@ def sceneD(u):
             pts=[]
             for k in range(10): r_=44 if k%2==0 else 18; ang=-math.pi/2+k*math.pi/5; pts.append((cx+math.cos(ang)*r_,cy+math.sin(ang)*r_))
             d.P(pts,(255,214,90,int(255*a)))
-        d.R(x+30,y+190,x+130,y+204,(255,255,255,int(100*a)),6)
+        ptext(d,x+14,y+186,['KOJIMA','DEL TORO','REEDUS'][i],3.2,(255,255,255),int(230*a))
     if u>4.2:
-        b=sm((u-4.2)/.8); d.E(270,160,180*b,46*b,(190,194,210,int(90*b)))
-        d.E(270,160,44*b,44*b,None,(220,224,236,int(220*b)),4)
+        b=sm((u-4.2)/.8); d.E(270,150,180*b,46*b,(190,194,210,int(90*b)))
+        ptext(d,60,120,'SILENT HILLS',9.0,(235,238,244),int(255*b))
     return im
 def sceneE(u):
     im=new((24,18,24),(52,36,44)); d=D(im)
@@ -123,6 +142,7 @@ def sceneF(u):
 def sceneG(u):
     im=new((10,8,10),(24,18,20)); d=D(im)
     corridor(d,u,speed=.15,wall=(124,96,84),floor=(60,40,30),ceil=(40,32,32),door=(70,50,40),light=(255,226,170),pulse=flicker(u,2,7),n=9)
+    pt_details(d,u,0)
     fade=sm(u/6.0); d.R(0,0,540,960,(8,6,8,int(200*fade)),0)
     for k in range(20): a=k*.31+u*.3; d.E(270+math.cos(a)*220,430+math.sin(a)*260,3,3,(255,236,190,int(120*(1-fade))))
     return im
