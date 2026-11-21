@@ -1,7 +1,7 @@
 import sys; sys.path.insert(0,"..")
 from art import *
 SKIN=[(236,200,170),(176,128,96),(214,168,130),(120,84,62),(240,214,190)]
-SUIT=[(214,176,60),(70,120,190),(200,80,80),(90,160,120),(230,230,236),(180,120,200),(120,140,170)]
+SUIT=[(176,150,110),(70,90,120),(150,70,60),(90,110,90),(200,200,196),(130,100,150),(100,110,130)]
 def bust(d,x,y,sc,k,react=0.0,u=0,look=0):
     dx=math.sin(u*40)*react*3; 
     x+=dx; y+=react*30*sc
@@ -18,17 +18,25 @@ def metal_room(d,u,col=(70,82,92),light=(210,240,255)):
     for k in range(3):
         d.L(planes(depth(0))[0]+4,HY-120+k*34,xl,HY-120+k*34*.6,(190,200,210,160),5)
         d.L(planes(depth(0))[1]-4,HY-120+k*34,xr,HY-120+k*34*.6,(190,200,210,160),5)
+    for k in range(6):
+        t=k*1.4+.6; s_=depth(t); xx=planes(s_)[0]+30*s_; d.E(xx,HY+40*s_,(16+16*(k%2))*s_,(60+40*(k%2))*s_,(0,0,0,0)); 
+        for q in range(3): a=((u*.7+k*.31+q*.33)%1); d.E(xx+8*s_,HY-10*s_-a*80*s_,(10+a*26)*s_,(8+a*14)*s_,(230,236,240,int(110*(1-a))))
 def table_scene(d,u,react=0.0,mist=0.0,glow=(120,240,170)):
     gradient(d,0,700,(10,20,22),(26,44,46))
     for k in range(6): d.R(30+k*88,80,60+k*88,96,glow+(200,),3); d.E(45+k*88,100,40,16,glow+(30,))
     d.R(0,620,540,960,(30,34,38),0); 
+    d.L(270,0,270,150,(70,74,80),6); d.P([(228,150),(312,150),(372,330),(168,330)],(120,124,130)); d.E(270,330,110,20,(255,236,190,200))
+    d.P([(228,330),(312,330),(520,660),(20,660)],(255,236,190,24))
     for i in range(7): 
         bust(d,56+i*72,520+(i%2)*14,.95,i,react=react if i in(2,3,4) else react*.5,u=u+i)
     bevel(d,10,640,530,720,(190,196,204),10); d.R(10,720,530,960,(150,156,166),0)
     for i in range(7): d.E(52+i*72,676,22,7,(236,240,244)); d.E(52+i*72,672,12,4,(150,100,70)) if i!=3 else None
 def face(d,x,y,sc,u,blood=0.0,react=1.0):
-    d.R(x-70*sc,y+30*sc,x+70*sc,y+150*sc,SUIT[1]+(255,),24*sc)
-    d.E(x,y-30*sc,62*sc,76*sc,SKIN[0]+(255,)); d.E(x,y-84*sc,64*sc,40*sc,(60,36,24))
+    d.R(x-70*sc,y+30*sc,x+70*sc,y+150*sc,(190,186,176,255),24*sc)
+    d.E(x,y-30*sc,62*sc,76*sc,SKIN[0]+(255,))
+    for k in range(22):   # pelo corto y rizado
+        a=-math.pi+k*math.pi/21; d.E(x+math.cos(a)*62*sc,y-52*sc+math.sin(a)*70*sc,17*sc,17*sc,(42,28,20))
+    for k in range(10): d.E(x+(k-4.5)*13*sc,y-92*sc+(k%2)*6*sc,16*sc,16*sc,(42,28,20))
     for sg in(-1,1):
         d.E(x+sg*24*sc,y-28*sc,16*sc,(18+react*4)*sc,(255,255,255)); d.E(x+sg*24*sc,y-28*sc,6*sc,6*sc,(20,24,36))
         d.L(x+sg*38*sc,y-62*sc-react*6*sc,x+sg*10*sc,y-66*sc-react*10*sc,(60,40,30),4*sc)
@@ -37,15 +45,26 @@ def face(d,x,y,sc,u,blood=0.0,react=1.0):
         a=rnd(k,3)*6.28; r=rnd(k,4)*66*sc; d.E(x+math.cos(a)*r,y-20*sc+math.sin(a)*r*1.15,(2+rnd(k,5)*5)*sc,(2+rnd(k,6)*7)*sc,(176,22,34,220))
 def sceneA(u,final=False):
     im=new((10,20,22),(26,44,46)); d=D(im); table_scene(d,u)
-    d.E(270,420,160,260,(120,240,170,16))
+    d.E(270,420,160,260,(120,240,170,16)); noise_static(d,0,0,540,960,u,16,6)
     return im
 def sceneB(u):
     im=new((10,16,22),(30,40,52)); d=D(im)
     metal_room(d,u)
-    for k in range(4): d.R(0,120+k*50,540,126+k*50,(0,0,0,0),0)
     film_camera(d,170,850,.9,u); clapper(d,380,880,.8,open_=(math.sin(u*3)>.4)*1.0)
     d.L(430,780,430,620,(120,130,140),6); d.R(396,620,466,646,(80,88,100),6)
     silhouette(d,300,850,1.2,(14,18,24))
+    d.R(0,0,540,200,(0,0,0,225),0)
+    n=int(clamp(u/2.0)*5)
+    for k in range(5):
+        x=46+k*88
+        if k<=n:
+            for r in range(5):
+                for c in range(3):
+                    if True: pass
+        txt="ALIEN"[:n+1]
+    ptext(d,40,50,"ALIEN"[:max(1,n+1)],11.0,(150,255,170))
+    for k in range(40): d.R(0,k*5,540,k*5+1,(0,0,0,70))
+    d.R(0,300,540,306,(180,220,255,int(40+30*math.sin(u*3))),0)
     return im
 def sceneC(u):
     im=new((10,20,22),(26,44,46)); d=D(im); table_scene(d,u,react=0.0)
@@ -95,7 +114,7 @@ def sceneF(u):
     for k in range(14): d.R(0,k*70,540,k*70+2,(255,255,255,8),0)
     face(d,270,430,2.0,u,blood=sm((u-.5)/.5),react=1.0+.1*math.sin(u*12))
     clapper(d,120,880,.7,open_=(math.sin(u*3)>.4)*1.0)
-    film_strip(d,820,u,90)
+    film_strip(d,820,u,90); noise_static(d,0,0,540,960,u,16,6)
     return im
 def sceneG(u):
     im=new((10,16,20),(24,40,44)); d=D(im)
