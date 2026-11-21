@@ -21,7 +21,7 @@ def bands(im,y0,y1,seed,amp=180,n=9):
     a=np.array(im); S_=3; h=(y1-y0)*S_; y0s=y0*S_
     step=max(1,h//n)
     for k in range(n):
-        off=int(math.sin(seed*1.2+k*1.9)*amp*S_*(1-0.5*(k%2)))
+        off=int(math.sin(seed*1.2+k*1.9)*amp*S_*(1 if k%2 else 0))
         a[y0s+k*step:y0s+(k+1)*step]=np.roll(a[y0s+k*step:y0s+(k+1)*step],off,axis=1)
     return Image.fromarray(a)
 def big_head(d,u):
@@ -67,7 +67,7 @@ def sceneB(u):
     # tarjeta de titulo con barras horizontales
     d.R(0,0,540,196,gray(0)+(235,),0)
     ptext(d,86,40,"PSYCHO",11.0,(255,255,255))
-    return bands(im,36,168,u,60,8)
+    return bands(im,36,168,u,16,8)
 def sceneC(u):
     im=new((176,176,176),(120,120,124)); d=D(im)
     for r in range(12):
