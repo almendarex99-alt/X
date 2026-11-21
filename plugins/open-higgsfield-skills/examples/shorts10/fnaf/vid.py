@@ -1,12 +1,39 @@
 import sys; sys.path.insert(0,"..")
 from art import *
+from PIL import Image, ImageOps
 # ---------- elementos del juego ----------
+def bonnie(d,x,y,sc,u,glow=0.0):
+    pu=(110,70,160); sh=(78,48,118)
+    shadow(d,x,y+4,50*sc,7*sc,90)
+    d.R(x-40*sc,y-160*sc,x+40*sc,y-40*sc,pu+(255,),26*sc); d.E(x,y-96*sc,26*sc,40*sc,(150,110,190))
+    for sg in(-1,1): d.R(x+sg*44*sc-12*sc,y-150*sc,x+sg*44*sc+12*sc,y-84*sc,pu+(255,),9*sc); d.R(x+sg*20*sc-14*sc,y-46*sc,x+sg*20*sc+14*sc,y,sh+(255,),8*sc)
+    hy=y-208*sc
+    for sg in(-1,1): d.E(x+sg*22*sc,hy-52*sc,13*sc,46*sc,pu+(255,)); d.E(x+sg*22*sc,hy-52*sc,7*sc,36*sc,(180,120,210))
+    d.E(x,hy,40*sc,40*sc,pu+(255,)); d.E(x,hy+14*sc,24*sc,17*sc,(150,110,190))
+    for sg in(-1,1): d.E(x+sg*15*sc,hy-6*sc,9*sc,9*sc,(20,16,24)); d.E(x+sg*15*sc,hy-6*sc,4*sc,4*sc,(200,60,200)); 
+    d.A(x,hy+14*sc,12*sc,7*sc,10,170,(30,16,36),3*sc)
+    d.P([(x-18*sc,y-168*sc),(x,y-160*sc),(x-18*sc,y-150*sc)],(190,30,40)); d.P([(x+18*sc,y-168*sc),(x,y-160*sc),(x+18*sc,y-150*sc)],(190,30,40)); d.E(x,y-160*sc,5*sc,5*sc,(190,30,40))
+    d.L(x+50*sc,y-90*sc,x+90*sc,y-150*sc,(120,60,36),6*sc); d.E(x+92*sc,y-156*sc,14*sc,10*sc,(214,40,60))   # guitarra
+def chica(d,x,y,sc,u,glow=0.0):
+    ye=(236,204,60); sh=(200,160,40)
+    shadow(d,x,y+4,50*sc,7*sc,90)
+    d.R(x-42*sc,y-160*sc,x+42*sc,y-40*sc,ye+(255,),26*sc); d.R(x-30*sc,y-150*sc,x+30*sc,y-90*sc,(244,244,248),12*sc)
+    for sg in(-1,1): d.R(x+sg*46*sc-12*sc,y-150*sc,x+sg*46*sc+12*sc,y-84*sc,ye+(255,),9*sc); d.R(x+sg*20*sc-14*sc,y-46*sc,x+sg*20*sc+14*sc,y,(240,150,40),8*sc)
+    hy=y-206*sc
+    for k in range(3): d.E(x+(k-1)*14*sc,hy-44*sc,7*sc,14*sc,ye+(255,))
+    d.E(x,hy,42*sc,40*sc,ye+(255,)); d.E(x,hy+10*sc,26*sc,12*sc,(240,150,40)); d.E(x,hy+20*sc,18*sc,9*sc,(240,110,30))
+    for sg in(-1,1): d.E(x+sg*16*sc,hy-8*sc,10*sc,10*sc,(250,250,250)); d.E(x+sg*16*sc,hy-8*sc,4*sc,4*sc,(130,40,150))
 def stage_view(d,x,y,w,h,u,k=0,bear_vis=True):
-    d.R(x,y,x+w,y+h,(40,20,48)); 
-    for i in range(6): d.R(x+i*w/6,y,x+(i+1)*w/6,y+h*.7,[(120,30,60),(150,40,70)][i%2])
-    d.R(x,y+h*.7,x+w,y+h,(60,44,40)); d.R(x,y+h*.7,x+w,y+h*.7+4,(255,255,255,40))
-    for i in range(5): d.E(x+10+i*w/4.6,y+10,3,3,(255,220,120,200))
-    if bear_vis: bear(d,x+w/2,y+h*.94,h/560.0*1.9,u,eyes=(255,255,255),glow=.6)
+    gradient_local(d,x,y,w,h*.7,(60,22,72),(120,40,96))
+    for i in range(7): d.R(x+i*w/7,y,x+(i+1)*w/7,y+h*.7,[(120,30,60,120),(150,40,70,120)][i%2])
+    d.R(x,y+h*.7,x+w,y+h,(70,52,46)); d.R(x,y+h*.7,x+w,y+h*.7+4,(255,255,255,40))
+    for i in range(6): d.E(x+10+i*w/5.4,y+8,3,3,(255,220,120,200))
+    d.R(x+w*.08,y+h*.18,x+w*.92,y+h*.26,(236,226,120,200),3)
+    if bear_vis:
+        sc=h/560.0*1.65; by=y+h*.94
+        bonnie(d,x+w*.2,by,sc,u); chica(d,x+w*.8,by,sc,u); bear(d,x+w/2,by+4,sc*1.12,u,eyes=(130,190,240),glow=.5)
+def gradient_local(d,x,y,w,h,c0,c1,steps=10):
+    for kk in range(steps): d.R(x,y+kk*h/steps,x+w,y+(kk+1)*h/steps+1,mixc(c0,c1,kk/(steps-1.0)),0)
 def draw_beaver(d,x,y,sc,mood,u):
     """castor del juego familiar; mood 0 = tierno, 1 = inquietante (ojos pequenos y brillantes, sonrisa ancha)"""
     br=mixc((150,98,56),(70,44,30),mood); br2=mixc((196,140,90),(120,84,60),mood)
@@ -38,12 +65,12 @@ def home_office(d,u,screen_fn,lamp=(255,200,120)):
     keyboard(d,190,664,160,30); mug(d,454,616,u,(255,240,220))
     person_back(d,270,742,1.45,0,u)
 def hud(d,u,pw,hour):
-    for i,ch in enumerate(str(int(pw)).zfill(2)): seg7(d,28+i*22,884,18,34,int(ch),(110,255,150))
-    d.R(94,880,214,920,(0,0,0,0),0)
-    for k in range(5): d.R(100+k*22,892,116+k*22,914,(110,255,150) if k<pw/20 else (40,50,44),2)
-    for i,ch in enumerate(str(hour)): seg7(d,456+i*22,34,18,34,int(ch),(255,220,90))
+    ptext(d,18,862,"POWER LEFT:",3.0,(255,255,255)); ptext(d,18,884,str(int(pw))+"%",5.0,(255,255,255))
+    ptext(d,18,922,"USAGE:",3.0,(255,255,255))
+    for k in range(4): d.R(104+k*14,922,114+k*14,936,[(90,220,90),(90,220,90),(230,220,60),(230,60,60)][k] if k<2+int(math.sin(u*.3)*.5+1) else (40,44,40),0)
+    ptext(d,410,24,("12" if hour in(0,12) else str(hour))+" AM",5.0,(255,255,255)); ptext(d,420,70,"NIGHT 1",3.0,(255,255,255))
 def office(d,u,power=.9,dl=0.0,dr=0.0,bearL=0.0,bearR=0.0,mon=None,pw=87,hour=12,zoom_mon=False):
-    gradient(d,0,650,(10,8,20),(32,24,38))
+    gradient(d,0,650,(14,18,22),(46,52,58))
     for k,(x,y,c) in enumerate([(176,96,(240,200,90)),(262,120,(120,200,240)),(344,92,(240,120,150))]):
         d.R(x,y,x+70,y+86,c+(230,),3); d.E(x+35,y+30,16,16,(255,255,255,200)); d.L(x+14,y+62,x+56,y+62,(0,0,0,70),3)
     for side,x0 in ((0,20),(1,400)):
@@ -128,14 +155,30 @@ def sceneF(u):
     im=new((8,10,10),(16,20,22)); d=D(im)
     cut=int(u/1.6); ph=(u%1.6)
     sc=[.9,1.25,1.75,2.4][min(3,cut)]
-    corridor(d,u,speed=0.0,wall=(70,78,74),floor=(40,38,34),ceil=(34,36,34),door=(60,50,60),light=(255,250,214),pulse=flicker(u,3,8),alt=cut*.15)
+    corridor(d,u,speed=0.0,wall=(120,124,120),floor=(150,150,150),ceil=(90,92,90),door=(80,70,80),light=(255,255,240),pulse=flicker(u,3,8),alt=cut*.15)
+    # suelo de tablero blanco y negro
+    near,far=depth(0),depth(10)
+    for kk in range(10):
+        s1,s2=depth(kk),depth(kk+1); xa,xb,ya,yb=planes(s1); xc,xd,yc,yd=planes(s2)
+        for j in range(6):
+            if (kk+j)%2==0:
+                fa=j/6.0; fb=(j+1)/6.0
+                d.P([(xa+(xb-xa)*fa,yb),(xa+(xb-xa)*fb,yb),(xc+(xd-xc)*fb,yd),(xc+(xd-xc)*fa,yd)],(20,20,22,230))
     bear(d,270,HY+130+sc*92,sc,u,eyes=(255,255,255),glow=1.0)
-    for k in range(int(960/5)): d.R(0,k*5,540,k*5+1,(0,0,0,60))
-    d.R(0,0,540,960,(40,255,180,14),0)
+    im2=ImageOps.grayscale(im).convert("RGB"); im2=Image.blend(im2,Image.new("RGB",im2.size,(70,120,100)),.18)
+    d=D(im2)
+    for k in range(int(960/5)): d.R(0,k*5,540,k*5+1,(0,0,0,70))
+    noise_static(d,0,0,540,960,u*.5,34,12)
     if ph<.16: noise_static(d,0,0,540,960,u,int(255*(1-ph/.16)),9)
-    if int(u*2)%2==0: d.E(40,70,9,9,(240,40,40))
-    for i,ch in enumerate("23:41"): pass
-    return im
+    # interfaz de camaras: etiqueta y mapa con botones
+    ptext(d,18,26,"CAM 2A",4.0,(255,255,255)); ptext(d,18,56,"WEST HALL",3.0,(255,255,255))
+    if int(u*2)%2==0: d.E(500,40,9,9,(240,40,40))
+    d.R(330,700,516,926,(20,24,20,210),4); d.R(330,700,516,926,None,4,(255,255,255,200),2)
+    for (rx,ry,rw,rh) in[(344,712,60,40),(420,712,86,60),(344,770,40,100),(398,800,40,70),(446,790,60,70)]: d.R(rx,ry,rx+rw,ry+rh,(120,130,120,150),2)
+    for i,(bx,by_) in enumerate([(350,716),(430,716),(350,790),(404,820),(452,806)]):
+        on=(i==min(3,cut)); d.R(bx,by_,bx+26,by_+14,(80,230,80) if on else (60,80,60),2)
+    ptext(d,340,900,"YOU",3.0,(255,255,255))
+    return im2
 def sceneG(u):
     im=new((14,10,24),(30,18,44)); d=D(im); stars(d,u,40,300)
     # rejilla de miniaturas de videos con reacciones
