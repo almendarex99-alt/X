@@ -27,4 +27,7 @@ a0,a1=W(5)
 for k in range(int((a1-a0)/.5)): m.sine(a0+k*.5,hz(60),.05,.03,decay=40)   # tic del reloj acelerado
 a0,a1=W(6); m.noise(a0,a1-a0,.05,decay=0,lp=140,att=1.0)
 for j,nn in enumerate([45,52,57]): m.sine(a0+.2+j*.2,hz(nn),3.0,.07,att=.4,decay=.9)
+# teclas de maquina de escribir en la escena del cansancio
+a0,a1=W(5)
+for k in range(40): m.noise(a0+.3+k*.16+rng.random()*.03,.03,.16,decay=70,hp=3); m.sine(a0+.3+k*.16,hz(70+(k%4)),.03,.04,decay=60)
 whooshes(m,TL); m.save("music.wav",gain=1.3,T=T)

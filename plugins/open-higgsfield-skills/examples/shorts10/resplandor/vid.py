@@ -1,5 +1,41 @@
 import sys; sys.path.insert(0,"..")
 from art import *
+
+HEX=[(196,84,36),(122,52,30),(232,220,200),(168,40,40),(210,150,60)]
+def hex_floor(d,u):
+    """alfombra hexagonal del hotel: hexagonos en perspectiva sobre el suelo del pasillo"""
+    for i in range(14,0,-1):
+        t=i*.62; s_=depth(t); xl,xr,yt,yb=planes(s_); m=7; wc=(xr-xl)/m
+        for k in range(m):
+            cx=xl+(k+.5)*wc+(wc*.5 if i%2 else 0)
+            if cx>xr: continue
+            col=HEX[(k+i)%5]; rw=wc*.52; rh=wc*.2
+            pts=[(cx-rw,yb),(cx-rw*.5,yb-rh),(cx+rw*.5,yb-rh),(cx+rw,yb),(cx+rw*.5,yb+rh),(cx-rw*.5,yb+rh)]
+            d.P(pts,col+(235,))
+            d.P([(cx-rw*.5,yb),(cx-rw*.25,yb-rh*.5),(cx+rw*.25,yb-rh*.5),(cx+rw*.5,yb),(cx+rw*.25,yb+rh*.5),(cx-rw*.25,yb+rh*.5)],HEX[(k+i+2)%5]+(235,))
+def twins(d,x,y,sc):
+    for dx in(-14,14):
+        d.E(x+dx*sc,y-86*sc,8*sc,9*sc,(230,200,170)); d.E(x+dx*sc,y-92*sc,9*sc,6*sc,(60,44,34))
+        d.P([(x+dx*sc-12*sc,y-76*sc),(x+dx*sc+12*sc,y-76*sc),(x+dx*sc+16*sc,y-22*sc),(x+dx*sc-16*sc,y-22*sc)],(110,170,220))
+        d.R(x+dx*sc-9*sc,y-22*sc,x+dx*sc-3*sc,y,(236,236,240),2*sc); d.R(x+dx*sc+3*sc,y-22*sc,x+dx*sc+9*sc,y,(236,236,240),2*sc)
+    d.L(x-6*sc,y-62*sc,x+6*sc,y-62*sc,(230,200,170),3*sc)
+def stairs_hotel(d,x0,y0,x1,y1,n):
+    # pared de madera con ventana luminosa al fondo y barandilla tallada
+    d.R(0,0,540,960,(58,38,28,255),0)
+    for k in range(9): d.R(k*66,0,k*66+4,960,(0,0,0,50),0)
+    wx,wy=x1-70,y1-300
+    d.R(wx-6,wy-6,wx+120,wy+190,(44,28,20),3); d.R(wx,wy,wx+114,wy+184,(255,236,190),3); d.L(wx+57,wy,wx+57,wy+184,(120,90,60),4); d.L(wx,wy+92,wx+114,wy+92,(120,90,60),4)
+    d.P([(wx,wy+184),(wx+114,wy+184),(wx+260,y1+160),(wx-120,y1+160)],(255,236,190,26))
+    stairs(d,x0,y0,x1,y1,n)
+def hedge_maze(d,u):
+    gradient(d,0,440,(10,18,44),(34,52,90))
+    d.E(410,150,40,40,(236,240,250,230)); d.E(410,150,90,90,(236,240,250,36))
+    corridor(d,u,speed=.06,wall=(26,70,46),floor=(226,232,244),ceil=(14,24,56),door=(20,50,34),light=(200,220,255),doors=False,lights=False,n=10,alt=0.0)
+    xl,xr,yt,yb=planes(depth(0))
+    for i in range(12):
+        t=i*.8+.3; s_=depth(t); xa,xb,ya,yb2=planes(s_)
+        d.R(xa-4,yb2-300*s_,xa+10*s_,yb2-296*s_,(240,246,255,230),1); d.R(xb-10*s_,yb2-300*s_,xb+4,yb2-296*s_,(240,246,255,230),1)
+    d.R(0,0,0,0,(0,0,0,0),0)
 def stairs(d,x0,y0,x1,y1,n,col=(120,86,60),rail=True):
     for k in range(n):
         x=x0+(x1-x0)*k/n; y=y0+(y1-y0)*k/n; w=(x1-x0)/n; h=(y0-y1)/n
@@ -21,19 +57,20 @@ def slate_counter(d,x,y,n,sc=1.0,u=0):
     for i,ch in enumerate(str(int(n)).zfill(3)): seg7(d,x-48*sc*1.4+i*32*sc*1.4,y+30*sc*1.4,26*sc*1.4,42*sc*1.4,int(ch),(255,255,255),(30,30,34))
 def sceneA(u,final=False):
     im=new((20,14,12),(52,36,28)); d=D(im)
-    for r in range(12): d.R(0,r*80,540,r*80+78,(60,40,30) if r%2 else (70,48,36),0)
-    d.R(0,0,540,960,(0,0,0,90),0)
-    stairs(d,20,820,420,320,12)
+    stairs_hotel(d,20,820,420,320,12)
     bat_woman(d,300-(u*.0),520-12*0,1.5,u,swing=math.sin(u*3)*.3)
     silhouette(d,120,740,1.5,(6,6,8),arms=True)
     n=int(clamp(u/3.6)*127) if not final else 127
-    slate_counter(d,380,170,n,.8,u)
+    slate_counter(d,380,170,n,.8,u); noise_static(d,0,0,540,960,u,16,6)
     return im
 def sceneB(u):
     im=new((14,10,12),(40,26,22)); d=D(im)
     corridor(d,u,speed=0.0,wall=(120,70,50),floor=(80,34,34),ceil=(50,36,30),door=(90,56,40),light=(255,232,190),pulse=1.0,n=9,doors=True)
+    hex_floor(d,u)
+    s_=depth(9.2); twins(d,270,HY+300*s_,1.25)
     film_camera(d,150,860,1.0,u); clapper(d,400,880,.9,open_=(math.sin(u*3)>.4)*1.0)
-    silhouette(d,270,870,1.3,(8,8,12)); d.R(250,740,290,770,(8,8,12),6)   # director con barba (silueta)
+    silhouette(d,270,880,1.3,(8,8,12)); d.R(250,750,290,780,(8,8,12),6)
+    d.R(0,220,540,372,(0,0,0,225),0); ptext(d,46,262,"THE SHINING",5.6,(240,240,244))
     return im
 def sceneC(u):
     im=new((10,12,18),(24,30,44)); d=D(im)
@@ -50,8 +87,7 @@ def sceneC(u):
     return im
 def sceneD(u):
     im=new((20,14,12),(52,36,28)); d=D(im)
-    for r in range(12): d.R(0,r*80,540,r*80+78,(60,40,30) if r%2 else (70,48,36),0)
-    stairs(d,20,820,420,320,12)
+    stairs_hotel(d,20,820,420,320,12)
     # copias fantasma de la misma escena repetida (tomas)
     for k in range(5):
         t=((u*.4+k*.2)%1.0)
@@ -90,6 +126,8 @@ def sceneF(u):
     d.E(400,230,90,90,(244,244,240)); d.E(400,230,90,90,None,(40,40,46),6)
     for k in range(12): a=k*math.pi/6; d.L(400+math.cos(a)*76,230+math.sin(a)*76,400+math.cos(a)*86,230+math.sin(a)*86,(0,0,0),3)
     d.L(400,230,400+math.cos(u*14)*50,230+math.sin(u*14)*50,(0,0,0),6); d.L(400,230,400+math.cos(u*1.2)*34,230+math.sin(u*1.2)*34,(0,0,0),8)
+    d.R(30,420,270,640,(244,242,230),4)
+    for q in range(6): ptext(d,40,432+q*34,'ALL WORK AND NO PLAY',1.6,(30,30,34))
     stairs(d,40,900,420,560,10,(110,80,56),False)
     # silueta sentada en la escalera, cansada
     sx,sy=250,740; d.E(sx,sy-90,16,18,(8,8,10)); d.R(sx-20,sy-74,sx+20,sy-10,(8,8,10),10); d.R(sx-36,sy-14,sx-8,sy+60,(8,8,10),6); d.R(sx+8,sy-14,sx+36,sy+60,(8,8,10),6)
@@ -98,12 +136,11 @@ def sceneF(u):
     return im
 def sceneG(u):
     im=new((10,16,28),(24,40,64)); d=D(im)
-    stairs(d,20,900,420,380,12,(70,90,120))
-    bat_woman(d,260,520,1.5,u,swing=math.sin(u*3)*.3)
+    hedge_maze(d,u)
+    silhouette(d,270,HY+330,.9,(8,10,16))
     for k in range(70):
-        x=(rnd(k)*560+math.sin(u*1.3+k)*20)%560; y=(rnd(k,2)*960+u*(40+rnd(k,3)*50))%960; d.E(x,y,2+rnd(k,4)*2.4,2+rnd(k,4)*2.4,(235,244,255,180))
-    d.R(0,0,540,960,(120,170,240,26),0)
-    for k in range(5): d.A(60+k*110,60,40,18,0,180,(235,244,255,120),3)
+        x=(rnd(k)*560+math.sin(u*1.3+k)*20)%560; y=(rnd(k,2)*960+u*(40+rnd(k,3)*50))%960; d.E(x,y,2+rnd(k,4)*2.4,2+rnd(k,4)*2.4,(235,244,255,200))
+    d.R(0,0,540,960,(120,170,240,24),0)
     return im
 core.SCN=[lambda u:sceneA(u),sceneB,sceneC,sceneD,sceneE,sceneF,sceneG,lambda u:sceneA(u,True)]
 def cam(idx,u,dur):
