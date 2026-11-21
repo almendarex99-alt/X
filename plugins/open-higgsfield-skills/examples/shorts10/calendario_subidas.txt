@@ -1,0 +1,15 @@
+CALENDARIO DE PUBLICACION (hora de Honduras, UTC-6, a las 3:00 pm)
+Cada video: carpeta/<nombre>_short.mp4 + portada.jpg + youtube_short.txt (titulo, descripcion, hashtags, etiquetas)
+
+Dia 1  Dom 22 nov 2026  3:00 pm  psicosis/psicosis_short.mp4        La sangre de Psicosis era chocolate
+Dia 2  Lun 23 nov 2026  3:00 pm  tiburon/tiburon_short.mp4          Por qué casi no se ve el tiburón en Tiburón
+Dia 3  Mar 24 nov 2026  3:00 pm  fnaf/fnaf_short.mp4                El juego de terror que nació de una crítica
+Dia 4  Mié 25 nov 2026  3:00 pm  pt/pt_short.mp4                    P.T.: el juego de terror que desapareció
+Dia 5  Jue 26 nov 2026  3:00 pm  alien/alien_short.mp4              El susto real de la cena de Alien
+Dia 6  Vie 27 nov 2026  3:00 pm  resplandor/resplandor_short.mp4    La escena de El resplandor que se repitió 127 veces
+Dia 7  Sáb 28 nov 2026  3:00 pm  slender/slender_short.mp4          Slender Man nació de un concurso de fotos
+Dia 8  Dom 29 nov 2026  3:00 pm  silenthill/silenthill_short.mp4    La niebla de Silent Hill escondía un truco
+Dia 9  Lun 30 nov 2026  3:00 pm  residentevil/residentevil_short.mp4 El truco oculto de las puertas de Resident Evil
+Dia 10 Mar 1 dic 2026   3:00 pm  blair/blair_short.mp4              La película que parecía real y costó muy poco
+
+En YouTube Studio: al subir cada video, ultima pantalla -> "Programar" -> fecha y hora -> zona horaria de Honduras.
