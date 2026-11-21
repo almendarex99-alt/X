@@ -1,6 +1,37 @@
 import sys; sys.path.insert(0,"..")
 from art import *
+from PIL import Image, ImageOps
+import numpy as np
 FOR=dict(sky=(18,28,44),sky2=(70,90,118),ground=(14,20,16),fog=(150,170,186))
+
+def bw16(im,u):
+    """pelicula de 16 mm en blanco y negro: grano, arañazos verticales y parpadeo"""
+    g=np.array(ImageOps.grayscale(im)).astype(np.float32); rng=np.random.default_rng(int(u*24))
+    g=g*(0.94+0.1*rng.random())+rng.normal(0,18,g.shape)
+    for _ in range(3):
+        x=int(rng.integers(0,g.shape[1])); g[:,x:x+int(rng.integers(1,4))]+=rng.integers(20,60)*(1 if rng.random()<.5 else -1)
+    h,w=g.shape; yy,xx=np.mgrid[0:h,0:w]; r=np.sqrt(((xx-w/2)/(w/2))**2+((yy-h/2)/(h/2))**2); g*=1-.35*np.clip(r-.4,0,1)
+    g=np.clip(g,0,255).astype(np.uint8); return Image.fromarray(g).convert("RGB")
+def hi8(im,u):
+    """video Hi8: poca resolucion, color sucio, ruido y desplazamiento de crominancia"""
+    w,h=im.size; sm_=im.resize((w//5,h//5),Image.BOX).resize((w,h),Image.BILINEAR)
+    a=np.array(sm_).astype(np.float32); rng=np.random.default_rng(int(u*30)+5)
+    a[...,0]=np.roll(a[...,0],6,axis=1); a[...,2]=np.roll(a[...,2],-6,axis=1)
+    a+=rng.normal(0,12,a.shape[:2])[...,None]; a=a*np.array([1.0,1.04,.92]); 
+    return Image.fromarray(np.clip(a,0,255).astype(np.uint8))
+def stickman(d,x,y,sc):
+    d.L(x,y-130*sc,x,y-80*sc,(60,44,30),2*sc)
+    d.L(x-24*sc,y-80*sc,x+24*sc,y-30*sc,(90,66,42),4*sc); d.L(x+24*sc,y-80*sc,x-24*sc,y-30*sc,(90,66,42),4*sc)
+    d.L(x-30*sc,y-62*sc,x+30*sc,y-62*sc,(90,66,42),4*sc); d.L(x,y-80*sc,x,y-18*sc,(90,66,42),4*sc)
+    d.E(x,y-86*sc,8*sc,8*sc,(90,66,42))
+def cairn(d,x,y,sc):
+    for k,(w,h) in enumerate([(34,16),(26,13),(18,11),(11,9)]): d.E(x,y-sum([16,13,11,9][:k])*sc,w*sc,h*sc,(80+k*8,78+k*8,72+k*6))
+def bare_trees(d,u,n=9):
+    for i in range(n):
+        x=(i*(560.0/n)+rnd(i,9)*50)%560-10; w=18+rnd(i,2)*16
+        d.P([(x-w,960),(x+w,960),(x+w*.45,40),(x-w*.45,40)],(10,12,10,255))
+        for b in range(4):
+            by=200+b*150+rnd(i,b)*60; d.L(x,by,x+(60+b*20)*(1 if (i+b)%2 else -1),by-50,(10,12,10),5)
 def viewfinder(d,u,rec=True):
     for (x,y,sx,sy) in((24,24,1,1),(516,24,-1,1),(24,936,1,-1),(516,936,-1,-1)):
         d.L(x,y,x+34*sx,y,(255,255,255,220),4); d.L(x,y,x,y+34*sy,(255,255,255,220),4)
@@ -17,20 +48,23 @@ def trio(d,u,x0,y,sc):
 def sceneA(u,final=False):
     im=new((14,22,34),(50,66,90)); d=D(im)
     forest(d,u,dense=15,**FOR)
+    bare_trees(d,u,8); stickman(d,380,520,1.5); stickman(d,120,560,1.1); cairn(d,300,820,1.4)
     fogband(d,u,520,800,(150,170,186),34)
     flashlight(d,170,900,350,520,.3,620,70)
     viewfinder(d,u)
-    return im
+    return hi8(im,u)
 def sceneB(u):
     im=new((14,22,34),(50,66,90)); d=D(im)
-    forest(d,u,dense=15,**FOR)
-    # sendero y tres jovenes con mochila avanzando; una camara cuelga del primero
+    forest(d,u,dense=15,**FOR); bare_trees(d,u,7)
     d.P([(250,960),(330,960),(290,600),(262,600)],(40,34,28,230))
     x=((u*40)%700)-80
-    trio(d,u,x*.5+90,780,1.2); 
+    trio(d,u,x*.5+90,780,1.2)
+    for k in range(3):   # camara en mano del primero
+        pass
+    xc=x*.5+90+34; d.R(xc,660,xc+34,684,(20,20,24),3); d.E(xc+36,672,8,8,(60,70,90))
     fogband(d,u,560,820,(150,170,186),30)
-    viewfinder(d,u)
-    return im
+    viewfinder(d,u,False)
+    return bw16(im,u)
 def sceneC(u):
     im=new((8,12,18),(24,36,46)); d=D(im)
     forest(d,u,sky=(10,16,28),sky2=(44,56,80),ground=(10,14,12),fog=(120,140,160),dense=12,moon=False)
@@ -51,9 +85,9 @@ def sceneC(u):
             d.R(x,y,x+150,y+60,(255,255,255,int(240*a)),14); d.P([(x+30,y+58),(x+54,y+58),(x+30,y+82)],(255,255,255,int(240*a)))
             for q in range(3): d.E(x+34+q*34,y+30,7,7,(60,60,70,int(255*a)))
     viewfinder(d,u)
-    return im
+    return hi8(im,u)
 def poster(d,x,y,w,h,k,u):
-    d.R(x,y,x+w,y+h,(244,240,226),2); d.R(x,y,x+w,y+h*.12,(200,40,50),2)
+    d.R(x,y,x+w,y+h,(244,240,226),2); d.R(x,y,x+w,y+h*.12,(200,40,50),2); ptext(d,x+10,y+4,'MISSING',w/60.0*1.0,(255,255,255))
     d.R(x+w*.18,y+h*.22,x+w*.82,y+h*.7,(120,116,108),3); silhouette(d,x+w*.5,y+h*.7,w/260.0*1.1,(30,30,34),arms=False)
     for q in range(3): d.L(x+w*.14,y+h*.78+q*h*.06,x+w*.86-(q%2)*w*.2,y+h*.78+q*h*.06,(0,0,0,110),2)
 def sceneD(u):
@@ -99,7 +133,7 @@ def sceneF(u):
     d.R(320,820-740*p,430,820,(80,200,130),6)
     for k in range(int(10*p)): d.E(375,800-k*70*p,34,10,(255,214,90,180))
     d.R(60,820,470,826,(255,255,255,90),0)
-    number(d,86,150,60,2,34,58,(255,214,90)); number(d,316,150,int(240*p),3,30,58,(80,200,130))
+    ptext(d,70,150,'60K',9.0,(255,214,90)); ptext(d,280,150,str(int(240*p))+'M',9.0,(80,200,130))
     d.R(90,230,210,244,(0,0,0,0),0)
     return im
 def sceneG(u):
@@ -110,6 +144,7 @@ def sceneG(u):
             d.R(x+6,y+6,x+148,y+234,(6,10,10),6); flashlight(d,x+30+(c*20)%80,y+230,x+90,y+80,.3,170,90) 
             for q in range(3): xx=x+14+q*46; d.P([(xx-4,y+234),(xx+4,y+234),(xx+2,y+12),(xx-2,y+12)],(14,20,18))
             if int(u*1.6+r+c)%2==0: d.E(x+20,y+26,5,5,(240,40,40))
+            if (r+c)%2==0: d.R(x+6,y+6,x+148,y+234,(120,120,120,70),6)
             for k in range(8): d.R(x+6,y+6+k*28+(u*20)%28,x+148,y+7+k*28+(u*20)%28,(255,255,255,18),0)
     return im
 core.SCN=[lambda u:sceneA(u),sceneB,sceneC,sceneD,sceneE,sceneF,sceneG,lambda u:sceneA(u,True)]
