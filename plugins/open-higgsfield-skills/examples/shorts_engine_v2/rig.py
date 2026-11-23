@@ -50,7 +50,9 @@ def hand(d,wx,wy,a,s,sc,skin,curl=.3,spread=.6,claws=False,prop=None,sleeve_col=
     v=(s*math.sin(a),math.cos(a)); n=(-v[1],v[0]); pl=9*sc
     cx,cy=wx+v[0]*pl*.9,wy+v[1]*pl*.9
     d.E(wx,wy,5.2*sc,5.2*sc,skin+(255,))
-    if prop: prop(d,cx,cy,a,s)
+    if prop:
+        try: prop(d,cx,cy,a,s,sc)
+        except TypeError: prop(d,cx,cy,a,s)
     pw=6.2*sc
     d.P([(wx+n[0]*pw*.9,wy+n[1]*pw*.9),(wx-n[0]*pw*.9,wy-n[1]*pw*.9),(cx-n[0]*pw+v[0]*pl*.4,cy-n[1]*pw+v[1]*pl*.4),(cx+n[0]*pw+v[0]*pl*.4,cy+n[1]*pw+v[1]*pl*.4)],skin+(255,))
     d.E(cx+v[0]*2*sc,cy+v[1]*2*sc,pw*1.05,pl*.55,skin+(255,))
