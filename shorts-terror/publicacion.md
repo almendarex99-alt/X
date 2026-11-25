@@ -42,6 +42,9 @@ Fuentes:
 - Skeptoid #362: https://skeptoid.com/episodes/362
 - Atlas Obscura: https://www.atlasobscura.com/articles/the-urban-legend-of-the-governments-mindcontrolling-arcade-game
 
+**Hashtags (al final de la descripción; los 3 primeros salen sobre el título):**
+#Polybius #LeyendasUrbanas #Shorts #Arcade #LostMedia #TerrorGamer #MisteriosGamer #Creepypasta #RetroGaming #Arcade80s #Videojuegos #Gaming
+
 **Etiquetas:** Polybius, Polybius arcade, leyenda urbana videojuegos, arcade 1981, Sinneslöschen, hombres de negro, lost media, mitos gamer, terror retro, Portland 1981
 **Comentario fijado:** ¿Le meterías una moneda? Comenta INSERT COIN 👇
 
