@@ -20,3 +20,11 @@
   ffmpeg -i sfx.wav -af "loudnorm=I=-16:TP=-2:LRA=14" -ar 48000 sfx_n.wav
   ffmpeg -i raw.mp4 -i sfx_n.wav -i voz_proc.wav -filter_complex "[1:a][2:a]amix=inputs=2:normalize=0:duration=first,loudnorm=I=-13:TP=-2:LRA=11,alimiter=limit=0.6:level=false:attack=1:release=60,aresample=48000[a]" -map 0:v -map "[a]" -c:v copy -c:a aac -b:a 192k -shortest -movflags +faststart pt-lisa-short.mp4
   ```
+
+## Voz Piper (versión actual del video)
+
+- Modelo: `es_ES-davefx-medium.onnx` + `.onnx.json` (voz masculina de España de Piper).
+  Copia usada: github.com/aalonsopuig/Inmoov_ROS2 (`piper/`), idéntica byte a byte a la de github.com/beskarbuilder/TARS-BSK.
+- `pip install piper-tts soundfile`, luego:
+  `python piper_tts.py voz_piper.json voz_p` → `python place.py voz_piper.json voz_p voz_p_track.wav 50`
+- La mezcla es la misma de arriba cambiando `voz_track.wav` por `voz_p_track.wav` (efectos a -16 LUFS, voz a -19 LUFS).
