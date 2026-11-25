@@ -1,0 +1,73 @@
+<title>10 Estilos Stickman</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600&display=swap">
+<style>
+/* Layout: encabezado corto + cuadrícula de 10 fichas, cada una con su personaje, nombre y para qué canal sirve. */
+:root{--bg:#14121c;--card:#1e1b2b;--fg:#f3efe6;--mute:#a79fbf;--acc:#ffd23f;--line:#34304a;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 'Inter',system-ui,sans-serif;
+ padding-block:28px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1100px;margin:0 auto}
+h1{font:400 clamp(34px,7vw,64px)/1 'Anton',Impact,sans-serif;text-transform:uppercase;margin:0 0 10px;text-wrap:balance}
+h1 em{font-style:normal;color:var(--acc)}
+.lead{color:var(--mute);max-width:60ch;margin:0 0 26px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.card svg{display:block;width:100%;height:auto;aspect-ratio:5/6}
+.info{padding:12px 14px 16px;display:flex;flex-direction:column;gap:4px}
+.n{font:600 12px 'Inter',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+.t{font:400 24px/1.1 'Anton',Impact,sans-serif;text-transform:uppercase}
+.d{font-size:14px;color:var(--mute)}
+.tips{margin:30px 0 0;padding:16px 18px;border:1px solid var(--line);border-radius:8px;color:var(--mute);font-size:14px}
+.tips b{color:var(--fg)}
+</style>
+
+<div class="wrap">
+  <h1>10 estilos de <em>stickman</em> para tu canal sin cara</h1>
+  <p class="lead">Personajes originales para ser la cara de un canal faceless. Cada uno tiene su propio ambiente, así que elige según el tema de tus videos.</p>
+  <div class="grid" id="grid"></div>
+  <div class="tips"><b>Cómo elegir:</b> un solo estilo por canal, siempre con los mismos colores. Que se reconozca en la miniatura aunque se vea del tamaño de un sello. Dime el número que te gustó y te lo preparo en varias poses (señalando, pensando, corriendo, sorprendido) y con tu paleta.</div>
+</div>
+
+<script>
+const L=(x1,y1,x2,y2)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`;
+// pose común: cabeza (100,70), cuerpo 100,98→160, brazo izq abajo, brazo der levantado saludando
+const limbs=(o={})=>{const s=o.shoulder||108;return L(100,98,100,160)+L(100,s,66,138)+L(100,s,138,82)+L(100,160,74,214)+L(100,160,128,214)};
+const wrap=(bg,inner,defs='')=>`<svg viewBox="0 0 200 240" role="img" xmlns="http://www.w3.org/2000/svg"><defs>${defs}</defs><rect width="200" height="240" fill="${bg}"/>${inner}</svg>`;
+const g=(a,body)=>`<g ${a}>${body}</g>`;
+const eyes=(c='#111',r=2.6)=>`<circle cx="91" cy="68" r="${r}" fill="${c}"/><circle cx="109" cy="68" r="${r}" fill="${c}"/>`;
+const px=(x,y,w,h,c)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${c}" shape-rendering="crispEdges"/>`;
+
+const S=[
+{n:'Clásico',d:'Línea fina negra sobre blanco. Limpio y fácil de animar.',u:'Explicaciones, historia, curiosidades',
+ s:()=>wrap('#f7f5f0',g('stroke="#111" stroke-width="4" stroke-linecap="round" fill="none"',`<circle cx="100" cy="68" r="22"/>`+limbs()))},
+{n:'Marcador grueso',d:'Trazo gordo y cabeza amarilla con ojos. Se ve bien en miniaturas.',u:'Humor, retos, entretenimiento',
+ s:()=>wrap('#ffe9a6',g('stroke="#161616" stroke-width="11" stroke-linecap="round" fill="none"',limbs()+`<circle cx="100" cy="68" r="27" fill="#ffd23f"/>`)+eyes('#161616',4)+`<path d="M90 80q10 8 20 0" stroke="#161616" stroke-width="4" fill="none" stroke-linecap="round"/>`)},
+{n:'Neón',d:'Brilla en la oscuridad con tubos de luz turquesa.',u:'Tecnología, misterio, videojuegos',
+ s:()=>wrap('#0b0b1a',g('stroke="#2ee6d6" stroke-width="4" stroke-linecap="round" fill="none" filter="url(#gl)"',`<circle cx="100" cy="68" r="22"/>`+limbs()),'<filter id="gl" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>')},
+{n:'Pizarra de tiza',d:'Trazo irregular, como dibujado en la escuela.',u:'Educación, ciencia, tutoriales',
+ s:()=>wrap('#264a3a',g('stroke="#f4f1e8" stroke-width="4" stroke-linecap="round" stroke-dasharray="9 1.5 4 1.5" fill="none" opacity=".92"',`<circle cx="100" cy="68" r="22"/>`+limbs())+`<path d="M20 228h160" stroke="#f4f1e8" stroke-opacity=".35" stroke-width="3" stroke-dasharray="14 5"/>`)},
+{n:'Cabezón',d:'Cabeza enorme, cuerpo flaco y mucha cara. Muy expresivo.',u:'Reacciones, comedia, historias',
+ s:()=>wrap('#cfe8ff',g('stroke="#111" stroke-width="5" stroke-linecap="round" fill="none"',L(100,112,100,168)+L(100,122,72,148)+L(100,122,130,100)+L(100,168,80,216)+L(100,168,122,216))+`<circle cx="100" cy="72" r="42" fill="#fff" stroke="#111" stroke-width="5"/><circle cx="86" cy="68" r="6" fill="#111"/><circle cx="114" cy="68" r="6" fill="#111"/><path d="M84 88q16 14 32 0" stroke="#111" stroke-width="5" fill="none" stroke-linecap="round"/>`)},
+{n:'Pixel',d:'Hecho de cuadritos, estilo videojuego retro.',u:'Gaming, retro, speedruns',
+ s:()=>{const c='#e8f1ff';let r='';
+  for(let x=84;x<=116;x+=8)for(let y=48;y<=80;y+=8)r+=px(x,y,8,8,c);
+  r+=px(92,60,8,8,'#111')+px(108,60,8,8,'#111').replace('108','104');
+  for(let y=88;y<=144;y+=8)r+=px(96,y,8,8,c);
+  [[80,104],[72,112],[64,120],[56,128]].forEach(p=>r+=px(p[0],p[1],16,8,c));
+  [[96,104],[104,96],[112,88],[120,80]].forEach(p=>r+=px(p[0],p[1],16,8,c));
+  [[80,152],[72,160],[64,168],[56,176],[48,184],[96,152],[104,160],[112,168],[120,176],[128,184]].forEach(p=>r+=px(p[0],p[1],16,8,c));
+  return wrap('#2b1b5a',r+px(96,60,8,8,'#2b1b5a').replace('fill="#2b1b5a"','fill="none"'))}},
+{n:'Silueta sólida',d:'Todo relleno, sin detalles. Máximo contraste.',u:'Suspenso, true crime, deportes',
+ s:()=>wrap('#ffb347',g('stroke="#111" stroke-width="15" stroke-linecap="round" fill="none"',limbs()+`<circle cx="100" cy="68" r="22" fill="#111"/>`))},
+{n:'Cómic',d:'Contorno grueso, sombra desplazada y gorra.',u:'Noticias, historias, reseñas',
+ s:()=>wrap('#ffe14d',`<defs><pattern id="ht" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="5" cy="5" r="2" fill="#ff4d6d" opacity=".55"/></pattern></defs><rect width="200" height="240" fill="url(#ht)"/>`+g('stroke="#111" stroke-width="7" stroke-linecap="round" fill="none" transform="translate(5 5)" opacity=".28"',limbs())+g('stroke="#111" stroke-width="7" stroke-linecap="round" fill="none"',limbs()+`<circle cx="100" cy="68" r="24" fill="#fff"/><path d="M76 62q24-28 48 0z" fill="#e63946"/><path d="M118 60h22" />`)+eyes('#111',3.4)+`<path d="M92 78q8 6 16 0" stroke="#111" stroke-width="4" fill="none" stroke-linecap="round"/>`)},
+{n:'Encapuchado',d:'Sudadera con capucha y cara vacía. El más faceless de todos.',u:'Misterio, hacking, finanzas, terror',
+ s:()=>wrap('#2a2a3a',`<path d="M62 120q38-30 76 0l14 56h-104z" fill="#4a4a66"/><path d="M84 172v42M116 172v42" stroke="#1b1b28" stroke-width="14" stroke-linecap="round"/><circle cx="100" cy="72" r="34" fill="#4a4a66"/><ellipse cx="100" cy="76" rx="22" ry="25" fill="#0b0b12"/><ellipse cx="91" cy="74" rx="3.4" ry="5" fill="#fff"/><ellipse cx="109" cy="74" rx="3.4" ry="5" fill="#fff"/>`)},
+{n:'Robot geométrico',d:'Cajas y articulaciones redondas. Se anima como marioneta.',u:'IA, ciencia, productividad',
+ s:()=>wrap('#dfe9f3',g('stroke="#2b4a6f" stroke-width="5" stroke-linecap="round" fill="none"',L(100,40,100,30)+L(100,126,100,160)+L(100,134,68,150)+L(100,134,134,112)+L(100,160,78,214)+L(100,160,124,214))+`<circle cx="100" cy="27" r="5" fill="#ff5e7e"/><rect x="76" y="42" width="48" height="42" rx="7" fill="#fff" stroke="#2b4a6f" stroke-width="5"/><rect x="82" y="92" width="36" height="42" rx="6" fill="#fff" stroke="#2b4a6f" stroke-width="5"/><circle cx="90" cy="62" r="5" fill="#2ee6d6"/><circle cx="110" cy="62" r="5" fill="#2ee6d6"/><path d="M90 74h20" stroke="#2b4a6f" stroke-width="4" stroke-linecap="round"/><circle cx="68" cy="150" r="5" fill="#2b4a6f"/><circle cx="134" cy="112" r="5" fill="#2b4a6f"/>`)}
+];
+const grid=document.getElementById('grid');
+S.forEach((s,i)=>{const c=document.createElement('article');c.className='card';
+ c.innerHTML=s.s()+`<div class="info"><div class="n">Estilo ${i+1}</div><div class="t">${s.n}</div><div class="d">${s.d}</div><div class="d"><b style="color:var(--fg)">Ideal para:</b> ${s.u}</div></div>`;grid.appendChild(c)});
+</script>
