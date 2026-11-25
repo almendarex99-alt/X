@@ -64,6 +64,9 @@ Fuentes:
 - Justia Patents: https://patents.justia.com/inventor/denis-p-dyack
 - Wikipedia: https://en.wikipedia.org/wiki/Eternal_Darkness
 
+**Hashtags (al final de la descripción; los 3 primeros salen sobre el título):**
+#EternalDarkness #JuegosDeTerror #Shorts #GameCube #Nintendo #SanityEffects #TerrorGamer #RetroGaming #Curiosidades #DatosGamer #Videojuegos #Gaming
+
 **Etiquetas:** Eternal Darkness, Eternal Darkness Sanity's Requiem, GameCube, efectos de cordura, sanity effects, Nintendo patente, juegos de terror, Silicon Knights, terror retro, juegos que te engañan
 **Comentario fijado:** ¿Te creíste lo de la partida borrada? Comenta CORDURA 👇
 
