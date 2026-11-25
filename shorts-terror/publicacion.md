@@ -20,6 +20,9 @@ Fuentes:
 - PC Games (entrevista de 2005): https://www.pcgames.de/GTA-6-Spiel-55239/Specials/Bigfoot-Aliens-Mythen-von-der-Community-erschaffen-1558369/
 - Grand Theft Wiki: https://www.grandtheftwiki.com/Ghost_cars
 
+**Hashtags (al final de la descripción; los 3 primeros salen sobre el título):**
+#GTASanAndreas #MitosGTA #Shorts #GTA #SanAndreas #GTASA #Bigfoot #CochesFantasma #Rockstar #TerrorGamer #MitosDeVideojuegos #Gaming
+
 **Etiquetas:** GTA San Andreas, mitos GTA, Bigfoot GTA, Bigfoot San Andreas, coches fantasma GTA, Leatherface GTA, mitos de terror, GTA 5 Bigfoot, Rockstar, GTA SA
 **Comentario fijado:** ¿Cuántas noches buscaste a Bigfoot en el bosque? Comenta BIGFOOT 👇
 
