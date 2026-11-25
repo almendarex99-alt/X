@@ -5,7 +5,11 @@ Miniatura: `miniatura_1280x720.jpg` (texto: NO ABRAS)
 Subtítulos: `mandela.srt` (súbelos en YouTube Studio > Subtítulos)
 
 ## Título
-The Mandela Catalogue: la historia explicada
+Mandela Catalogue explicado: los alternos tienen tu cara
+
+Alternativas:
+- The Mandela Catalogue explicado en 4 minutos
+- ¿Quién llamó a Mark? The Mandela Catalogue explicado
 
 ## Descripción
 La historia de The Mandela Catalogue explicada: los alternos, la llamada de Cesar Torres, lo que grabaron las cámaras y el final de Mark Heathcliff.
