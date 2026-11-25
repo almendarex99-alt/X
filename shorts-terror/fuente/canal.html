@@ -43,8 +43,8 @@ function rgbText(g,txt,x,y,size,col='#f2ece0',font='Anton'){g.save();g.font=`${s
   g.globalCompositeOperation='source-over';g.fillStyle=col;g.fillText(txt,x,y);g.restore()}
 
 // ---------- BANNER 2560x1440 (zona segura central 1546x423) ----------
-function banner(){
-  const B=mk(2560,1440),g=B.getContext('2d');
+function banner(sc=1){
+  const B=mk(2560*sc,1440*sc),g=B.getContext('2d');g.scale(sc,sc);
   hall(bx,{t:3.3,cam:{x:0,y:0,z:.6},flick:.9,red:.25,lisa:{x:.05,z:8.85,a:.9},doorGlow:.5});
   g.filter='blur(3px)';g.drawImage(BUF,0,880-304,1080,608,0,0,2560,1440);g.filter='none';
   g.fillStyle='rgba(5,4,8,.55)';g.fillRect(0,0,2560,1440);
@@ -74,5 +74,5 @@ function avatar(){
   return A;
 }
 window.ready=Promise.all(['100px Anton','64px VT','700 40px Inter'].map(f=>document.fonts.load(f))).then(()=>document.fonts.ready);
-window.make=()=>({banner:banner().toDataURL('image/png'),avatar:avatar().toDataURL('image/png')});
+window.make=()=>({banner:banner().toDataURL('image/png'),avatar:avatar().toDataURL('image/png'),banner4k:banner(1.5).toDataURL('image/jpeg',.92)});
 </script></body></html>
