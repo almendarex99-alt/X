@@ -1,0 +1,139 @@
+<title>Cine Mudo Jazz</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600&family=Special+Elite&display=swap">
+<style>
+/* Layout: un solo fotograma 16:9 animado (cine mudo + jazz de medianoche), con intertítulos que alternan y fichas de la idea abajo. */
+:root{--bg:#120c05;--fg:#f1e4c8;--mute:#b8a47f;--acc:#e0a24a;--line:#4a3a22;--ink:#16100a;--paper:#e9d9b8;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 'Inter',system-ui,sans-serif;
+ padding-block:24px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:980px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+h1{font:400 clamp(32px,6.5vw,58px)/1 'Anton',Impact,sans-serif;text-transform:uppercase;margin:0;text-wrap:balance}
+h1 em{font-style:normal;color:var(--acc)}
+.lead{color:var(--mute);margin:0;max-width:62ch}
+.stage{position:relative;aspect-ratio:16/9;width:100%;border-radius:6px;overflow:hidden;background:#000}
+.stage svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+/* animaciones */
+.flick{animation:flick .18s steps(2) infinite}
+@keyframes flick{0%{opacity:1}50%{opacity:.93}100%{opacity:.98}}
+.grain{animation:gr .35s steps(4) infinite}
+@keyframes gr{0%{transform:translate(0,0)}25%{transform:translate(-6px,3px)}50%{transform:translate(4px,-5px)}75%{transform:translate(-3px,-2px)}100%{transform:translate(5px,4px)}}
+.sway{transform-box:fill-box;transform-origin:50% 100%;animation:sway 1.6s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+.note{animation:rise 3.2s ease-out infinite;opacity:0}
+.n2{animation-delay:1.05s}.n3{animation-delay:2.1s}
+@keyframes rise{0%{transform:translate(0,0);opacity:0}15%{opacity:.9}100%{transform:translate(26px,-60px);opacity:0}}
+.spr{animation:spr 1.2s linear infinite}
+@keyframes spr{to{transform:translateX(-19.5px)}}
+.cone{animation:cone 4s ease-in-out infinite}
+@keyframes cone{0%,100%{opacity:.2}50%{opacity:.3}}
+.card{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#0b0704;opacity:0;pointer-events:none;transition:opacity .15s steps(3)}
+.card.on{opacity:1}
+.card div{width:76%;border:2px solid var(--paper);padding:3.2cqw 2.5cqw;text-align:center;font:clamp(15px,3.6cqw,32px)/1.25 'Special Elite','Courier New',monospace;color:var(--paper);container-type:inline-size}
+.stage{container-type:inline-size}
+.card div{font-size:3.6cqw;padding:3cqw 2.4cqw}
+.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+button{font:600 14px 'Inter',sans-serif;color:var(--fg);background:#2a1d0e;border:1px solid var(--line);border-radius:4px;padding:9px 14px;cursor:pointer;min-height:40px}
+button:hover{background:#3a2814}button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.hint{font-size:13px;color:var(--mute)}
+.ideas{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px}
+.idea{border:1px solid var(--line);border-radius:8px;padding:12px 14px;background:#1c1409}
+.idea b{display:block;font:400 19px/1.15 'Anton',Impact,sans-serif;text-transform:uppercase;color:var(--acc);margin-bottom:4px}
+.idea span{font-size:14px;color:var(--mute)}
+@media (prefers-reduced-motion:reduce){.flick,.grain,.sway,.note,.spr,.cone{animation:none}.note{opacity:.8}}
+</style>
+
+<div class="wrap">
+  <h1>Cine mudo <em>+</em> jazz de medianoche</h1>
+  <p class="lead">Un saxofonista de palitos en una película de 1927. Los intertítulos aparecen solos y la música es pura imaginación.</p>
+
+  <div class="stage" id="stage">
+    <svg viewBox="0 0 320 180" role="img" aria-label="Stickman tocando saxofón bajo un foco, dentro de un fotograma de cine mudo" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="gn"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="7"/><feColorMatrix values="0 0 0 0 .85  0 0 0 0 .75  0 0 0 0 .55  0 0 0 .55 0"/></filter>
+        <radialGradient id="vg" cx=".5" cy=".5" r=".72"><stop offset=".45" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".85"/></radialGradient>
+        <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1dfae" stop-opacity=".55"/><stop offset="1" stop-color="#f1dfae" stop-opacity=".08"/></linearGradient>
+        <clipPath id="cp"><rect x="22" y="14" width="276" height="152"/></clipPath>
+      </defs>
+      <rect width="320" height="180" fill="#0b0704"/>
+      <g class="flick">
+        <g clip-path="url(#cp)">
+          <rect x="22" y="14" width="276" height="152" fill="#2b1d0f"/>
+          <polygon class="cone" points="160,14 92,166 228,166" fill="url(#beam)"/>
+          <ellipse cx="160" cy="160" rx="62" ry="7" fill="#e9d9b8" opacity=".25"/>
+          <rect x="22" y="146" width="276" height="20" fill="#1a1109"/>
+          <!-- humo -->
+          <g fill="none" stroke="#e9d9b8" stroke-width="2" opacity=".35"><path d="M244 130q-12-14 0-28t0-28"/><path d="M262 138q-12-14 0-28t0-28"/></g>
+          <!-- stickman con saxofón -->
+          <g class="sway">
+            <g stroke="#e9d9b8" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none" transform="translate(112 44) scale(1.12)">
+              <path d="M50 30v32"/><path d="M50 62L38 96M50 62l12 34"/><path d="M50 38L66 56M50 38l-6 16"/>
+              <circle cx="50" cy="21" r="9" fill="#2b1d0f"/>
+              <path d="M46 20h2M52 20h2" stroke-width="2"/><ellipse cx="50" cy="26" rx="2.2" ry="2.8" fill="#e9d9b8" stroke="none"/>
+              <ellipse cx="50" cy="13.5" rx="14" ry="3" fill="#e9d9b8" stroke="none"/><path d="M41 14q9-14 18 0z" fill="#e9d9b8" stroke="none"/>
+              <path d="M62 38l6 4v34" stroke="#e0a24a" stroke-width="5"/><path d="M68 76q0 14 12 6l4-10" stroke="#e0a24a" stroke-width="6"/>
+            </g>
+          </g>
+          <g fill="#e9d9b8" font-family="serif" font-size="20">
+            <text class="note" x="204" y="96">♪</text><text class="note n2" x="196" y="104">♫</text><text class="note n3" x="212" y="100">♪</text>
+          </g>
+        </g>
+      </g>
+      <!-- película -->
+      <rect x="22" y="14" width="276" height="152" fill="none" stroke="#e9d9b8" stroke-width="1.5" opacity=".6"/>
+      <g clip-path="url(#sp)"><g class="spr">
+        <g id="holes" fill="#e9d9b8" opacity=".85"></g>
+      </g></g>
+      <g class="grain"><rect x="-10" y="-10" width="340" height="200" filter="url(#gn)" opacity=".28"/></g>
+      <g stroke="#fff" stroke-opacity=".3" stroke-width=".7"><path d="M80 0v180"/><path d="M236 0v180" opacity=".6"/></g>
+      <rect width="320" height="180" fill="url(#vg)"/>
+    </svg>
+    <div class="card" id="card"><div id="cardtxt"></div></div>
+  </div>
+
+  <div class="bar">
+    <button id="next">Otro intertítulo</button>
+    <button id="pause" aria-pressed="false">Pausar</button>
+    <span class="hint">Las escenas alternan solas cada pocos segundos.</span>
+  </div>
+
+  <div class="ideas">
+    <div class="idea"><b>Miniatura</b><span>Foco, saxofonista y una frase en tarjeta de película: "SOLO DE SAX · 1927". Fondo oscuro para que resalte.</span></div>
+    <div class="idea"><b>Intro de canal</b><span>5 segundos de la escena con el nombre del canal en un intertítulo y rayones de película.</span></div>
+    <div class="idea"><b>Videos que le van</b><span>Resúmenes cómicos, música para estudiar, historias de la noche, reacciones a problemas pequeños.</span></div>
+  </div>
+</div>
+
+<script>
+// agujeros de película que se desplazan arriba y abajo
+(function(){
+  const NS='http://www.w3.org/2000/svg',svg=document.querySelector('.stage svg');
+  const defs=svg.querySelector('defs');
+  // clip para dos franjas de perforaciones
+  const cp=document.createElementNS(NS,'clipPath');cp.id='sp';
+  [[0,0,320,11],[0,169,320,11]].forEach(a=>{const r=document.createElementNS(NS,'rect');r.setAttribute('x',a[0]);r.setAttribute('y',a[1]);r.setAttribute('width',a[2]);r.setAttribute('height',a[3]);cp.appendChild(r)});
+  defs.appendChild(cp);
+  const holes=svg.querySelector('#holes');
+  for(let i=0;i<20;i++){[3,171].forEach(y=>{const r=document.createElementNS(NS,'rect');r.setAttribute('x',i*19.5);r.setAttribute('y',y);r.setAttribute('width',8);r.setAttribute('height',6);r.setAttribute('rx',1);holes.appendChild(r)})}
+  // faja de la película
+  const bg=document.createElementNS(NS,'g');
+  bg.innerHTML='<rect y="0" width="320" height="11" fill="#0b0704"/><rect y="169" width="320" height="11" fill="#0b0704"/>';
+  svg.insertBefore(bg,svg.querySelector('[clip-path="url(#sp)"]'));
+})();
+const T=[
+ "¡Se acabó el café!<br>(y nadie lo notó)",
+ "Esa noche, el saxofón<br>también tenía problemas.",
+ "Mientras tanto,<br>en otra parte de la ciudad…",
+ "Lunes. 7:00 a. m.<br>Música de medianoche.",
+ "Fin.<br>(Aplausos de nadie)"];
+const card=document.getElementById('card'),txt=document.getElementById('cardtxt');
+let i=0,paused=false,timer;
+function show(){txt.innerHTML=T[i%T.length];i++;card.classList.add('on');setTimeout(()=>card.classList.remove('on'),2600)}
+function loop(){clearTimeout(timer);timer=setTimeout(()=>{if(!paused)show();loop()},7500)}
+document.getElementById('next').onclick=()=>{show();loop()};
+const p=document.getElementById('pause');
+p.onclick=()=>{paused=!paused;p.textContent=paused?'Reanudar':'Pausar';p.setAttribute('aria-pressed',paused);
+  document.getElementById('stage').style.setProperty('--x',0);
+  document.querySelectorAll('.stage svg *').forEach(e=>{if(e.classList&&e.classList.length)e.style.animationPlayState=paused?'paused':'running'})};
+setTimeout(show,5000);loop();
+</script>
