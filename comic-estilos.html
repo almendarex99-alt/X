@@ -1,0 +1,61 @@
+<title>10 Estilos de Cómic</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600&family=Bangers&display=swap">
+<style>
+/* Layout: encabezado corto + cuadrícula de 10 viñetas; cada una es un estilo de cómic distinto con el mismo stickman. */
+:root{--bg:#14121c;--card:#1e1b2b;--fg:#f3efe6;--mute:#a79fbf;--acc:#ff5e7e;--line:#34304a;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 'Inter',system-ui,sans-serif;
+ padding-block:28px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1100px;margin:0 auto}
+h1{font:400 clamp(34px,7vw,64px)/1 'Anton',Impact,sans-serif;text-transform:uppercase;margin:0 0 10px;text-wrap:balance}
+h1 em{font-style:normal;color:var(--acc)}
+.lead{color:var(--mute);max-width:60ch;margin:0 0 26px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.card svg{display:block;width:100%;height:auto;aspect-ratio:5/6}
+.info{padding:12px 14px 16px;display:flex;flex-direction:column;gap:4px}
+.n{font:600 12px 'Inter',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+.t{font:400 24px/1.1 'Anton',Impact,sans-serif;text-transform:uppercase}
+.d{font-size:14px;color:var(--mute)}.d b{color:var(--fg)}
+</style>
+
+<div class="wrap">
+  <h1>10 estilos de <em>cómic</em> para tus historias</h1>
+  <p class="lead">El mismo stickman en diez mundos distintos. Elige el estilo que va con el tono de tu canal o de tu historieta.</p>
+  <div class="grid" id="grid"></div>
+</div>
+
+<script>
+const wrap=(bg,inner,defs='')=>`<svg viewBox="0 0 200 240" role="img" xmlns="http://www.w3.org/2000/svg"><defs>${defs}</defs><rect width="200" height="240" fill="${bg}"/>${inner}</svg>`;
+const man=(c,w,o={})=>`<g stroke="${c}" stroke-width="${w}" stroke-linecap="round" fill="none"><path d="M100 130v46M100 142L72 162M100 142l28-18M100 176L80 224M100 176l20 48"/><circle cx="100" cy="112" r="18" fill="${o.head||'none'}"/></g>`;
+const bub=(x,y,w,h,txt,o={})=>{const f=o.fill||'#fff',s=o.stroke||'#111',tx=o.tx||x+w/2-10;
+ return `<g><path d="M${tx} ${y+h-2}l12 20 6-20z" fill="${f}" stroke="${s}" stroke-width="3" stroke-linejoin="round"/><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${o.r??14}" fill="${f}" stroke="${s}" stroke-width="3"/><path d="M${tx+2} ${y+h}h14" stroke="${f}" stroke-width="4"/><text x="${x+w/2}" y="${y+h/2+(o.fs||18)/3}" text-anchor="middle" font-family="${o.ff||"'Bangers','Anton',Impact,sans-serif"}" font-size="${o.fs||18}" fill="${o.c||'#111'}" letter-spacing=".5">${txt}</text></g>`};
+const rays=(cx,cy,n,c,op,len=260)=>{let p='';for(let i=0;i<n;i++){const a=i/n*6.283,b=(i+.4)/n*6.283;p+=`<path d="M${cx} ${cy}L${cx+Math.cos(a)*len} ${cy+Math.sin(a)*len}L${cx+Math.cos(b)*len} ${cy+Math.sin(b)*len}z" fill="${c}" opacity="${op}"/>`}return p};
+
+const S=[
+{n:'Manga',d:'Blanco y negro, líneas de velocidad y tramas de puntos.',u:'Acción, anime, drama',
+ s:()=>wrap('#fff',`<defs><pattern id="tn" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.1" fill="#111" opacity=".35"/></pattern></defs><rect y="150" width="200" height="90" fill="url(#tn)"/>`+rays(100,125,40,'#111',.85)+`<circle cx="100" cy="125" r="62" fill="#fff"/>`+man('#111',3.5,{head:'#fff'})+`<path d="M90 108l8 3M110 108l-8 3" stroke="#111" stroke-width="2.5" stroke-linecap="round"/><ellipse cx="100" cy="120" rx="3.5" ry="4.5" fill="#111"/>`+bub(40,12,120,40,'¡¿EEH?!',{fs:26,r:20,tx:100}))},
+{n:'Pop art',d:'Colores planos, puntos de impresión y explosiones.',u:'Humor, retro, memes',
+ s:()=>wrap('#ffdf3d',`<defs><pattern id="pp" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="4.5" cy="4.5" r="2.6" fill="#ff3d6e"/></pattern></defs><rect width="200" height="240" fill="url(#pp)" opacity=".7"/><polygon points="100,14 114,40 144,26 138,56 172,58 148,78 168,100 136,100 134,130 108,112 90,134 80,104 48,112 62,86 30,72 64,62 56,32 86,44" fill="#fff" stroke="#111" stroke-width="4"/><text x="100" y="84" text-anchor="middle" font-family="Bangers,Anton,sans-serif" font-size="40" fill="#e11d48" stroke="#111" stroke-width="2">¡POW!</text>`+man('#111',7,{head:'#3b82f6'}).replace('<g ','<g transform="translate(0 28)" '))},
+{n:'Noir',d:'Alto contraste, luz dura y mucho misterio.',u:'Detectives, terror, suspenso',
+ s:()=>wrap('#0b0b0f',`<polygon points="150,0 200,0 200,240 20,240" fill="#fff" opacity=".12"/><polygon points="170,0 200,0 200,240 110,240" fill="#fff" opacity=".1"/>`+man('#f5f5f5',4,{head:'#0b0b0f'}).replace('<g ','<g transform="translate(0 6)" ')+`<ellipse cx="100" cy="100" rx="30" ry="5" fill="#f5f5f5"/><path d="M82 100q18-30 36 0z" fill="#f5f5f5"/>`+`<rect x="18" y="14" width="164" height="40" fill="#f5f5f5"/><text x="100" y="40" text-anchor="middle" font-family="'Inter',sans-serif" font-style="italic" font-weight="600" font-size="14" fill="#0b0b0f">Llovía en la ciudad…</text>`)},
+{n:'Tira de periódico',d:'Papel crema, trazo limpio y una gracia por viñeta.',u:'Humor diario, chistes de oficina',
+ s:()=>wrap('#f3ead2',`<rect x="14" y="14" width="172" height="212" fill="#fbf6e6" stroke="#222" stroke-width="3"/><rect x="14" y="14" width="172" height="28" fill="#222"/><text x="100" y="34" text-anchor="middle" font-family="Inter,sans-serif" font-weight="600" font-size="13" fill="#f3ead2" letter-spacing="1.5">LUNES, 8:00 AM</text><path d="M14 190h172" stroke="#222" stroke-width="2"/><text x="100" y="212" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#222">El café no es opcional.</text>`+man('#222',2.8,{head:'#fbf6e6'}).replace('<g ','<g transform="translate(22 12) scale(.78)" ')+`<ellipse cx="146" cy="168" rx="12" ry="7" fill="#fbf6e6" stroke="#222" stroke-width="2.5"/><path d="M158 164q8 2 0 8" stroke="#222" stroke-width="2.5" fill="none"/>`)},
+{n:'Webcómic plano',d:'Colores pastel y formas sencillas, como en redes sociales.',u:'Vida diaria, humor relatable',
+ s:()=>wrap('#d8f3ea',`<circle cx="40" cy="206" r="60" fill="#bfe7d8"/><circle cx="170" cy="60" r="40" fill="#c9ecf0"/>`+`<path d="M100 130v46M100 142L72 162M100 142l28-18M100 176L80 224M100 176l20 48" stroke="#2d3a4a" stroke-width="5" stroke-linecap="round" fill="none"/><path d="M82 136q18-12 36 0l-4 42h-28z" fill="#ff7b7b"/><circle cx="100" cy="112" r="19" fill="#ffd9b8" stroke="#2d3a4a" stroke-width="4"/><circle cx="93" cy="110" r="2.4" fill="#2d3a4a"/><circle cx="107" cy="110" r="2.4" fill="#2d3a4a"/><path d="M94 119q6 4 12 0" stroke="#2d3a4a" stroke-width="3" fill="none" stroke-linecap="round"/>`+bub(30,16,140,40,'Otra vez lunes…',{fs:16,ff:'Inter,sans-serif',fill:'#fff',stroke:'#2d3a4a',tx:96,c:'#2d3a4a'}))},
+{n:'Superhéroe',d:'Capa, antifaz, rayos de acción y letras gigantes.',u:'Aventura, parodia, motivación',
+ s:()=>wrap('#1d4ed8',rays(100,130,24,'#facc15',.35)+`<path d="M100 134q-50 10-70 50l60-30z" fill="#e11d48" stroke="#111" stroke-width="3"/>`+man('#facc15',6,{head:'#ffe0b8'}).replace('<g ','<g transform="rotate(-70 100 130) translate(0 0)" ')+`<path d="M82 108h36v8H82z" fill="#111" transform="rotate(0)" opacity="0"/>`+bub(22,14,156,44,'¡A VOLAR!',{fs:28,fill:'#fff',tx:130,r:10}))},
+{n:'Kawaii',d:'Cabeza redonda, mejillas rosas y mucha ternura.',u:'Contenido infantil, mascotas, cozy',
+ s:()=>wrap('#ffdbe9',`<g fill="#ff8fb7" opacity=".7"><path d="M30 40q-8-10 0-14t10 8q8-6 10 2t-10 10z"/><path d="M160 190q-8-10 0-14t10 8q8-6 10 2t-10 10z"/><circle cx="170" cy="40" r="5"/><circle cx="26" cy="190" r="4"/></g>`+`<g stroke="#5b3a4f" stroke-width="5" stroke-linecap="round" fill="none"><path d="M100 150v30M100 160L80 172M100 160l22-12M100 180l-10 40M100 180l10 40"/></g><circle cx="100" cy="106" r="40" fill="#fff" stroke="#5b3a4f" stroke-width="5"/><circle cx="86" cy="108" r="5" fill="#5b3a4f"/><circle cx="114" cy="108" r="5" fill="#5b3a4f"/><circle cx="84" cy="106" r="1.6" fill="#fff"/><circle cx="112" cy="106" r="1.6" fill="#fff"/><ellipse cx="74" cy="120" rx="7" ry="4.5" fill="#ff8fb7"/><ellipse cx="126" cy="120" rx="7" ry="4.5" fill="#ff8fb7"/><path d="M95 120q5 5 10 0" stroke="#5b3a4f" stroke-width="3.5" fill="none" stroke-linecap="round"/>`+bub(48,12,104,32,'¡Holi!',{fs:22,stroke:'#5b3a4f',tx:96,c:'#e0457f',r:16}))},
+{n:'Vintage sepia',d:'Papel viejo, bigote y tipografía de otra época.',u:'Historia, biografías, documentales',
+ s:()=>wrap('#d9c3a0',`<defs><pattern id="gr" width="4" height="4" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".7" fill="#7a5c3a" opacity=".25"/></pattern><radialGradient id="vg"><stop offset=".55" stop-color="#d9c3a0" stop-opacity="0"/><stop offset="1" stop-color="#5a3f22" stop-opacity=".65"/></radialGradient></defs><rect width="200" height="240" fill="url(#gr)"/>`+man('#3b2a18',4,{head:'#e8d6b5'})+`<path d="M90 120q10-5 20 0q-5 5-10 3q-5 2-10-3z" fill="#3b2a18"/><circle cx="93" cy="108" r="2" fill="#3b2a18"/><circle cx="107" cy="108" r="2" fill="#3b2a18"/><path d="M92 134l8 4 8-4-8-4z" fill="#8c2f1b"/><rect x="26" y="18" width="148" height="34" fill="none" stroke="#3b2a18" stroke-width="2.5"/><rect x="31" y="23" width="138" height="24" fill="none" stroke="#3b2a18" stroke-width="1"/><text x="100" y="41" text-anchor="middle" font-family="Anton,serif" font-size="16" fill="#3b2a18" letter-spacing="2">AÑO 1952</text><rect width="200" height="240" fill="url(#vg)"/>`)},
+{n:'Cyberpunk',d:'Cuadrícula neón, visor y glitch.',u:'Ciencia ficción, tecnología, IA',
+ s:()=>wrap('#12082b',`<g stroke="#ff3d9a" stroke-opacity=".5" stroke-width="1.2"><path d="M0 170H200M0 190H200M0 214H200M100 150L-40 240M100 150L10 240M100 150L70 240M100 150L130 240M100 150L190 240M100 150L240 240"/></g><circle cx="100" cy="90" r="60" fill="#ff3d9a" opacity=".18"/>`+man('#2ee6d6',4,{head:'#12082b'}).replace('<g ','<g filter="url(#gl)" ')+`<rect x="84" y="106" width="32" height="9" rx="3" fill="#ff3d9a"/><rect x="22" y="14" width="156" height="36" fill="#0a0418" stroke="#2ee6d6" stroke-width="2"/><text x="100" y="39" text-anchor="middle" font-family="'Inter',monospace" font-weight="600" font-size="15" fill="#2ee6d6" letter-spacing="2">ERROR 404</text><rect x="26" y="24" width="60" height="2" fill="#ff3d9a" opacity=".7"/>`,`<filter id="gl" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>`)},
+{n:'Libro de cuentos',d:'Acuarela suave, manchas de color y texto de cuento.',u:'Fábulas, niños, narraciones',
+ s:()=>wrap('#fbf4e4',`<circle cx="50" cy="70" r="60" fill="#9fd4e8" opacity=".5"/><circle cx="160" cy="190" r="56" fill="#f7c6a0" opacity=".55"/><circle cx="130" cy="50" r="34" fill="#c9e3a6" opacity=".55"/><path d="M0 200q50-26 100-10t100-14v64H0z" fill="#a8d08d" opacity=".7"/>`+man('#4a3a5e',3.5,{head:'#fff'}).replace('<g ','<g transform="translate(0 6)" ')+`<path d="M128 136l0-34" stroke="#4a3a5e" stroke-width="2.5"/><path d="M102 106q26-28 52 0z" fill="#e87f9e" stroke="#4a3a5e" stroke-width="2.5"/><circle cx="94" cy="124" r="2" fill="#4a3a5e"/><circle cx="106" cy="124" r="2" fill="#4a3a5e"/><text x="100" y="34" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="20" fill="#4a3a5e">Había una vez…</text>`)}
+];
+const grid=document.getElementById('grid');
+S.forEach((s,i)=>{const c=document.createElement('article');c.className='card';
+ c.innerHTML=s.s()+`<div class="info"><div class="n">Estilo ${i+1}</div><div class="t">${s.n}</div><div class="d">${s.d}</div><div class="d"><b>Ideal para:</b> ${s.u}</div></div>`;grid.appendChild(c)});
+</script>
