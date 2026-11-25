@@ -1,0 +1,78 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Anton;src:url(node_modules/@fontsource/anton/files/anton-latin-400-normal.woff2)}
+@font-face{font-family:Anton;src:url(node_modules/@fontsource/anton/files/anton-latin-ext-400-normal.woff2);unicode-range:U+0100-024F}
+@font-face{font-family:VT;src:url(node_modules/@fontsource/vt323/files/vt323-latin-400-normal.woff2)}
+@font-face{font-family:Inter;font-weight:700;src:url(node_modules/@fontsource/inter/files/inter-latin-700-normal.woff2)}
+html,body{margin:0;background:#000}
+</style></head><body>
+<canvas id="c" width="1080" height="1920" style="display:none"></canvas>
+<script src="lib.js"></script>
+<script>
+// ---------- figura encapuchada sin rostro (la "cara" del canal) ----------
+function hooded(g,x,y,s,t,o={}){
+  g.save();g.translate(x,y);g.scale(s,s);
+  // halo de contraluz
+  const hl=g.createRadialGradient(0,-40,10,0,-40,260);hl.addColorStop(0,'rgba(224,22,43,.30)');hl.addColorStop(1,'rgba(224,22,43,0)');g.fillStyle=hl;g.beginPath();g.arc(0,-40,260,0,7);g.fill();
+  // hombros y sudadera
+  g.fillStyle='#16141c';g.beginPath();g.moveTo(-230,900);g.lineTo(-215,260);g.quadraticCurveTo(-200,40,-90,10);g.lineTo(90,10);g.quadraticCurveTo(200,40,215,260);g.lineTo(230,900);g.closePath();g.fill();
+  g.strokeStyle='#26232f';g.lineWidth=6;g.beginPath();g.moveTo(-40,40);g.lineTo(-48,240);g.moveTo(40,40);g.lineTo(48,240);g.stroke();
+  // capucha
+  g.fillStyle='#1d1a25';g.beginPath();g.moveTo(-120,60);g.quadraticCurveTo(-150,-120,0,-170);g.quadraticCurveTo(150,-120,120,60);g.quadraticCurveTo(0,90,-120,60);g.fill();
+  g.strokeStyle='rgba(224,22,43,.55)';g.lineWidth=5;g.beginPath();g.moveTo(-120,60);g.quadraticCurveTo(-150,-120,0,-170);g.quadraticCurveTo(150,-120,120,60);g.stroke();
+  // vacío del rostro
+  g.fillStyle='#030305';g.beginPath();g.ellipse(0,-35,74,92,0,0,7);g.fill();
+  // ojos
+  const eg=c=>{g.save();g.shadowColor=c;g.shadowBlur=28;g.fillStyle=c;g.beginPath();g.ellipse(-28,-40,11,6,-.12,0,7);g.ellipse(28,-40,11,6,.12,0,7);g.fill();g.restore()};
+  eg(o.eye||'#f2ece0');
+  g.restore();
+}
+function crt(g,x,y,w,h,t,content){
+  g.save();g.fillStyle='#17141b';rr(g,x-30,y-30,w+60,h+90,34);g.fill();g.fillStyle='#0b0a0e';rr(g,x,y,w,h,26);g.fill();
+  g.save();rr(g,x,y,w,h,26);g.clip();g.save();content(g,x,y,w,h);g.restore();g.globalAlpha=.35;g.drawImage(GRAIN[2],x,y,w,h);g.globalAlpha=1;
+  g.fillStyle='rgba(0,0,0,.25)';for(let yy=y;yy<y+h;yy+=5)g.fillRect(x,yy,w,2);
+  const v=g.createRadialGradient(x+w/2,y+h/2,w*.2,x+w/2,y+h/2,w*.75);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.7)');g.fillStyle=v;g.fillRect(x,y,w,h);g.restore();
+  g.fillStyle='#2b2630';g.beginPath();g.arc(x+w-30,y+h+32,10,0,7);g.arc(x+w-62,y+h+32,10,0,7);g.fill();
+  g.fillStyle='#e0162b';g.beginPath();g.arc(x+30,y+h+32,7,0,7);g.fill();g.restore();
+}
+function vhs(g,w,h,a=.18){g.save();g.globalCompositeOperation='overlay';g.globalAlpha=a;g.imageSmoothingEnabled=false;g.drawImage(GRAIN[0],0,0,w,h);g.restore();
+  g.fillStyle='rgba(0,0,0,.14)';for(let y=0;y<h;y+=4)g.fillRect(0,y,w,2);
+  const v=g.createRadialGradient(w/2,h/2,Math.min(w,h)*.25,w/2,h/2,Math.max(w,h)*.7);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.85)');g.fillStyle=v;g.fillRect(0,0,w,h)}
+function rgbText(g,txt,x,y,size,col='#f2ece0',font='Anton'){g.save();g.font=`${size}px ${font}`;g.textAlign='center';g.lineJoin='round';
+  g.strokeStyle='rgba(0,0,0,.9)';g.lineWidth=size*.14;g.strokeText(txt,x,y);g.globalCompositeOperation='lighter';g.fillStyle='rgba(255,0,40,.5)';g.fillText(txt,x-5,y);g.fillStyle='rgba(0,200,255,.4)';g.fillText(txt,x+5,y);
+  g.globalCompositeOperation='source-over';g.fillStyle=col;g.fillText(txt,x,y);g.restore()}
+
+// ---------- BANNER 2560x1440 (zona segura central 1546x423) ----------
+function banner(){
+  const B=mk(2560,1440),g=B.getContext('2d');
+  hall(bx,{t:3.3,cam:{x:0,y:0,z:.6},flick:.9,red:.25,lisa:{x:.05,z:8.85,a:.9},doorGlow:.5});
+  g.filter='blur(3px)';g.drawImage(BUF,0,880-304,1080,608,0,0,2560,1440);g.filter='none';
+  g.fillStyle='rgba(5,4,8,.55)';g.fillRect(0,0,2560,1440);
+  const sx=507,sy=508,sw=1546,sh=423; // zona segura
+  // franja oscura detrás del texto
+  const fb=g.createLinearGradient(0,sy,0,sy+sh);fb.addColorStop(0,'rgba(0,0,0,0)');fb.addColorStop(.5,'rgba(0,0,0,.55)');fb.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=fb;g.fillRect(0,sy-60,2560,sh+120);
+  // figura y tele dentro de la zona segura
+  hooded(g,sx+190,sy+300,.95,0);
+  crt(g,sx+sw-360,sy+70,300,225,0,(g,x,y,w,h)=>{g.fillStyle='#04060a';g.fillRect(x,y,w,h);g.font='58px VT';g.textAlign='center';g.fillStyle='#f2ece0';g.shadowColor='#f2ece0';g.shadowBlur=10;g.fillText('▶ PLAY',x+w/2,y+h/2+8);g.font='34px VT';g.fillStyle='#e0162b';g.shadowColor='#e0162b';g.shadowBlur=8;g.fillText('AM 3:33',x+w/2,y+h/2+56)});
+  rgbText(g,'TERROR',sx+sw/2-50,sy+215,190);
+  g.save();g.font='130px Anton';g.textAlign='center';g.lineJoin='round';g.strokeStyle='rgba(0,0,0,.9)';g.lineWidth=18;g.strokeText('Y VIDEOJUEGOS',sx+sw/2-50,sy+345);g.fillStyle='#e0162b';g.shadowColor='rgba(224,22,43,.6)';g.shadowBlur=30;g.fillText('Y VIDEOJUEGOS',sx+sw/2-50,sy+345);g.restore();
+  g.save();g.font='58px VT';g.textAlign='center';g.fillStyle='#d9d2c3';g.fillText('MITOS · LEYENDAS · JUEGOS BORRADOS',sx+sw/2-50,sy+410);g.restore();
+  // OSD de cinta en las esquinas de la zona de TV
+  g.save();g.font='64px VT';g.fillStyle='rgba(240,240,232,.85)';g.fillText('▶ PLAY',120,130);g.textAlign='right';g.fillText('SP  AM 3:33:00',2440,130);g.fillText('REC ●',2440,1360);g.restore();
+  vhs(g,2560,1440,.16);
+  return B;
+}
+// ---------- FOTO DE PERFIL 800x800 (se recorta en círculo) ----------
+function avatar(){
+  const A=mk(800,800),g=A.getContext('2d');
+  const bg=g.createRadialGradient(400,380,40,400,400,520);bg.addColorStop(0,'#2a0a10');bg.addColorStop(1,'#050407');g.fillStyle=bg;g.fillRect(0,0,800,800);
+  // marco de pantalla CRT sutil
+  g.strokeStyle='rgba(224,22,43,.35)';g.lineWidth=6;rr(g,120,110,560,580,60);g.stroke();
+  hooded(g,400,470,1.55,0);
+  g.save();g.font='54px VT';g.textAlign='center';g.fillStyle='rgba(240,236,224,.85)';g.fillText('▶ PLAY',400,182);g.restore();
+  vhs(g,800,800,.2);
+  return A;
+}
+window.ready=Promise.all(['100px Anton','64px VT','700 40px Inter'].map(f=>document.fonts.load(f))).then(()=>document.fonts.ready);
+window.make=()=>({banner:banner().toDataURL('image/png'),avatar:avatar().toDataURL('image/png')});
+</script></body></html>
