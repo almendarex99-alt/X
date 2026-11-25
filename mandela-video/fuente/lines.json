@@ -1,0 +1,331 @@
+[
+{
+"scene": "broadcast",
+"text": "Si alguien con tu cara llama a tu puerta... no abras.",
+"label": null,
+"gap": 0.6,
+"speed": 0.9
+},
+{
+"scene": "broadcast",
+"text": "Así se vive en el condado de Mandela.",
+"label": null,
+"gap": 0.3,
+"speed": 0.9
+},
+{
+"scene": "title",
+"text": "Esta es la historia de The Mandela Catalogue.",
+"label": null,
+"gap": 0.6,
+"speed": 0.9
+},
+{
+"scene": "creator",
+"text": "En dos mil veintiuno, un chaval de dieciocho años de Wisconsin, Alex Kister, empezó a subir a YouTube una serie de cintas.",
+"label": "ALEX KISTER · 18 AÑOS · 2021",
+"gap": 0.5,
+"speed": 0.9
+},
+{
+"scene": "creator",
+"text": "Empezó como un proyecto escolar. Hoy es una de las series de terror analógico más famosas de internet.",
+"label": null,
+"gap": 0.3,
+"speed": 0.9
+},
+{
+"scene": "map",
+"text": "Todo ocurre en un lugar inventado: el condado de Mandela, en Wisconsin.",
+"label": "CONDADO DE MANDELA (FICTICIO) · WISCONSIN",
+"gap": 0.4,
+"speed": 0.9
+},
+{
+"scene": "tv",
+"text": "Las cintas se presentan como vídeos de instrucciones para sus vecinos... y como grabaciones encontradas.",
+"label": null,
+"gap": 0.3,
+"speed": 0.9
+},
+{
+"scene": "faces",
+"text": "Y todas hablan de lo mismo: los alternos.",
+"label": "LOS ALTERNOS",
+"gap": 0.4,
+"speed": 0.9
+},
+{
+"scene": "faces",
+"text": "Seres que copian el aspecto de una persona... hasta que no puedes saber quién es quién.",
+"label": null,
+"gap": 0.3,
+"speed": 0.9
+},
+{
+"scene": "faces2",
+"text": "No atacan con garras. Atacan con la mente: te hablan, te convencen, te rompen... hasta empujarte a matar.",
+"label": null,
+"gap": 0.3,
+"speed": 0.9
+},
+{
+"scene": "chapter:VOLUMEN 1:LAS VÍCTIMAS",
+"text": "Volumen uno. Dos víctimas: Mark Heathcliff... y Cesar Torres.",
+"label": null,
+"gap": 0.9,
+"speed": 0.9
+},
+{
+"scene": "phone",
+"text": "Todo empieza con una llamada. Cesar llama a su amigo Mark.",
+"label": null,
+"gap": 0.5,
+"speed": 0.9
+},
+{
+"scene": "phone",
+"text": "Le cuenta que ha encontrado a su madre inconsciente, y que la lleva a urgencias.",
+"label": null,
+"gap": 0.3,
+"speed": 0.9
+},
+{
+"scene": "phone",
+"text": "Le pide un favor: que encienda las cámaras de seguridad de su casa.",
+"label": null,
+"gap": 0.3,
+"speed": 0.9
+},
+{
+"scene": "phone",
+"text": "Mark acepta, aunque no quiere. Esa casa no le gusta.",
+"label": null,
+"gap": 0.3,
+"speed": 0.9
+},
+{
+"scene": "phone",
+"text": "Antes de colgar, Cesar le pide algo más: que mire bien el pasillo de atrás.",
+"label": "«MIRA BIEN EL PASILLO DE ATRÁS»",
+"gap": 0.4,
+"speed": 0.9
+},
+{
+"scene": "house",
+"text": "Mark va. Enciende las cámaras. Y vuelve a su casa.",
+"label": null,
+"gap": 0.5,
+"speed": 0.9
+},
+{
+"scene": "cams",
+"text": "Pero las cámaras guardaban algo de esa misma mañana.",
+"label": null,
+"gap": 0.4,
+"speed": 0.9
+},
+{
+"scene": "camhall",
+"text": "En la grabación, la madre de Cesar le grita a alguien en el pasillo:",
+"label": null,
+"gap": 0.3,
+"speed": 0.9
+},
+{
+"scene": "scream",
+"text": "¿Quién eres?",
+"label": "«¿QUIÉN ERES?»",
+"gap": 0.3,
+"speed": 0.9
+},
+{
+"scene": "distort",
+"text": "Y la cara de Cesar... se deforma.",
+"label": null,
+"gap": 0.6,
+"speed": 0.9
+},
+{
+"scene": "distort",
+"text": "Cesar ya no era Cesar. Lo habían reemplazado. Y fue su alterno el que atacó a su madre.",
+"label": null,
+"gap": 0.3,
+"speed": 0.9
+},
+{
+"scene": "phonealt",
+"text": "Eso significa que la llamada a Mark... no la hizo Cesar.",
+"label": null,
+"gap": 0.5,
+"speed": 0.9
+},
+{
+"scene": "phonealt",
+"text": "La hizo algo que llevaba su cara... y su traje del baile de graduación.",
+"label": null,
+"gap": 0.3,
+"speed": 0.9
+},
+{
+"scene": "chapter:VOLUMEN 1:LA HABITACIÓN DE MARK",
+"text": "Mark empieza a sentir que lo siguen.",
+"label": null,
+"gap": 0.9,
+"speed": 0.9
+},
+{
+"scene": "street",
+"text": "Una noche, de camino a casa, algo camina detrás de él.",
+"label": null,
+"gap": 0.4,
+"speed": 0.9
+},
+{
+"scene": "room",
+"text": "Se encierra en su habitación. Y no sale. Pasan los días.",
+"label": null,
+"gap": 0.4,
+"speed": 0.9
+},
+{
+"scene": "room",
+"text": "Solo le queda su cámara de vídeo... y lo que se oye al otro lado de la puerta.",
+"label": null,
+"gap": 0.3,
+"speed": 0.9
+},
+{
+"scene": "bad",
+"text": "Entonces aparece un mensaje en la pantalla: mala decisión, Mark.",
+"label": null,
+"gap": 0.4,
+"speed": 0.9
+},
+{
+"scene": "camface",
+"text": "Algo coge la cámara. Y se queda mirándola. Mirándote a ti.",
+"label": null,
+"gap": 0.6,
+"speed": 0.9
+},
+{
+"scene": "victim",
+"text": "Al final de la cinta solo queda un dato: Mark Heathcliff tenía diecisiete años.",
+"label": null,
+"gap": 0.8,
+"speed": 0.9
+},
+{
+"scene": "chapter:EL INTRUSO:",
+"text": "Pero los alternos no son lo único que vive en Mandela.",
+"label": null,
+"gap": 0.9,
+"speed": 0.9
+},
+{
+"scene": "alert",
+"text": "En otra cinta, una alerta habla del Intruso: algo que se llevó a miles de niños en cuatro condados.",
+"label": null,
+"gap": 0.4,
+"speed": 0.9
+},
+{
+"scene": "missing",
+"text": "Paredes llenas de carteles de desaparecidos. Y nadie sabe para qué los quería.",
+"label": null,
+"gap": 0.3,
+"speed": 0.9
+},
+{
+"scene": "intruder",
+"text": "La serie da a entender que el Intruso atormentó a Mark desde que era niño.",
+"label": null,
+"gap": 0.4,
+"speed": 0.9
+},
+{
+"scene": "intruder",
+"text": "Y los fans tienen una teoría todavía peor: que uno de esos niños era Adam.",
+"label": "TEORÍA DE LOS FANS",
+"gap": 0.3,
+"speed": 0.9
+},
+{
+"scene": "chapter:VOLUMEN 2:ADAM",
+"text": "Volumen dos. Año dos mil nueve.",
+"label": null,
+"gap": 0.9,
+"speed": 0.9
+},
+{
+"scene": "basement",
+"text": "Dos investigadores de lo paranormal, Adam y Jonah, bajan a un sótano.",
+"label": "BYTHORNE PARANORMAL SOCIETY · 2009",
+"gap": 0.4,
+"speed": 0.9
+},
+{
+"scene": "basement",
+"text": "Allí, los alternos intentan romper a Adam desde dentro. Le preguntan qué ha hecho.",
+"label": null,
+"gap": 0.3,
+"speed": 0.9
+},
+{
+"scene": "basement",
+"text": "Y él responde, una y otra vez, que hizo lo correcto.",
+"label": null,
+"gap": 0.3,
+"speed": 0.9
+},
+{
+"scene": "skin",
+"text": "Años después, el Intruso vuelve a por él. Y le dice algo que no se olvida: tu piel no es tuya.",
+"label": "«TU PIEL NO ES TUYA»",
+"gap": 0.6,
+"speed": 0.9
+},
+{
+"scene": "apple",
+"text": "En el volumen cuatro aparece Gabriel... y le ofrece a Adam una manzana del árbol del conocimiento.",
+"label": "VOLUMEN 4 · GABRIEL",
+"gap": 0.6,
+"speed": 0.9
+},
+{
+"scene": "apple",
+"text": "La historia del Génesis... contada por algo que no es un ángel.",
+"label": null,
+"gap": 0.3,
+"speed": 0.9
+},
+{
+"scene": "chapter:POR QUÉ DA TANTO MIEDO:",
+"text": "The Mandela Catalogue no te asusta con sangre.",
+"label": null,
+"gap": 0.9,
+"speed": 0.9
+},
+{
+"scene": "faces",
+"text": "Te asusta con una idea: que la persona que más quieres... podría no ser ella.",
+"label": null,
+"gap": 0.3,
+"speed": 0.9
+},
+{
+"scene": "tv",
+"text": "Y que la próxima llamada podría venir de alguien con tu propia voz.",
+"label": null,
+"gap": 0.4,
+"speed": 0.9
+},
+{
+"scene": "end",
+"text": "Si quieres la segunda parte, con todos los volúmenes, comenta Mandela. Y si alguien con tu cara llama a tu puerta... ya sabes lo que tienes que hacer.",
+"label": null,
+"gap": 0.5,
+"speed": 0.9
+}
+]
