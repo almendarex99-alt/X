@@ -87,5 +87,11 @@ Fuentes:
 - Bloody Disgusting: https://bloody-disgusting.com/editorials/3958525/the-mandela-catalogue-explained-inside-alex-kisters-viral-analog-horror-phenomenon/
 - Know Your Meme: https://knowyourmeme.com/memes/cultures/analog-horror
 
+**Hashtags (al final de la descripción; los 3 primeros salen sobre el título):**
+#AnalogHorror #TerrorAnalogico #Shorts #Local58 #MandelaCatalogue #GeminiHomeEntertainment #TerrorVHS #Creepypasta #HistoriasDeTerror #Terror #Misterio #FoundFootage
+
+**TikTok (texto corto):**
+Una cinta no puede hacerte daño… ¿entonces por qué no puedes dejar de verla? 📼 Así nació el analog horror. #analoghorror #terroranalogico #local58 #mandelacatalogue #terror #creepypasta
+
 **Etiquetas:** analog horror, Local 58, Kris Straub, The Mandela Catalogue, Gemini Home Entertainment, terror VHS, found footage, creepypasta, terror en YouTube, 476 MHz
 **Comentario fijado:** ¿Cuál te dio más miedo: Local 58, Gemini o Mandela? 👇
