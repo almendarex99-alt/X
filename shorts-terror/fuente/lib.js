@@ -108,8 +108,9 @@ function lisa(g,x,fy,h,a,t){
 }
 // ---------- texto ----------
 function segs(str){const out=[];str.split(/(\*[^*]+\*)/).forEach(p=>{if(!p)return;if(p[0]==='*')out.push([p.slice(1,-1),1]);else out.push([p,0])});return out}
+function ttFix(y,o){if(!window.TIKTOK)return [y,o];o=Object.assign({},o);if(y>1300)y=1300+(y-1300)*.3;if(y>850){o.dx=(o.dx||0)-40;o.maxW=Math.min(o.maxW||880,780)}return [y,o]}
 function big(g,str,y,size,age,o={}){
-  if(age<0||window.COVERMODE)return;const sc=1+.32*Math.exp(-age*16),al=clamp(age/.05);const S=segs(str);
+  if(age<0||window.COVERMODE)return;[y,o]=ttFix(y,o);const sc=1+.32*Math.exp(-age*16),al=clamp(age/.05);const S=segs(str);
   g.save();g.font=`${size}px Anton`;g.textBaseline='alphabetic';g.lineJoin='round';
   const tw=S.reduce((a,s)=>a+g.measureText(s[0]).width,0);const fit=Math.min(1,(o.maxW||880)/tw);
   g.translate(W/2+(o.dx||0),y);g.scale(sc*fit,sc*fit);g.globalAlpha=al*(o.alpha??1);
@@ -122,7 +123,7 @@ function big(g,str,y,size,age,o={}){
   draw(0,0,'fill');g.restore();
 }
 function small(g,str,y,age,o={}){
-  if(age<0||window.COVERMODE)return;const size=o.size||44,maxW=o.maxW||860,lh=size*1.32;
+  if(age<0||window.COVERMODE)return;[y,o]=ttFix(y,o);const size=o.size||44,maxW=o.maxW||860,lh=size*1.32;
   g.save();g.font=`${o.weight||500} ${size}px Inter`;
   const lines=[];let cur='';str.split(' ').forEach(w=>{const tr=cur?cur+' '+w:w;if(g.measureText(tr).width>maxW&&cur){lines.push(cur);cur=w}else cur=tr});lines.push(cur);
   const n=Math.floor(age*46);if(n<=0){g.restore();return}

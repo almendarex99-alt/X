@@ -3,7 +3,7 @@ const {chromium}=require('playwright');const fs=require('fs');const {spawn}=requ
 (async()=>{
   const [mode,v,arg]=process.argv.slice(2);const b=await chromium.launch({args:['--allow-file-access-from-files']});
   const p=await b.newPage({viewport:{width:1080,height:1920}});p.on('pageerror',e=>console.log('ERR',e.message));p.on('console',m=>console.log('LOG',m.text()));
-  await p.goto('file://'+path.join(__dirname,'index.html')+'?v='+v);await p.evaluate(()=>window.ready);
+  await p.goto('file://'+path.join(__dirname,'index.html')+'?v='+v+(process.env.TT?'&tt=1':''));await p.evaluate(()=>window.ready);
   const DUR=await p.evaluate(()=>window.DUR);
   fs.writeFileSync(path.join(__dirname,v+'_cues.json'),JSON.stringify({dur:DUR,cues:await p.evaluate(()=>window.CUES)}));
   const grab=async(t,c,fmt='image/jpeg')=>Buffer.from((await p.evaluate(([t,c,f])=>{render(t,c);return document.getElementById('c').toDataURL(f,.93)},[t,c,fmt])).split(',')[1],'base64');
