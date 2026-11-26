@@ -1,5 +1,5 @@
 import numpy as np, wave
-sr=44100; T=28; n=sr*T; t=np.arange(n)/sr
+sr=44100; T=58; n=sr*T; t=np.arange(n)/sr
 bpm=96; beat=60/bpm
 chords=[[57,60,64],[53,57,60],[48,52,55],[55,59,62]]  # Am F C G
 f=lambda m:440*2**((m-69)/12)

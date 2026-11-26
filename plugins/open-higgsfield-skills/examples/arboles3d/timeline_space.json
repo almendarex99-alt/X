@@ -1,0 +1,71 @@
+{
+ "segments": [
+  {
+   "text": "Vamos a hacer un viaje por el sistema solar, a toda velocidad.",
+   "start": 0.5,
+   "end": 3.762,
+   "dur": 3.262
+  },
+  {
+   "text": "Primero, el Sol. Es tan grande que dentro cabrían más de un millón de Tierras.",
+   "start": 4.112,
+   "end": 8.547,
+   "dur": 4.435
+  },
+  {
+   "text": "Y su luz tarda ocho minutos en llegar hasta nosotros.",
+   "start": 8.897,
+   "end": 11.753,
+   "dur": 2.856
+  },
+  {
+   "text": "Mercurio es el planeta más cercano al Sol, pero no es el más caliente.",
+   "start": 12.103,
+   "end": 16.306,
+   "dur": 4.203
+  },
+  {
+   "text": "Ese título es de Venus, con más de cuatrocientos grados, por culpa de su atmósfera.",
+   "start": 16.656,
+   "end": 21.254,
+   "dur": 4.598
+  },
+  {
+   "text": "Marte es rojo porque su suelo tiene óxido, igual que el hierro oxidado.",
+   "start": 21.604,
+   "end": 25.737,
+   "dur": 4.133
+  },
+  {
+   "text": "Júpiter es el gigante. Su Gran Mancha Roja es una tormenta más grande que la Tierra, y dura siglos.",
+   "start": 26.087,
+   "end": 32.194,
+   "dur": 6.107
+  },
+  {
+   "text": "Saturno es tan poco denso, que flotaría en una bañera gigante de agua.",
+   "start": 32.544,
+   "end": 36.433,
+   "dur": 3.889
+  },
+  {
+   "text": "Urano gira prácticamente de lado, como una bola rodando.",
+   "start": 36.783,
+   "end": 40.162,
+   "dur": 3.379
+  },
+  {
+   "text": "En Neptuno soplan los vientos más rápidos del sistema solar, de más de mil kilómetros por hora.",
+   "start": 40.512,
+   "end": 46.003,
+   "dur": 5.492
+  },
+  {
+   "text": "Y todo esto es solo nuestro pequeño rincón, en una galaxia con cientos de miles de millones de estrellas.",
+   "start": 46.353,
+   "end": 51.787,
+   "dur": 5.433
+  }
+ ],
+ "total": 52.74
+}
