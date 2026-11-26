@@ -1,0 +1,28 @@
+1
+00:00:00,250 --> 00:00:04,697
+Un bosque. Una linterna. Ocho páginas. Y algo que no tiene cara.
+
+2
+00:00:05,147 --> 00:00:12,345
+Slender: The Eight Pages salió en dos mil doce. Tu objetivo: encontrar ocho páginas en un bosque, de noche.
+
+3
+00:00:13,544 --> 00:00:18,118
+Regla uno: no lo mires. Cuando está cerca, la pantalla se llena de estática.
+
+4
+00:00:18,568 --> 00:00:23,410
+Regla dos: muévete siempre. Con cada página que recoges, se acerca más.
+
+5
+00:00:23,859 --> 00:00:27,818
+Regla tres: no malgastes la linterna. Es lo único que tienes.
+
+6
+00:00:29,019 --> 00:00:32,049
+Y si oyes la estática a tu espalda... no te des la vuelta.
+
+7
+00:00:32,500 --> 00:00:35,332
+¿Cuántas páginas conseguirías? Comenta un número.
+

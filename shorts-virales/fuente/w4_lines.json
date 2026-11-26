@@ -1,0 +1,58 @@
+[
+{
+"scene": "hook",
+"text": "Estos misterios de terror tardaron años en resolverse.",
+"cap1": "TARDARON *AÑOS*",
+"cap2": "EN RESOLVERSE",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "backrooms",
+"text": "Uno: la foto de las Backrooms. Se hizo famosa en un foro en dos mil diecinueve, y nadie sabía dónde era.",
+"cap1": "1. LA FOTO DE LAS",
+"cap2": "*BACKROOMS*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "found",
+"text": "En dos mil veinticuatro, unos usuarios de Discord la encontraron: era una tienda de hobbies en Oshkosh, Wisconsin.",
+"cap1": "2024",
+"cap2": "OSHKOSH, *WISCONSIN*",
+"fx": "hit",
+"speed": 0.95
+},
+{
+"scene": "pt",
+"text": "Dos: P.T. En dos mil catorce, Lisa te asustaba en el pasillo. Cinco años después, un modder liberó la cámara...",
+"cap1": "2. *LISA*",
+"cap2": "P.T. · 2014",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "lisa",
+"text": "...y descubrió que siempre estuvo detrás de ti.",
+"cap1": "SIEMPRE ESTUVO",
+"cap2": "*DETRÁS DE TI*",
+"fx": "stinger",
+"speed": 0.95
+},
+{
+"scene": "polybius",
+"text": "Tres: Polybius, el arcade que borraba la memoria. Siguieron su rastro, y la primera mención solo aparece en internet, hacia el año dos mil.",
+"cap1": "3. *POLYBIUS*",
+"cap2": "NUNCA EXISTIÓ",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "hookend",
+"text": "¿Qué misterio quieres que investiguemos? Coméntalo.",
+"cap1": "¿CUÁL",
+"cap2": "*INVESTIGAMOS*?",
+"fx": "",
+"speed": 0.95
+}
+]

@@ -1,0 +1,66 @@
+[
+{
+"scene": "cell",
+"text": "No parpadees. Si lo haces, estás muerto.",
+"cap1": "NO",
+"cap2": "*PARPADEES*",
+"fx": "hit",
+"speed": 0.95
+},
+{
+"scene": "statue",
+"text": "SCP-173 es una estatua de hormigón y barras de acero, con restos de pintura en aerosol.",
+"cap1": "SCP-173",
+"cap2": "HORMIGÓN Y *ACERO*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "statue",
+"text": "Solo se mueve cuando nadie la mira. Y es más rápida de lo que crees.",
+"cap1": "SE MUEVE CUANDO",
+"cap2": "*NO LA MIRAS*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "neck",
+"text": "Ataca rompiendo el cuello por la base del cráneo... o estrangulando.",
+"cap1": "TE ROMPE",
+"cap2": "EL *CUELLO*",
+"fx": "stinger",
+"speed": 0.95
+},
+{
+"scene": "team",
+"text": "Por eso, para entrar en su celda, se exigen al menos tres personas.",
+"cap1": "REGLA 1",
+"cap2": "*TRES* PERSONAS",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "team",
+"text": "Dos la miran sin parar. Y antes de parpadear... avisan.",
+"cap1": "REGLA 2",
+"cap2": "*AVISA* ANTES DE PARPADEAR",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "blink",
+"text": "Parpadeo.",
+"cap1": "",
+"cap2": "",
+"fx": "stinger",
+"speed": 0.95
+},
+{
+"scene": "cellend",
+"text": "Basado en la Fundación SCP, con licencia Creative Commons. ¿Entrarías? Comenta ciento setenta y tres.",
+"cap1": "¿*ENTRARÍAS*?",
+"cap2": "COMENTA 173",
+"fx": "",
+"speed": 0.95
+}
+]

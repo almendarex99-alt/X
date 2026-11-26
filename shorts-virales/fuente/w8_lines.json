@@ -1,0 +1,58 @@
+[
+{
+"scene": "office",
+"text": "Tienes un trabajo nocturno. De doce a seis. Y algo se mueve en las cámaras.",
+"cap1": "DE 12 A 6",
+"cap2": "ALGO SE *MUEVE*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "cams",
+"text": "Five Nights at Freddy's, dos mil catorce. Eres el guardia nocturno de una pizzería.",
+"cap1": "FNAF · 2014",
+"cap2": "GUARDIA *NOCTURNO*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "power",
+"text": "Regla uno: cuida la energía. Las puertas, las luces y las cámaras la gastan.",
+"cap1": "REGLA 1",
+"cap2": "CUIDA LA *ENERGÍA*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "doorlight",
+"text": "Regla dos: revisa las luces de las puertas. Bonnie suele venir por la izquierda, y Chica por la derecha.",
+"cap1": "REGLA 2",
+"cap2": "MIRA LAS *PUERTAS*",
+"fx": "stinger",
+"speed": 0.95
+},
+{
+"scene": "cove",
+"text": "Regla tres: vigila a Foxy en la cueva pirata. Si dejas de mirar las cámaras, sale corriendo. Cierra la puerta izquierda.",
+"cap1": "REGLA 3",
+"cap2": "VIGILA A *FOXY*",
+"fx": "hit",
+"speed": 0.95
+},
+{
+"scene": "dark",
+"text": "Y si la energía llega a cero... todo se apaga.",
+"cap1": "0%",
+"cap2": "SE *APAGA* TODO",
+"fx": "stinger",
+"speed": 0.95
+},
+{
+"scene": "officeend",
+"text": "¿Llegarías a las seis? Comenta seis a eme.",
+"cap1": "¿LLEGARÍAS",
+"cap2": "A LAS *6 AM*?",
+"fx": "",
+"speed": 0.95
+}
+]

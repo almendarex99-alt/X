@@ -1,0 +1,58 @@
+[
+{
+"scene": "swamp",
+"text": "GTA seis lleva una semana a la venta... y los jugadores ya encontraron cosas que dan miedo.",
+"cap1": "GTA VI · 1 SEMANA",
+"cap2": "YA ENCONTRARON *ESTO*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "skunk",
+"text": "Uno: en los pantanos de Leonida vive el Skunk Ape, el Bigfoot de Florida.",
+"cap1": "1. EL *SKUNK APE*",
+"cap2": "EL BIGFOOT DE FLORIDA",
+"fx": "stinger",
+"speed": 0.95
+},
+{
+"scene": "skunk",
+"text": "Según los jugadores, su olor puede dejarte inconsciente.",
+"cap1": "TE DEJA",
+"cap2": "*INCONSCIENTE*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "callback",
+"text": "Sí: el mismo Bigfoot que buscamos durante años en San Andreas... por fin existe.",
+"cap1": "EL BIGFOOT QUE BUSCAMOS",
+"cap2": "POR FIN *EXISTE*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "dexter",
+"text": "Dos: un edificio inspirado en Dexter, con un kit de asesino en la azotea: cinta, cuerda y una jeringa.",
+"cap1": "2. EL PISO DE *DEXTER*",
+"cap2": "CINTA · CUERDA · JERINGA",
+"fx": "hit",
+"speed": 0.95
+},
+{
+"scene": "ufo",
+"text": "Tres: algunos jugadores cuentan un encuentro con un ovni de noche... y un laboratorio secreto del gobierno. Esto último aún no está confirmado por todos.",
+"cap1": "3. UN *OVNI*",
+"cap2": "Y UN LABORATORIO SECRETO",
+"fx": "hit",
+"speed": 0.95
+},
+{
+"scene": "swampend",
+"text": "¿Cuál vas a buscar primero? Comenta Leonida.",
+"cap1": "¿CUÁL BUSCAS",
+"cap2": "*PRIMERO*?",
+"fx": "",
+"speed": 0.95
+}
+]

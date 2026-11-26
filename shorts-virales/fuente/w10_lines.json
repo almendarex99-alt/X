@@ -1,0 +1,58 @@
+[
+{
+"scene": "console",
+"text": "Si tu consola se enciende sola a las tres y treinta y tres... sigue estas reglas.",
+"cap1": "SI TU CONSOLA SE",
+"cap2": "ENCIENDE *SOLA*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "pad",
+"text": "Uno: no cojas el mando. Aunque vibre.",
+"cap1": "1. NO COJAS",
+"cap2": "EL *MANDO*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "save",
+"text": "Dos: si en la pantalla aparece una partida que no es tuya... no la cargues.",
+"cap1": "2. NO CARGUES",
+"cap2": "ESA *PARTIDA*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "name",
+"text": "Tres: si el personaje de esa partida tiene tu nombre, apaga la tele. No la consola: la tele.",
+"cap1": "3. APAGA",
+"cap2": "LA *TELE*",
+"fx": "hit",
+"speed": 0.95
+},
+{
+"scene": "reflect",
+"text": "Cuatro: si la tele se vuelve a encender sola, no mires el reflejo de la pantalla.",
+"cap1": "4. NO MIRES",
+"cap2": "EL *REFLEJO*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "voice",
+"text": "Cinco: si oyes tu propia voz decir pulsa start... no estás solo en la habitación.",
+"cap1": "5. NO ESTÁS",
+"cap2": "*SOLO*",
+"fx": "stinger",
+"speed": 0.95
+},
+{
+"scene": "consoleend",
+"text": "¿Quieres más reglas? Comenta tres treinta y tres.",
+"cap1": "COMENTA",
+"cap2": "*3:33*",
+"fx": "",
+"speed": 0.95
+}
+]

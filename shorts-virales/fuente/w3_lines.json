@@ -1,0 +1,58 @@
+[
+{
+"scene": "hook",
+"text": "Juramos que eran mentira. Pero estos tres mitos de videojuegos eran reales.",
+"cap1": "ERAN MENTIRA…",
+"cap2": "*ERAN REALES*",
+"fx": "hit",
+"speed": 0.95
+},
+{
+"scene": "ghostcar",
+"text": "Uno: los coches sin conductor de San Andreas. Bajaban solos por las colinas.",
+"cap1": "1. COCHES",
+"cap2": "*SIN CONDUCTOR*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "ghostcar",
+"text": "No eran fantasmas: aparecían en cuestas empinadas y rodaban solos. Un fallo del juego.",
+"cap1": "UN *FALLO*",
+"cap2": "NO UN FANTASMA",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "mantis",
+"text": "Dos: Psycho Mantis, de Metal Gear Solid, leía tu tarjeta de memoria.",
+"cap1": "2. PSYCHO MANTIS",
+"cap2": "LEÍA TU *MEMORIA*",
+"fx": "stinger",
+"speed": 0.95
+},
+{
+"scene": "mantis",
+"text": "Si tenías partidas de otros juegos de Konami, como Castlevania o Suikoden, te lo decía a la cara. Y hacía vibrar tu mando.",
+"cap1": "SABÍA A QUÉ",
+"cap2": "*JUGABAS*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "bigfoot",
+"text": "Tres: el Bigfoot. En San Andreas nunca existió... pero en GTA seis ya vive en los pantanos.",
+"cap1": "3. *BIGFOOT*",
+"cap2": "AHORA SÍ EXISTE",
+"fx": "hit",
+"speed": 0.95
+},
+{
+"scene": "hookend",
+"text": "¿Cuál te creíste tú? Comenta mito.",
+"cap1": "¿CUÁL TE",
+"cap2": "*CREÍSTE*?",
+"fx": "",
+"speed": 0.95
+}
+]

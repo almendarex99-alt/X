@@ -1,0 +1,74 @@
+[
+{
+"scene": "city",
+"text": "El fin del mundo en The Last of Us... empezó con un desayuno.",
+"cap1": "EL FIN DEL MUNDO",
+"cap2": "EMPEZÓ CON UN *DESAYUNO*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "tv",
+"text": "En la serie de HBO, un científico lo avisa en un programa de televisión de mil novecientos sesenta y ocho: si la Tierra se calienta, un hongo podría adaptarse a nosotros.",
+"cap1": "1968:",
+"cap2": "EL *AVISO*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "factory",
+"text": "Septiembre de dos mil tres, Yakarta. El hongo aparece en una fábrica de harina.",
+"cap1": "YAKARTA, 2003",
+"cap2": "UNA FÁBRICA DE *HARINA*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "flour",
+"text": "Los fans sospecharon algo: esa harina viajó a todo el mundo, en el pan, en los cereales, en las tortitas. Y los creadores de la serie les dieron la razón.",
+"cap1": "*LA HARINA*",
+"cap2": "VIAJÓ A TODO EL MUNDO",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "globe",
+"text": "Por eso, dos días después, el mundo colapsa.",
+"cap1": "26 SEPT. 2003",
+"cap2": "*COLAPSO*",
+"fx": "hit",
+"speed": 0.95
+},
+{
+"scene": "stages",
+"text": "Y empiezan las fases: corredores, acechadores, chasqueadores... e hinchados.",
+"cap1": "CORREDORES · ACECHADORES",
+"cap2": "*CHASQUEADORES*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "clicker",
+"text": "Los chasqueadores ya no ven. Cazan por el sonido, con esos chasquidos.",
+"cap1": "NO VEN.",
+"cap2": "CAZAN POR *SONIDO*",
+"fx": "stinger",
+"speed": 0.95
+},
+{
+"scene": "crops",
+"text": "En el juego, en cambio, todo era más ambiguo: la infección venía de cultivos de Sudamérica.",
+"cap1": "EN EL JUEGO:",
+"cap2": "CULTIVOS DE *SUDAMÉRICA*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "breakfast",
+"text": "Así que la próxima vez que desayunes... mira bien la harina. Comenta hongo si lo sabías.",
+"cap1": "¿LO *SABÍAS*?",
+"cap2": "COMENTA HONGO",
+"fx": "",
+"speed": 0.95
+}
+]

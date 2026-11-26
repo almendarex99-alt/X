@@ -1,0 +1,58 @@
+[
+{
+"scene": "forest",
+"text": "Un bosque. Una linterna. Ocho páginas. Y algo que no tiene cara.",
+"cap1": "8 PÁGINAS",
+"cap2": "ALGO *SIN CARA*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "page",
+"text": "Slender: The Eight Pages salió en dos mil doce. Tu objetivo: encontrar ocho páginas en un bosque, de noche.",
+"cap1": "SLENDER · 2012",
+"cap2": "ENCUENTRA *8 PÁGINAS*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "static",
+"text": "Regla uno: no lo mires. Cuando está cerca, la pantalla se llena de estática.",
+"cap1": "REGLA 1",
+"cap2": "*NO LO MIRES*",
+"fx": "stinger",
+"speed": 0.95
+},
+{
+"scene": "closer",
+"text": "Regla dos: muévete siempre. Con cada página que recoges, se acerca más.",
+"cap1": "REGLA 2",
+"cap2": "CADA PÁGINA, *MÁS CERCA*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "torch",
+"text": "Regla tres: no malgastes la linterna. Es lo único que tienes.",
+"cap1": "REGLA 3",
+"cap2": "CUIDA LA *LINTERNA*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "behind",
+"text": "Y si oyes la estática a tu espalda... no te des la vuelta.",
+"cap1": "NO TE DES",
+"cap2": "*LA VUELTA*",
+"fx": "stinger",
+"speed": 0.95
+},
+{
+"scene": "forestend",
+"text": "¿Cuántas páginas conseguirías? Comenta un número.",
+"cap1": "¿CUÁNTAS",
+"cap2": "*CONSEGUIRÍAS*?",
+"fx": "",
+"speed": 0.95
+}
+]

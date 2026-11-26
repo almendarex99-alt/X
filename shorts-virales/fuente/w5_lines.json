@@ -1,0 +1,66 @@
+[
+{
+"scene": "hall",
+"text": "Si te sales de la realidad por error, acabas aquí. Así se sobrevive en las Backrooms.",
+"cap1": "CÓMO SOBREVIVIR",
+"cap2": "EN LAS *BACKROOMS*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "hall",
+"text": "Nivel cero: paredes amarillas, moqueta húmeda y el zumbido de los fluorescentes. Para siempre.",
+"cap1": "NIVEL 0",
+"cap2": "*AMARILLO*. HÚMEDO.",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "maze",
+"text": "Según la historia original, son millones de kilómetros de habitaciones vacías.",
+"cap1": "*MILLONES* DE KM",
+"cap2": "DE HABITACIONES VACÍAS",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "entity",
+"text": "Regla uno: si oyes algo caminando cerca... ya te ha oído.",
+"cap1": "REGLA 1",
+"cap2": "SI LO OYES, *TE OYÓ*",
+"fx": "stinger",
+"speed": 0.95
+},
+{
+"scene": "flicker",
+"text": "Regla dos: guarda silencio, y no te quedes quieto bajo una luz que parpadea.",
+"cap1": "REGLA 2",
+"cap2": "*SILENCIO*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "door",
+"text": "Regla tres: busca una salida que no debería estar ahí. Una puerta en mitad de la pared.",
+"cap1": "REGLA 3",
+"cap2": "BUSCA LA *PUERTA*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "origin",
+"text": "Nació en un foro en dos mil diecinueve, y la serie de Kane Pixels la hizo mundial.",
+"cap1": "FORO · 2019",
+"cap2": "KANE *PIXELS*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "hallend",
+"text": "¿Cuánto durarías tú? Comenta tu nivel.",
+"cap1": "¿CUÁNTO",
+"cap2": "*DURARÍAS*?",
+"fx": "",
+"speed": 0.95
+}
+]

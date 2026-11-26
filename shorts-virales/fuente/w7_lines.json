@@ -1,0 +1,58 @@
+[
+{
+"scene": "farm",
+"text": "Si haces un solo ruido, mueres. Así se sobrevive en Un lugar en silencio.",
+"cap1": "UN SOLO *RUIDO*",
+"cap2": "Y MUERES",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "creature",
+"text": "Las criaturas no ven. Cazan con un oído casi perfecto.",
+"cap1": "NO *VEN*",
+"cap2": "SOLO OYEN",
+"fx": "stinger",
+"speed": 0.95
+},
+{
+"scene": "sand",
+"text": "Regla uno: camina descalzo sobre arena, como la familia de la película.",
+"cap1": "REGLA 1",
+"cap2": "*ARENA* Y DESCALZO",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "waterfall",
+"text": "Regla dos: si necesitas hablar, hazlo junto a un sonido más fuerte, como una cascada.",
+"cap1": "REGLA 2",
+"cap2": "ESCÓNDETE EN EL *RUIDO*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "pitch",
+"text": "Regla tres: su punto débil es un pitido agudo. En la película lo descubren con el implante coclear de Regan.",
+"cap1": "REGLA 3",
+"cap2": "UN *PITIDO* AGUDO",
+"fx": "hit",
+"speed": 0.95
+},
+{
+"scene": "island",
+"text": "Regla cuatro: busca agua. En la segunda parte descubrimos que no saben nadar.",
+"cap1": "REGLA 4",
+"cap2": "*NO SABEN NADAR*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "farmend",
+"text": "¿Aguantarías un día sin hacer ruido? Comenta silencio.",
+"cap1": "¿AGUANTARÍAS",
+"cap2": "UN DÍA EN *SILENCIO*?",
+"fx": "",
+"speed": 0.95
+}
+]

@@ -1,0 +1,28 @@
+1
+00:00:00,250 --> 00:00:04,719
+Si tu consola se enciende sola a las tres y treinta y tres... sigue estas reglas.
+
+2
+00:00:05,169 --> 00:00:07,980
+Uno: no cojas el mando. Aunque vibre.
+
+3
+00:00:08,429 --> 00:00:12,585
+Dos: si en la pantalla aparece una partida que no es tuya... no la cargues.
+
+4
+00:00:13,035 --> 00:00:18,933
+Tres: si el personaje de esa partida tiene tu nombre, apaga la tele. No la consola: la tele.
+
+5
+00:00:19,384 --> 00:00:23,935
+Cuatro: si la tele se vuelve a encender sola, no mires el reflejo de la pantalla.
+
+6
+00:00:25,135 --> 00:00:29,791
+Cinco: si oyes tu propia voz decir pulsa start... no estás solo en la habitación.
+
+7
+00:00:30,239 --> 00:00:33,606
+¿Quieres más reglas? Comenta tres treinta y tres.
+
