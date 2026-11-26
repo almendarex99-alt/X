@@ -1,0 +1,41 @@
+{
+ "segments": [
+  {
+   "text": "El hombre que devolvió la luz a una ciudad apagada.",
+   "start": 0.5,
+   "end": 3.101,
+   "dur": 2.601
+  },
+  {
+   "text": "Una noche, un fallo dejó toda la ciudad a oscuras.",
+   "start": 3.451,
+   "end": 6.643,
+   "dur": 3.193
+  },
+  {
+   "text": "Él era el último operario de la central, y solo quedaba una forma de arreglarlo.",
+   "start": 6.993,
+   "end": 11.463,
+   "dur": 4.47
+  },
+  {
+   "text": "Bajó a la sala de control y tiró de la palanca principal con todas sus fuerzas.",
+   "start": 11.813,
+   "end": 16.283,
+   "dur": 4.47
+  },
+  {
+   "text": "Primero se encendió una calle. Después, un barrio entero.",
+   "start": 16.633,
+   "end": 20.128,
+   "dur": 3.495
+  },
+  {
+   "text": "Y en pocos minutos, toda la ciudad volvía a brillar.",
+   "start": 20.478,
+   "end": 23.369,
+   "dur": 2.891
+  }
+ ],
+ "total": 24.32
+}

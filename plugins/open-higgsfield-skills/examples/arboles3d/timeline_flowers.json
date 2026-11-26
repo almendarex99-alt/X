@@ -1,0 +1,41 @@
+{
+ "segments": [
+  {
+   "text": "¿Por qué los agricultores plantan flores entre las verduras?",
+   "start": 0.5,
+   "end": 3.82,
+   "dur": 3.32
+  },
+  {
+   "text": "Las flores atraen a las abejas, que polinizan los cultivos.",
+   "start": 4.17,
+   "end": 7.537,
+   "dur": 3.367
+  },
+  {
+   "text": "También atraen a las mariquitas, que se comen a los pulgones.",
+   "start": 7.887,
+   "end": 10.952,
+   "dur": 3.065
+  },
+  {
+   "text": "Y algunas flores, como las caléndulas, huelen mal para las plagas y las alejan.",
+   "start": 11.302,
+   "end": 16.388,
+   "dur": 5.085
+  },
+  {
+   "text": "Así hay menos plagas, y hace falta menos pesticida.",
+   "start": 16.738,
+   "end": 19.919,
+   "dur": 3.181
+  },
+  {
+   "text": "Menos químicos, más verdura, y un campo lleno de color.",
+   "start": 20.269,
+   "end": 23.287,
+   "dur": 3.019
+  }
+ ],
+ "total": 24.24
+}

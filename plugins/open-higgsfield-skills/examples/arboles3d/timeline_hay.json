@@ -1,0 +1,41 @@
+{
+ "segments": [
+  {
+   "text": "¿Por qué este agricultor clava una barra en su heno?",
+   "start": 0.5,
+   "end": 2.752,
+   "dur": 2.252
+  },
+  {
+   "text": "Cuando el heno se guarda húmedo, dentro empiezan a trabajar millones de bacterias.",
+   "start": 3.102,
+   "end": 7.096,
+   "dur": 3.994
+  },
+  {
+   "text": "Esas bacterias producen calor, y el calor se queda atrapado entre las pacas.",
+   "start": 7.446,
+   "end": 11.939,
+   "dur": 4.493
+  },
+  {
+   "text": "Si la temperatura pasa de setenta grados, el heno puede incendiarse solo.",
+   "start": 12.289,
+   "end": 16.434,
+   "dur": 4.145
+  },
+  {
+   "text": "Por eso mete una barra, la saca, y comprueba con la mano si está caliente.",
+   "start": 16.784,
+   "end": 20.952,
+   "dur": 4.168
+  },
+  {
+   "text": "Si quema, hay que separar las pacas antes de que sea tarde.",
+   "start": 21.302,
+   "end": 24.483,
+   "dur": 3.181
+  }
+ ],
+ "total": 25.43
+}
