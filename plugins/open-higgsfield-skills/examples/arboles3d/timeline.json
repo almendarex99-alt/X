@@ -1,0 +1,41 @@
+{
+ "segments": [
+  {
+   "text": "¿Por qué los agricultores pintan los árboles de blanco?",
+   "start": 0.5,
+   "end": 3.298,
+   "dur": 2.798
+  },
+  {
+   "text": "Todo empieza en invierno. De día el sol calienta el tronco, y de noche la helada lo congela.",
+   "start": 3.648,
+   "end": 8.745,
+   "dur": 5.097
+  },
+  {
+   "text": "Ese cambio brusco hace que la corteza se agriete, como una quemadura.",
+   "start": 9.095,
+   "end": 12.74,
+   "dur": 3.646
+  },
+  {
+   "text": "La pintura blanca refleja la luz, y mantiene el tronco a una temperatura constante.",
+   "start": 13.09,
+   "end": 18.129,
+   "dur": 5.039
+  },
+  {
+   "text": "Además, ayuda a mantener alejados a insectos y plagas.",
+   "start": 18.479,
+   "end": 21.776,
+   "dur": 3.297
+  },
+  {
+   "text": "Así que no es decoración. Es protector solar para árboles.",
+   "start": 22.126,
+   "end": 25.47,
+   "dur": 3.344
+  }
+ ],
+ "total": 26.42
+}
