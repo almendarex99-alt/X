@@ -1,0 +1,58 @@
+[
+{
+"scene": "space",
+"text": "En el espacio, nadie puede oír tus gritos. Así se sobrevive a Alien.",
+"cap1": "NADIE PUEDE",
+"cap2": "OÍR TUS *GRITOS*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "ship",
+"text": "Mil novecientos setenta y nueve. La nave Nostromo, siete tripulantes, y una señal que nunca debieron seguir.",
+"cap1": "NOSTROMO · 1979",
+"cap2": "*7* TRIPULANTES",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "eggs",
+"text": "Regla uno: no te acerques a los huevos. Lo que sale de ellos se agarra a tu cara.",
+"cap1": "REGLA 1",
+"cap2": "NO TE *ACERQUES*",
+"fx": "stinger",
+"speed": 0.95
+},
+{
+"scene": "acid",
+"text": "Regla dos: no le dispares dentro de la nave. Su sangre es ácido y atraviesa el casco.",
+"cap1": "REGLA 2",
+"cap2": "SANGRE DE *ÁCIDO*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "tracker",
+"text": "Regla tres: fíate del detector de movimiento. Si dice que está aquí... está aquí.",
+"cap1": "REGLA 3",
+"cap2": "EL *DETECTOR*",
+"fx": "stinger",
+"speed": 0.95
+},
+{
+"scene": "escape",
+"text": "Y regla cuatro: haz lo que hizo Ripley. Sal de la nave... y llévate al gato.",
+"cap1": "REGLA 4",
+"cap2": "COMO *RIPLEY*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "spaceend",
+"text": "¿Habrías sobrevivido en la Nostromo? Comenta Ripley.",
+"cap1": "¿HABRÍAS",
+"cap2": "*SOBREVIVIDO*?",
+"fx": "",
+"speed": 0.95
+}
+]

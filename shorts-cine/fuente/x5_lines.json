@@ -1,0 +1,50 @@
+[
+{
+"scene": "city",
+"text": "Esta ciudad fue borrada del mapa. Con un misil.",
+"cap1": "BORRADA",
+"cap2": "DEL *MAPA*",
+"fx": "hit",
+"speed": 0.95
+},
+{
+"scene": "lab",
+"text": "Raccoon City. Bajo la ciudad, la farmacéutica Umbrella fabricaba armas biológicas: el virus T.",
+"cap1": "UMBRELLA",
+"cap2": "EL *VIRUS T*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "mansion",
+"text": "En julio de mil novecientos noventa y ocho, el virus se escapa en una mansión del bosque. El equipo S.T.A.R.S. entra... y casi nadie sale.",
+"cap1": "JULIO 1998",
+"cap2": "LA *MANSIÓN*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "streets",
+"text": "Dos meses después, el veintinueve de septiembre, la ciudad entera ya está llena de zombis.",
+"cap1": "29 SEPT. 1998",
+"cap2": "LA CIUDAD *CAE*",
+"fx": "stinger",
+"speed": 0.95
+},
+{
+"scene": "missile",
+"text": "Y el uno de octubre, el gobierno lanza un misil y la borra para siempre.",
+"cap1": "1 OCT. 1998",
+"cap2": "UN *MISIL*",
+"fx": "hit",
+"speed": 0.95
+},
+{
+"scene": "cityend",
+"text": "¿Habrías escapado de Raccoon City? Comenta Umbrella.",
+"cap1": "¿HABRÍAS",
+"cap2": "*ESCAPADO*?",
+"fx": "",
+"speed": 0.95
+}
+]

@@ -1,0 +1,58 @@
+[
+{
+"scene": "road",
+"text": "Si ves esta camioneta en tu retrovisor... acelera. Así se sobrevive al Creeper.",
+"cap1": "SI VES ESTA",
+"cap2": "*CAMIONETA*",
+"fx": "hit",
+"speed": 0.95
+},
+{
+"scene": "truck",
+"text": "En Jeepers Creepers, de dos mil uno, caza desde una vieja camioneta con una matrícula que dice: bi it en yu. Be eating you: te estoy comiendo.",
+"cap1": "JEEPERS CREEPERS · 2001",
+"cap2": "MATRÍCULA *BEATNGU*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "spring",
+"text": "Según la película, cada veintitrés primaveras despierta... y come durante veintitrés días.",
+"cap1": "CADA 23 PRIMAVERAS",
+"cap2": "COME *23 DÍAS*",
+"fx": "stinger",
+"speed": 0.95
+},
+{
+"scene": "church",
+"text": "Regla uno: no te asomes. En la película, todo empieza por mirar dentro de una tubería, junto a una iglesia abandonada.",
+"cap1": "REGLA 1",
+"cap2": "NO TE *ASOMES*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "calendar",
+"text": "Regla dos: aguanta los veintitrés días. Después, vuelve a dormir.",
+"cap1": "REGLA 2",
+"cap2": "AGUANTA *23 DÍAS*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "wings",
+"text": "Regla tres: no le enseñes tu miedo. Lo huele... y elige qué quiere comerse.",
+"cap1": "REGLA 3",
+"cap2": "HUELE TU *MIEDO*",
+"fx": "stinger",
+"speed": 0.95
+},
+{
+"scene": "roadend",
+"text": "¿Mirarías dentro de la tubería? Comenta Creeper.",
+"cap1": "¿MIRARÍAS",
+"cap2": "LA *TUBERÍA*?",
+"fx": "",
+"speed": 0.95
+}
+]

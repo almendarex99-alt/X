@@ -1,0 +1,28 @@
+1
+00:00:00,250 --> 00:00:04,569
+En el espacio, nadie puede oír tus gritos. Así se sobrevive a Alien.
+
+2
+00:00:05,019 --> 00:00:11,033
+Mil novecientos setenta y nueve. La nave Nostromo, siete tripulantes, y una señal que nunca debieron seguir.
+
+3
+00:00:12,233 --> 00:00:17,051
+Regla uno: no te acerques a los huevos. Lo que sale de ellos se agarra a tu cara.
+
+4
+00:00:17,501 --> 00:00:22,760
+Regla dos: no le dispares dentro de la nave. Su sangre es ácido y atraviesa el casco.
+
+5
+00:00:23,960 --> 00:00:28,708
+Regla tres: fíate del detector de movimiento. Si dice que está aquí... está aquí.
+
+6
+00:00:29,158 --> 00:00:33,582
+Y regla cuatro: haz lo que hizo Ripley. Sal de la nave... y llévate al gato.
+
+7
+00:00:34,031 --> 00:00:37,108
+¿Habrías sobrevivido en la Nostromo? Comenta Ripley.
+

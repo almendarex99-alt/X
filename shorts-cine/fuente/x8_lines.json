@@ -1,0 +1,58 @@
+[
+{
+"scene": "surface",
+"text": "¿Qué pasaría si cayeras al punto más profundo del océano?",
+"cap1": "¿Y SI CAYERAS",
+"cap2": "AL *FONDO*?",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "d200",
+"text": "A los doscientos metros, la luz del sol casi desaparece.",
+"cap1": "200 M",
+"cap2": "SE VA LA *LUZ*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "d1000",
+"text": "A los mil metros, oscuridad total. Solo ves animales que brillan.",
+"cap1": "1.000 M",
+"cap2": "*OSCURIDAD* TOTAL",
+"fx": "stinger",
+"speed": 0.95
+},
+{
+"scene": "fish",
+"text": "En dos mil veintidós grabaron al pez más profundo conocido: un pez caracol, a ocho mil trescientos treinta y seis metros, en una fosa de Japón.",
+"cap1": "8.336 M",
+"cap2": "EL ÚLTIMO *PEZ*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "bottom",
+"text": "Y en el fondo de la fosa de las Marianas, casi a once kilómetros, la presión es más de mil veces la de la superficie.",
+"cap1": "~11 KM",
+"cap2": "*+1.000* VECES LA PRESIÓN",
+"fx": "hit",
+"speed": 0.95
+},
+{
+"scene": "sub",
+"text": "Solo un puñado de personas ha llegado hasta ahí, siempre dentro de un submarino. Sin uno... no llegarías.",
+"cap1": "SIN SUBMARINO",
+"cap2": "NO *LLEGAS*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "subend",
+"text": "¿Bajarías? Comenta abismo.",
+"cap1": "¿BAJARÍAS",
+"cap2": "AL *ABISMO*?",
+"fx": "",
+"speed": 0.95
+}
+]

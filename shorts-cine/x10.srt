@@ -1,0 +1,28 @@
+1
+00:00:00,250 --> 00:00:05,022
+Si entras a un servidor vacío y alguien te habla por el chat de voz... sigue estas reglas.
+
+2
+00:00:05,472 --> 00:00:08,479
+Uno: no respondas. Aunque diga tu nombre.
+
+3
+00:00:08,929 --> 00:00:13,445
+Dos: mira la lista de jugadores. Si solo apareces tú... sal de la partida.
+
+4
+00:00:13,894 --> 00:00:18,132
+Tres: si no puedes salir, no te muevas. Solo ve lo que se mueve.
+
+5
+00:00:19,332 --> 00:00:24,684
+Cuatro: si oyes tu propio micrófono, aunque lo tengas silenciado... quítate los cascos.
+
+6
+00:00:25,135 --> 00:00:30,452
+Cinco: si al día siguiente tu partida tiene horas jugadas que no recuerdas... no la cargues.
+
+7
+00:00:30,902 --> 00:00:33,060
+¿Te ha pasado? Comenta servidor.
+

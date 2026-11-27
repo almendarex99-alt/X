@@ -1,0 +1,58 @@
+[
+{
+"scene": "lobby",
+"text": "Si entras a un servidor vacío y alguien te habla por el chat de voz... sigue estas reglas.",
+"cap1": "SERVIDOR",
+"cap2": "*VACÍO*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "r1",
+"text": "Uno: no respondas. Aunque diga tu nombre.",
+"cap1": "1. NO",
+"cap2": "*RESPONDAS*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "r2",
+"text": "Dos: mira la lista de jugadores. Si solo apareces tú... sal de la partida.",
+"cap1": "2. SI SOLO",
+"cap2": "APARECES *TÚ*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "r3",
+"text": "Tres: si no puedes salir, no te muevas. Solo ve lo que se mueve.",
+"cap1": "3. NO TE",
+"cap2": "*MUEVAS*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "r4",
+"text": "Cuatro: si oyes tu propio micrófono, aunque lo tengas silenciado... quítate los cascos.",
+"cap1": "4. QUÍTATE",
+"cap2": "LOS *CASCOS*",
+"fx": "stinger",
+"speed": 0.95
+},
+{
+"scene": "r5",
+"text": "Cinco: si al día siguiente tu partida tiene horas jugadas que no recuerdas... no la cargues.",
+"cap1": "5. NO LA",
+"cap2": "*CARGUES*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "lobbyend",
+"text": "¿Te ha pasado? Comenta servidor.",
+"cap1": "¿TE HA",
+"cap2": "*PASADO*?",
+"fx": "",
+"speed": 0.95
+}
+]

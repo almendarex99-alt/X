@@ -1,0 +1,58 @@
+[
+{
+"scene": "drain",
+"text": "Si un payaso te habla desde una alcantarilla... no te acerques. Así se sobrevive a Pennywise.",
+"cap1": "UN PAYASO EN LA",
+"cap2": "*ALCANTARILLA*",
+"fx": "hit",
+"speed": 0.95
+},
+{
+"scene": "derry",
+"text": "En Derry, Maine, algo despierta más o menos cada veintisiete años.",
+"cap1": "DERRY, MAINE",
+"cap2": "CADA *27 AÑOS*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "fear",
+"text": "Se alimenta del miedo, sobre todo del de los niños, y toma la forma de lo que más te asusta.",
+"cap1": "SE ALIMENTA",
+"cap2": "DEL *MIEDO*",
+"fx": "stinger",
+"speed": 0.95
+},
+{
+"scene": "group",
+"text": "Regla uno: no vayas solo. Solo pudieron con él los chicos del Club de los Perdedores, todos juntos.",
+"cap1": "REGLA 1",
+"cap2": "*NUNCA* SOLO",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "small",
+"text": "Regla dos: no le tengas miedo. En las películas lo vencen haciéndolo pequeño, burlándose de él.",
+"cap1": "REGLA 2",
+"cap2": "HAZLO *PEQUEÑO*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "balloon",
+"text": "Regla tres: si ves un globo rojo flotando solo... date la vuelta.",
+"cap1": "REGLA 3",
+"cap2": "EL GLOBO *ROJO*",
+"fx": "stinger",
+"speed": 0.95
+},
+{
+"scene": "drainend",
+"text": "¿Bajarías a las alcantarillas de Derry? Comenta globo.",
+"cap1": "¿BAJARÍAS?",
+"cap2": "COMENTA *GLOBO*",
+"fx": "",
+"speed": 0.95
+}
+]

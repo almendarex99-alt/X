@@ -1,0 +1,50 @@
+[
+{
+"scene": "hook",
+"text": "Nos hicieron creer que estos juegos estaban malditos. Era mentira.",
+"cap1": "JUEGOS",
+"cap2": "*MALDITOS*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "lavender",
+"text": "Uno: el síndrome de Pueblo Lavanda. Decían que la música de Pokémon había causado muertes de niños en Japón.",
+"cap1": "1. PUEBLO",
+"cap2": "*LAVANDA*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "lavfalse",
+"text": "Falso. Es una historia que se subió de forma anónima a internet en dos mil diez.",
+"cap1": "*FALSO*",
+"cap2": "INTERNET · 2010",
+"fx": "hit",
+"speed": 0.95
+},
+{
+"scene": "ben",
+"text": "Dos: Ben Drowned, un cartucho embrujado de Zelda. Lo escribió Alex Hall en dos mil diez, y lo convirtió en un juego de realidad alternativa.",
+"cap1": "2. *BEN* DROWNED",
+"cap2": "LO ESCRIBIÓ ALEX HALL",
+"fx": "stinger",
+"speed": 0.95
+},
+{
+"scene": "hero",
+"text": "Tres: Herobrine, el fantasma de Minecraft. Nunca existió. Mojang lleva años escribiendo de broma en sus actualizaciones: Herobrine eliminado.",
+"cap1": "3. *HEROBRINE*",
+"cap2": "«ELIMINADO»",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "hookend",
+"text": "¿Cuál te creíste? Comenta maldito.",
+"cap1": "¿CUÁL TE",
+"cap2": "*CREÍSTE*?",
+"fx": "",
+"speed": 0.95
+}
+]

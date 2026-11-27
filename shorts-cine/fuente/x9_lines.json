@@ -1,0 +1,50 @@
+[
+{
+"scene": "house",
+"text": "Este juego te escucha. Y si dices su nombre... viene.",
+"cap1": "ESTE JUEGO",
+"cap2": "*TE ESCUCHA*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "mic",
+"text": "En Phasmophobia, los fantasmas reaccionan a lo que dices por el micrófono: hay más de cien frases a las que pueden responder.",
+"cap1": "+100 FRASES",
+"cap2": "POR *MICRÓFONO*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "name",
+"text": "Regla uno: no digas su nombre. Lo enfada... y puede empezar una cacería.",
+"cap1": "REGLA 1",
+"cap2": "NO DIGAS SU *NOMBRE*",
+"fx": "stinger",
+"speed": 0.95
+},
+{
+"scene": "sanity",
+"text": "Regla dos: cuida tu cordura. Cuanto más baja, más fácil es que te cace.",
+"cap1": "REGLA 2",
+"cap2": "TU *CORDURA*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "crucifix",
+"text": "Regla tres: lleva un crucifijo. No detiene una cacería que ya empezó, pero puede evitarla. Hasta dos veces.",
+"cap1": "REGLA 3",
+"cap2": "EL *CRUCIFIJO*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "houseend",
+"text": "¿Lo jugarías con el micrófono abierto? Comenta su nombre... si te atreves.",
+"cap1": "¿MICRÓFONO",
+"cap2": "*ABIERTO*?",
+"fx": "",
+"speed": 0.95
+}
+]

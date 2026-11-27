@@ -1,0 +1,50 @@
+[
+{
+"scene": "mansion",
+"text": "Si te refugias en una mansión en mitad del bosque... cuidado. Así se sobrevive a Resident Evil.",
+"cap1": "LA *MANSIÓN*",
+"cap2": "RESIDENT EVIL · 1996",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "typewriter",
+"text": "Regla uno: guarda solo cuando haga falta. Para guardar necesitas una máquina de escribir... y cintas de tinta, que se acaban.",
+"cap1": "REGLA 1",
+"cap2": "CINTAS DE *TINTA*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "ammo",
+"text": "Regla dos: no gastes balas en todos. Las balas también se acaban.",
+"cap1": "REGLA 2",
+"cap2": "CUIDA LAS *BALAS*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "crimson",
+"text": "Regla tres: en la versión de dos mil dos, un zombi que dejas en el suelo puede volver a levantarse, más rápido y más rojo. Quema el cuerpo.",
+"cap1": "REGLA 3",
+"cap2": "*QUEMA* EL CUERPO",
+"fx": "stinger",
+"speed": 0.95
+},
+{
+"scene": "diary",
+"text": "Y si encuentras un diario que acaba con dos palabras, picor... y sabroso... no te quedes a leer.",
+"cap1": "«PICOR.»",
+"cap2": "*«SABROSO.»*",
+"fx": "",
+"speed": 0.95
+},
+{
+"scene": "mansionend",
+"text": "¿Elegirías a Jill o a Chris? Comenta tu personaje.",
+"cap1": "¿JILL",
+"cap2": "O *CHRIS*?",
+"fx": "",
+"speed": 0.95
+}
+]
