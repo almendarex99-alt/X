@@ -1,0 +1,90 @@
+[
+{
+"scene": "ext_far",
+"text": "Trabajé tres noches en la gasolinera de la carretera nueve. La tercera fue la última.",
+"cap1": "LA GASOLINERA",
+"cap2": "DE LA *CARRETERA 9*",
+"fx": "",
+"speed": 0.93
+},
+{
+"scene": "counter",
+"text": "El dueño me dejó una hoja pegada junto a la caja, con reglas. Pensé que era una broma.",
+"cap1": "",
+"cap2": "",
+"fx": "",
+"speed": 0.93
+},
+{
+"scene": "rules",
+"text": "Regla uno: si un coche para con las luces apagadas, no salgas. Regla dos: si alguien pide la llave del baño después de las tres, dile que está rota.",
+"cap1": "",
+"cap2": "",
+"fx": "",
+"speed": 0.93
+},
+{
+"scene": "ext_car",
+"text": "A las tres y doce, un coche paró en el surtidor dos. Con las luces apagadas.",
+"cap1": "3:12 AM",
+"cap2": "*SURTIDOR 2*",
+"fx": "hit",
+"speed": 0.93
+},
+{
+"scene": "cctv_car",
+"text": "Nadie bajó. El conductor solo miraba hacia la tienda.",
+"cap1": "",
+"cap2": "",
+"fx": "",
+"speed": 0.93
+},
+{
+"scene": "man",
+"text": "Entonces sonó la campanilla de la puerta. Un hombre con mi mismo uniforme me pidió la llave del baño.",
+"cap1": "",
+"cap2": "",
+"fx": "",
+"speed": 0.93
+},
+{
+"scene": "man_close",
+"text": "Le dije que estaba rota. Y sonrió... demasiado.",
+"cap1": "",
+"cap2": "",
+"fx": "stinger",
+"speed": 0.93
+},
+{
+"scene": "cctv_empty",
+"text": "Cuando miré la cámara, el coche estaba vacío.",
+"cap1": "",
+"cap2": "",
+"fx": "",
+"speed": 0.93
+},
+{
+"scene": "hall",
+"text": "Y desde el baño, alguien me llamó por mi nombre. Con mi voz.",
+"cap1": "",
+"cap2": "",
+"fx": "",
+"speed": 0.93
+},
+{
+"scene": "cctv_me",
+"text": "Miré el monitor. En la grabación, detrás del mostrador... estaba yo.",
+"cap1": "",
+"cap2": "",
+"fx": "stinger",
+"speed": 0.93
+},
+{
+"scene": "ext_end",
+"text": "No volví a esa gasolinera. Pero a veces, a las tres y doce, mi teléfono recibe una llamada desde el surtidor dos. Comenta surtidor dos si quieres la parte dos.",
+"cap1": "",
+"cap2": "",
+"fx": "",
+"speed": 0.93
+}
+]
